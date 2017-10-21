@@ -12,7 +12,7 @@ import java.util.Properties;
 
 import dao.DAOTablaIngrediente;
 import dao.DAOTablaIngredienteProducto;
-import dao.DAOTablaIngredienteProductoPersonalizado;
+import dao.DAOTablaIngredientePersonalizado;
 import dao.DAOTablaMenu;
 import dao.DAOTablaPedido;
 import dao.DAOTablaProducto;
@@ -23,7 +23,7 @@ import dao.DAOTablaUsuario;
 import dao.DAOTablaZona;
 import vos.Ingrediente;
 import vos.IngredienteProducto;
-import vos.IngredienteProductoPersonalizado;
+import vos.IngredientePersonalizado;
 import vos.Menu;
 import vos.Pedido;
 import vos.Producto;
@@ -1924,10 +1924,10 @@ public class RotondTM {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<IngredienteProductoPersonalizado> darIngredienteProductoPersonalizados() throws Exception
+	public List<IngredientePersonalizado> darIngredienteProductoPersonalizados() throws Exception
 	{
-		List<IngredienteProductoPersonalizado> ingredienteProducto;
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		List<IngredientePersonalizado> ingredienteProducto;
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -1963,10 +1963,10 @@ public class RotondTM {
 	 * @return
 	 * @throws Exception
 	 */
-	public ArrayList<IngredienteProductoPersonalizado> buscarIngredienteProductoPorIdProductoPersonalizado(long id) throws Exception
+	public ArrayList<IngredientePersonalizado> buscarIngredienteProductoPorIdProductoPersonalizado(long id) throws Exception
 	{
-		ArrayList<IngredienteProductoPersonalizado> ingredienteProducto;
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		ArrayList<IngredientePersonalizado> ingredienteProducto;
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2000,9 +2000,9 @@ public class RotondTM {
 	 * @param menu
 	 * @throws Exception
 	 */
-	public void addIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws Exception
+	public void addIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws Exception
 	{
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2037,9 +2037,9 @@ public class RotondTM {
 	 * @param menu
 	 * @throws Exception
 	 */
-	public void updateIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws Exception
+	public void updateIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws Exception
 	{
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2072,9 +2072,9 @@ public class RotondTM {
 	 * @param menu
 	 * @throws Exception
 	 */
-	public void deleteIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws Exception
+	public void deleteIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws Exception
 	{
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion

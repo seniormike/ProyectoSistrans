@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.IngredienteProductoPersonalizado;
+import vos.IngredientePersonalizado;
 
-public class DAOTablaIngredienteProductoPersonalizado
+public class DAOTablaIngredientePersonalizado
 {
 	/**
 	 * Arraylits de recursos que se usan para la ejecucion de sentencias SQL
@@ -24,7 +24,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * Metodo constructor que crea DAOVideo
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaIngredienteProductoPersonalizado()
+	public DAOTablaIngredientePersonalizado()
 	{
 		recursos = new ArrayList<Object>();
 	}
@@ -64,9 +64,9 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<IngredienteProductoPersonalizado> darIngredienteProductoPersonalizadovs() throws SQLException, Exception
+	public ArrayList<IngredientePersonalizado> darIngredienteProductoPersonalizadovs() throws SQLException, Exception
 	{
-		ArrayList<IngredienteProductoPersonalizado> ingredienteProductoPersonalizado = new ArrayList<IngredienteProductoPersonalizado>();
+		ArrayList<IngredientePersonalizado> ingredienteProductoPersonalizado = new ArrayList<IngredientePersonalizado>();
 
 		String sql = "SELECT * FROM INGREDIENTE_PERSONALIZADO";
 
@@ -79,7 +79,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 			String nombre = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
 			long id = rs.getLong("ID");
-			ingredienteProductoPersonalizado.add(new IngredienteProductoPersonalizado(nombre,idProducto,id));
+			ingredienteProductoPersonalizado.add(new IngredientePersonalizado(nombre,idProducto,id));
 		}
 		return ingredienteProductoPersonalizado;
 	}
@@ -92,9 +92,9 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<IngredienteProductoPersonalizado> buscarIngredienteProductoPersonalizadoPorIdProducto(long id) throws SQLException, Exception
+	public ArrayList<IngredientePersonalizado> buscarIngredienteProductoPersonalizadoPorIdProducto(long id) throws SQLException, Exception
 	{
-		ArrayList<IngredienteProductoPersonalizado> ingredienteProducto = new ArrayList<IngredienteProductoPersonalizado>();
+		ArrayList<IngredientePersonalizado> ingredienteProducto = new ArrayList<IngredientePersonalizado>();
 
 		String sql = "SELECT * FROM INGREDIENTE_PERSONALIZADO WHERE ID_PRODUCTO ='" + id +"'";
 
@@ -107,7 +107,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 			String name = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
 			long idd = rs.getLong("ID");
-			ingredienteProducto.add(new IngredienteProductoPersonalizado(name,idProducto,idd));
+			ingredienteProducto.add(new IngredientePersonalizado(name,idProducto,idd));
 		}
 
 		return ingredienteProducto;
@@ -122,7 +122,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el video a la base de datos
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void addIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws SQLException, Exception
+	public void addIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws SQLException, Exception
 	{
 		String sql = "INSERT INTO INGREDIENTE_PERSONALIZADO VALUES ('";
 		sql += ingredienteProducto.getNombreIngrediente() + "','";
@@ -142,7 +142,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void updateIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws SQLException, Exception
+	public void updateIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws SQLException, Exception
 	{
 		
 		String sql = "UPDATE INGREDIENTE_PERSONALIZADO SET ";
@@ -163,7 +163,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void deleteIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws SQLException, Exception
+	public void deleteIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM INGREDIENTE_PERSONALIZADO";
 		sql += " WHERE ID = '" + ingredienteProducto.getId()+"'";

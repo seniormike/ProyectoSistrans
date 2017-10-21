@@ -2,7 +2,7 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class IngredienteProductoPersonalizado 
+public class IngredientePersonalizado 
 {
 	/**
 	 * Nombre del Ingrediente.
@@ -25,7 +25,7 @@ public class IngredienteProductoPersonalizado
 	private long id;
 	
 
-	public IngredienteProductoPersonalizado(@JsonProperty(value="nombreIngrediente")String nombreIngrediente,
+	public IngredientePersonalizado(@JsonProperty(value="nombreIngrediente")String nombreIngrediente,
 			                                @JsonProperty(value="idProducto") long idProducto, @JsonProperty(value="id")long id) {
 		super();
 		this.nombreIngrediente = nombreIngrediente;
