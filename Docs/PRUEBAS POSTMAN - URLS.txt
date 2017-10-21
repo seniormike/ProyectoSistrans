@@ -1,0 +1,298 @@
+URL's DE EJEMPLO - PRUEBAS EN POSTMAN
+------------------INGREDIENTES---------------------------
+GET (TODOS LOS INGREDIENTES)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientes
+
+GET (INGREDIENTE POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientes/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientes
+
+JSON:
+
+	{
+        "nombre": "Arroz",
+        "descripcion": "Es un buen cereal",
+        "idescription": "It's a good cereal"
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientes
+
+---------------INGREDIENTE_PERSONALIZADO-----------------------
+
+GET (TODOS LOS INGREDIENTE PERSONALIZADOS)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientesPersonalizado
+
+GET (INGREDIENTE PERSONALIZADO POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientePersonalizados/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientePersonalizados
+
+JSON:
+
+	{
+        "id": 1,
+        "idProducto": 1,
+        "nombreIngrediente": "Arroz"
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientePersonalizados
+
+------------------INGREDIENTE_PRODUCTO------------------
+
+GET (TODOS LOS INGREDIENTE PRODUCTO)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredientesProducto
+
+GET (INGREDIENTE PRODUCTO POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredienteProductos/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredienteProductos
+
+JSON:
+
+	{
+        "id": 1,
+        "idProducto": 1,
+        "nombreIngrediente": "Arroz"
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/ingredienteProductos
+
+------------------------MENU--------------------
+
+GET (TODOS LOS MENUS)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menu
+
+GET (INGREDIENTE MENU POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menu/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menu
+
+JSON:
+
+	{
+        "id": 1,
+        "medioPago": "PSE",
+        "precio": 5000,
+        "nombreRestaurante" : "Comida China",
+        "entrada" : 1,
+        "fuerte" : 1,
+        "postre" : 1,
+        "bebida" : 0,
+        "acomñamiento" : 0
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menu
+
+-------------MENU_PERSONALIZADO--------------------------
+
+GET (TODOS LOS MENU PERSONALIZADOS)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menuPersonalizado
+
+GET (INGREDIENTE MENU PERSONALIZADO POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menuPersonalizado/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menuPersonalizado
+
+JSON:
+
+	{
+        "id": 1,
+        "precio": 5000,
+        "entrada" : 1,
+        "fuerte" : 1,
+        "postre" : 1,
+        "bebida" : 0,
+        "acompañamiento" : 0,
+        "idMenu" : 1
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/menuPersonalizado
+
+-------------------------PEDIDO--------------------------------
+
+GET (TODOS LOS PEDIDO)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/pedido
+
+GET (INGREDIENTE PEDIDO POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/pedido/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/pedido
+
+JSON:
+
+	{
+        "id": 1,
+        "fecha": "4-10-2017",
+        "valorTotal" : 5000,
+        "idMenu" : 1,
+        "idUsuario" : 1
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/pedido
+
+-----------------PRODUCTO-----------------------------------
+
+GET (TODOS LOS PRODUCTOS)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/producto
+
+GET (INGREDIENTE PRODUCTO POR ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/producto/1
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/producto
+
+JSON:
+
+	{
+        "nombre": "Arroz con pollo",
+        "tiempoPreparacion": 40,
+        "Descripcion" : "Arroz con pollo y verduras",
+        "costoProducion" : 5000,
+        "precioVenta" : 9500,
+        "disponible" : "SI",
+        "clasificacion" : "Plato fuerte",
+        "nombreRestaurante" : "Puro pollo",
+        "idesciption" : "N/A",
+        "id" : 1
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/producto
+
+
+
+GET (TODOS LAS ZONAS)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/zonas
+
+GET (ZONA CON ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/zonas/id
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/zonas
+
+
+JSON:
+
+	{
+        "id": 1,
+        "tipoEspacio": "Supernatural",
+        "capacidad": 160,
+        "discapacitados": "No"
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/zonas/1
+
+{
+        "tipoEspacio": "Cerrado",
+        "capacidad": 160,
+        "discapacitados": "No"
+}
+
+
+
+GET (TODOS LOS USUARIOS)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/usuarios
+
+GET (USUARIO CON ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/usuarios/id
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/usuarios
+
+
+JSON:
+
+	{
+        "identificacion": 1,
+        "nombre": "Miguel",
+        "tipo": "Admin"
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/usuarios/1
+
+{
+       "nombre": "Miguel",
+        "tipo": "Admin"
+}
+
+
+GET (TODOS LOS TIPO COMIDA)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/tipocomida
+
+GET (USUARIO CON ID)
+
+http://localhost:8080/RotondAndesIteracionDos/rest/tipocomida/id
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/tipocomida
+
+
+JSON:
+
+	{
+        "id": 1,
+        "idProducto": "3",
+        "tipoComida": "Indu"
+    }
+	
+PUT
+
+http://localhost:8080/RotondAndesIteracionDos/rest/tipocomida/1
+
+{
+       	"idProducto": "3",
+        "tipoComida": "Indu"
+}

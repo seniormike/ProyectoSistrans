@@ -1,0 +1,4 @@
+1) Instalar WildFly version 10.1
+2) En la carpeta wildfly  \wildfly-10.1.0.Final\standalone\deployments colocar el .war 
+3) Dirigirse a la carpeta bin Wildfly10\wildfly-10.1.0.Final\bin y correr el StandAlone.BAT
+4) Queda listo el servidor para ejecutar la aplicacion.
