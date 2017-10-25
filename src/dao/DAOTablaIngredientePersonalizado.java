@@ -77,7 +77,12 @@ public class DAOTablaIngredientePersonalizado
 		{
 			String nombre = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
+<<<<<<< HEAD:src/dao/DAOTablaIngredientePersonalizado.java
 			ingredienteProductoPersonalizado.add(new IngredientePersonalizado(nombre,idProducto));
+=======
+			long id = rs.getLong("ID");
+			ingredienteProductoPersonalizado.add(new IngredientePersonalizado(nombre,idProducto,id));
+>>>>>>> b88f904597760b7185f50a6805a934b2d22c589c:src/dao/DAOTablaIngredientePersonalizado.java
 		}
 		return ingredienteProductoPersonalizado;
 	}
@@ -104,7 +109,12 @@ public class DAOTablaIngredientePersonalizado
 		{
 			String name = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
+<<<<<<< HEAD:src/dao/DAOTablaIngredientePersonalizado.java
 			ingredienteProducto.add(new IngredientePersonalizado(name,idProducto));
+=======
+			long idd = rs.getLong("ID");
+			ingredienteProducto.add(new IngredientePersonalizado(name,idProducto,idd));
+>>>>>>> b88f904597760b7185f50a6805a934b2d22c589c:src/dao/DAOTablaIngredientePersonalizado.java
 		}
 
 		return ingredienteProducto;

@@ -19,7 +19,11 @@ import javax.ws.rs.core.Response;
 import tm.RotondTM;
 import vos.IngredientePersonalizado;
 
+<<<<<<< HEAD:src/rest/IngredientePersonalizadoServices.java
 @Path("ingredienteProductoPersonalizado")
+=======
+@Path("ingredienteProductoPersonalizados")
+>>>>>>> b88f904597760b7185f50a6805a934b2d22c589c:src/rest/IngredientePersonalizadoServices.java
 public class IngredientePersonalizadoServices 
 {
 	/**

@@ -17,7 +17,11 @@ public class IngredientePersonalizado
 	private long idProducto;
 
 	public IngredientePersonalizado(@JsonProperty(value="nombreIngrediente")String nombreIngrediente,
+<<<<<<< HEAD:src/vos/IngredientePersonalizado.java
 			                        @JsonProperty(value="idProducto") long idProducto) {
+=======
+			                                @JsonProperty(value="idProducto") long idProducto, @JsonProperty(value="id")long id) {
+>>>>>>> b88f904597760b7185f50a6805a934b2d22c589c:src/vos/IngredientePersonalizado.java
 		super();
 		this.nombreIngrediente = nombreIngrediente;
 		this.idProducto = idProducto;
