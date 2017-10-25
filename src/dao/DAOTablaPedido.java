@@ -82,13 +82,12 @@ public class DAOTablaPedido
 
 		while (rs.next())
 		{
-			Long id = rs.getLong("ID");
-			Date fecha = rs.getDate("FECHA");
+			Long id = rs.getLong("IDPEDIDO");
+			String fecha = ""+rs.getDate("FECHA");
 			Double valorTotal = rs.getDouble("VALOR_TOTAL");
-			Long idMenu = rs.getLong("ID_MENU");
-			Long idUsuario = rs.getLong("ID_USUARIO");
+			Long idUsuario = rs.getLong("IDUSUARIO");
 		
-			pedidos.add(new Pedido(id,fecha,valorTotal,idMenu,idUsuario));
+			pedidos.add(new Pedido(id,fecha,valorTotal,idUsuario));
 		}
 		return pedidos;
 	}
@@ -105,7 +104,7 @@ public class DAOTablaPedido
 	{
 		Pedido pedido = null;
 
-		String sql = "SELECT * FROM PEDIDO WHERE ID =" + id;
+		String sql = "SELECT * FROM PEDIDO WHERE IDPEDIDO =" + id;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -113,12 +112,11 @@ public class DAOTablaPedido
 
 		while (rs.next())
 		{
-			Long id1 = rs.getLong("ID");
-			Date fecha = rs.getDate("FECHA");
+			Long id1 = rs.getLong("IDPEDIDO");
+			String fecha = ""+rs.getDate("FECHA");
 			Double valorTotal = rs.getDouble("VALOR_TOTAL");
-			Long idMenu = rs.getLong("ID_MENU");
-			Long idUsuario = rs.getLong("ID_USUARIO");
-			pedido = new Pedido(id1,fecha,valorTotal,idMenu,idUsuario);
+			Long idUsuario = rs.getLong("IDUSUARIO");
+			pedido = new Pedido(id1,fecha,valorTotal,idUsuario);
 		}
 
 		return pedido;
@@ -135,12 +133,16 @@ public class DAOTablaPedido
 	 */
 	public void addPedido(Pedido pedido) throws SQLException, Exception
 	{
-
+		String[] fech = pedido.getFecha().split("-");
+		String dia = fech[0];
+		String mes = fech[1];
+		String año = fech[2];
+		String fecha = dia+"/"+mes+"/"+año;
+		
 		String sql = "INSERT INTO PEDIDO VALUES (";
 		sql += pedido.getId() + ",'";
-		sql += pedido.getFecha() + "',";
+		sql += fecha + "',";
 		sql += pedido.getValorTotal() + ",";
-		sql += pedido.getIdMenu() + ",";
 		sql += pedido.getIdUsuario() + ")";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -159,13 +161,17 @@ public class DAOTablaPedido
 	 */
 	public void updatePedido(Pedido pedido) throws SQLException, Exception
 	{
-
+		String[] fech = pedido.getFecha().split("-");
+		String dia = fech[0];
+		String mes = fech[1];
+		String año = fech[2];
+		String fecha = dia+"/"+mes+"/"+año;
+		
 		String sql = "UPDATE PEDIDO SET ";
-		sql += "FECHA='" + pedido.getFecha() + "',";
+		sql += "FECHA='" + fecha + "',";
 		sql += "VALOR_TOTAL=" + pedido.getValorTotal() + ",";
-		sql += "ID_MENU=" + pedido.getIdMenu() + ",";
-		sql += "ID_USUARIO=" + pedido.getIdUsuario();
-		sql += " WHERE ID =" + pedido.getId();
+		sql += "IDUSUARIO=" + pedido.getIdUsuario();
+		sql += " WHERE IDPEDIDO =" + pedido.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -183,7 +189,7 @@ public class DAOTablaPedido
 	public void deletePedido(Pedido pedido) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM PEDIDO";
-		sql += " WHERE ID = " + pedido.getId();
+		sql += " WHERE IDPEDIDO = " + pedido.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

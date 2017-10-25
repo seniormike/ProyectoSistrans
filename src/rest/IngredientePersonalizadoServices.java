@@ -17,10 +17,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.RotondTM;
-import vos.IngredienteProductoPersonalizado;
+import vos.IngredientePersonalizado;
 
-@Path("ingredienteProductoPersonalizados")
-public class IngredienteProductoPersonalizadoServices 
+@Path("ingredienteProductoPersonalizado")
+public class IngredientePersonalizadoServices 
 {
 	/**
 	 * Atributo que usa la anotacion @Context para tener el ServletContext de la conexion actual.
@@ -55,7 +55,7 @@ public class IngredienteProductoPersonalizadoServices
 	public Response getIngredienteProductoPersonalizado()
 	{
 		RotondTM tm = new RotondTM(getPath());
-		List<IngredienteProductoPersonalizado> ingredientes;
+		List<IngredientePersonalizado> ingredientes;
 		try {
 			ingredientes = tm.darIngredienteProductoPersonalizados();
 		} catch (Exception e) {
@@ -79,7 +79,7 @@ public class IngredienteProductoPersonalizadoServices
 		RotondTM tm = new RotondTM( getPath( ) );
 		try
 		{
-			ArrayList<IngredienteProductoPersonalizado> i = tm.buscarIngredienteProductoPorIdProductoPersonalizado(id);
+			ArrayList<IngredientePersonalizado> i = tm.buscarIngredienteProductoPorIdProductoPersonalizado(id);
 			return Response.status( 200 ).entity( i ).build( );			
 		}
 		catch( Exception e )
@@ -99,7 +99,7 @@ public class IngredienteProductoPersonalizadoServices
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingrediente)
+	public Response addIngredienteProductoPersonalizado(IngredientePersonalizado ingrediente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
@@ -140,7 +140,7 @@ public class IngredienteProductoPersonalizadoServices
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingrediente)
+	public Response updateIngredienteProductoPersonalizado(IngredientePersonalizado ingrediente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
@@ -160,7 +160,7 @@ public class IngredienteProductoPersonalizadoServices
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingrediente)
+	public Response deleteIngredienteProductoPersonalizado(IngredientePersonalizado ingrediente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {

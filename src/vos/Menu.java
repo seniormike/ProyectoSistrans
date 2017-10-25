@@ -14,8 +14,8 @@ public class Menu
 	@JsonProperty(value="precio")
 	private double precio;
 	
-	@JsonProperty(value="nomRestaurante")
-	private String nomRestaurante;
+	@JsonProperty(value="idRestaurante")
+	private long idRestaurante;
 	
 	@JsonProperty(value="entrada")
 	private long entrada;
@@ -37,7 +37,7 @@ public class Menu
 	 * @param id
 	 * @param medioPago
 	 * @param precio
-	 * @param nomRestaurante
+	 * @param idRestaurante
 	 * @param entrada
 	 * @param platoFuerte
 	 * @param postre
@@ -45,14 +45,14 @@ public class Menu
 	 * @param acompanamiento
 	 */
 	public Menu(@JsonProperty(value="id")long id, @JsonProperty(value="medioPago")String medioPago,@JsonProperty(value="precio")double precio,
-			    @JsonProperty(value="nomRestaurante") String nomRestaurante,@JsonProperty(value="entrada") long entrada,@JsonProperty(value="platoFuerte") long platoFuerte,
+			    @JsonProperty(value="idRestaurante") long idRestaurante,@JsonProperty(value="entrada") long entrada,@JsonProperty(value="platoFuerte") long platoFuerte,
 	            @JsonProperty(value="postre")long postre, @JsonProperty(value="bebida") long bebida,@JsonProperty(value="acompanamiento") long acompanamiento)
 	{
 		super();
 		this.id = id;
 		this.medioPago = medioPago;
 		this.precio = precio;
-		this.nomRestaurante = nomRestaurante;
+		this.idRestaurante = idRestaurante;
 		this.entrada = entrada;
 		this.platoFuerte = platoFuerte;
 		this.postre = postre;
@@ -85,12 +85,12 @@ public class Menu
 		this.precio = precio;
 	}
 
-	public String getNomRestaurante() {
-		return nomRestaurante;
+	public Long getIdRestaurante() {
+		return idRestaurante;
 	}
 
-	public void setNomRestaurante(String nomRestaurante) {
-		this.nomRestaurante = nomRestaurante;
+	public void setNomRestaurante(Long idRestaurante) {
+		this.idRestaurante = idRestaurante;
 	}
 
 	public long getEntrada() {

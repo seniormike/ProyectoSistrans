@@ -26,9 +26,6 @@ public class Zona
 	@JsonProperty(value="discapacitados")
 	private String discapacitados;
 
-
-
-
 	/**
 	 * Metodo constructor de la clase video
 	 * <b>post: </b> Crea el video con los valores que entran como parametro
@@ -45,64 +42,36 @@ public class Zona
 		this.discapacitados = discapacitados;
 	}
 
-
-
-
 	public Long getId() {
 		return id;
 	}
-
-
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-
-
 	public String getTipoEspacio() {
 		return tipoEspacio;
 	}
-
-
-
 
 	public void setTipoEspacio(String tipoEspacio) {
 		this.tipoEspacio = tipoEspacio;
 	}
 
-
-
-
 	public Integer getCapacidad() {
 		return capacidad;
 	}
-
-
-
 
 	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
 
-
-
-
 	public String getDiscapacitados() {
 		return discapacitados;
 	}
-
-
-
 
 	public void setDiscapacitados(String discapacitados) {
 		this.discapacitados = discapacitados;
 	}
 
-
-
-
 }
-

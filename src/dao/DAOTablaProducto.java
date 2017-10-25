@@ -81,17 +81,17 @@ public class DAOTablaProducto
 
 		while (rs.next())
 		{
+			Long id = rs.getLong("IDPRODUCTO");
 			String nombre = rs.getString("NOMBRE");
-			Integer tiempoPreparacion = rs.getInt("TIEMPO_PREPARACION");
 			String descripcion = rs.getString("DESCRIPCION");
+			String idescripcion = rs.getString("IDESCRIPTION");
+			Integer tiempoPreparacion = rs.getInt("TIEMPO_PREPARACION");
 			Double costoProduccion = rs.getDouble("COSTO_PRODUCCION");
 			Double precioVenta = rs.getDouble("PRECIO_VENTA");
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
-			String nombreRestaurante = rs.getString("NOMBRE_RESTAURANTE");
-			String idescripcion = rs.getString("IDESCRIPTION");
-			Long id = rs.getLong("ID");
-			productos.add(new Producto(nombre,tiempoPreparacion, descripcion, costoProduccion, precioVenta, disponible, clasificacion,nombreRestaurante,idescripcion,id));
+			Long idRestaurante = rs.getLong("IDRESTAURANTE");
+			productos.add(new Producto(id,nombre, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante));
 		}
 		return productos;
 	}
@@ -116,17 +116,17 @@ public class DAOTablaProducto
 
 		while (rs.next())
 		{
+			Long id = rs.getLong("ID");
 			String nombre1 = rs.getString("NOMBRE");
-			Integer tiempoPreparacion = rs.getInt("TIEMPO_PREPARACION");
 			String descripcion = rs.getString("DESCRIPCION");
+			String idescripcion = rs.getString("IDESCRIPTION");
+			Integer tiempoPreparacion = rs.getInt("TIEMPO_PREPARACION");
 			Double costoProduccion = rs.getDouble("COSTO_PRODUCCION");
 			Double precioVenta = rs.getDouble("PRECIOVENTA");
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
-			String nombreRestaurante = rs.getString("NOMBRE_RESTAURANTE");
-			String idescripcion = rs.getString("IDESCRIPTION");
-			Long id = rs.getLong("ID");
-			producto = new Producto(nombre1,tiempoPreparacion, descripcion, costoProduccion, precioVenta, disponible, clasificacion,nombreRestaurante,idescripcion,id);
+			Long idRestaurante = rs.getLong("IDRESTAURANTE");
+			producto = new Producto(id,nombre, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante);
 		}
 
 		return producto;
@@ -145,16 +145,16 @@ public class DAOTablaProducto
 	{
 
 		String sql = "INSERT INTO PRODUCTO VALUES ('";
+		sql += producto.getId() + "','"; 
 		sql += producto.getNombre() + "',";
-		sql += producto.getTiempoPreparacion() + ",'";
 		sql += producto.getDescripcion() + "',";
+		sql += producto.getIdescripcion() + "',";
+		sql += producto.getTiempoPreparacion() + ",'";
 		sql += producto.getCostoProduccion() + ",";
 		sql += producto.getPrecioVenta() + ",'";
 		sql += producto.getDisponible() + "','";
 		sql += producto.getClasificacion() + "','";
-		sql += producto.getNombreRestaurante() + "','";
-		sql += producto.getIdescripcion() + "',";
-		sql += producto.getId() + ")";
+		sql += producto.getIdRestaurante() +")";		
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -172,17 +172,17 @@ public class DAOTablaProducto
 	 */
 	public void updateProducto(Producto producto) throws SQLException, Exception
 	{
-
 		String sql = "UPDATE PRODUCTO SET ";
 		sql += "NOMBRE='" + producto.getNombre() + "',";
-		sql += "TIEMPO_PREPARACION=" + producto.getTiempoPreparacion() + ",";
 		sql += "DESCRIPCION='" + producto.getDescripcion() + "',";
+		sql += "IDESCRIPTION='" + producto.getIdescripcion() + "',";
+		sql += "TIEMPO_PREPARACION=" + producto.getTiempoPreparacion() + ",";
 		sql += "COSTO_PRODUCCION=" + producto.getCostoProduccion() + ",";
 		sql += "PRECIO_VENTA=" + producto.getPrecioVenta() + ",";
 		sql += "DISPONIBLE='" + producto.getDisponible() + "','";
 		sql += "CLASIFICACION='" + producto.getClasificacion() + "',";
-		sql += "NOMBRE_RESTAURANTE='" + producto.getNombreRestaurante() + "',";
-		sql += " WHERE ID = " + producto.getId();
+		sql += "IDRESTAURANTE='" + producto.getIdRestaurante() + "',";
+		sql += " WHERE IDPRODUCTO = " + producto.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -200,7 +200,7 @@ public class DAOTablaProducto
 	public void deleteProducto(Producto producto) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM PRODUCTO";
-		sql += " WHERE ID = " + producto.getId();
+		sql += " WHERE IDPRODUCTO = " + producto.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

@@ -79,8 +79,7 @@ public class DAOTablaIngredienteProducto
 		{
 			String nombre = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
-			long id = rs.getLong("ID");
-			ingredienteProducto.add(new IngredienteProducto(nombre,idProducto,id));
+			ingredienteProducto.add(new IngredienteProducto(nombre,idProducto));
 		}
 		return ingredienteProducto;
 	}
@@ -107,8 +106,7 @@ public class DAOTablaIngredienteProducto
 		{
 			String name = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
-			long idd = rs.getLong("ID");
-			ingredienteProducto.add(new IngredienteProducto(name,idProducto,idd));
+			ingredienteProducto.add(new IngredienteProducto(name,idProducto));
 		}
 
 		return ingredienteProducto;
@@ -128,7 +126,6 @@ public class DAOTablaIngredienteProducto
 		String sql = "INSERT INTO INGREDIENTE_PRODUCTO VALUES ('";
 		sql += ingredienteProducto.getNombreIngrediente() + "','";
 		sql += ingredienteProducto.getIdProducto() + "','";
-		sql += ingredienteProducto.getId() + "')";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -149,7 +146,7 @@ public class DAOTablaIngredienteProducto
 		String sql = "UPDATE INGREDIENTE_PRODUCTO SET ";
 		sql += "NOMBRE_INGREDIENTE='" + ingredienteProducto.getNombreIngrediente() + "'";
 		sql += "ID_PRODUCTO='" + ingredienteProducto.getIdProducto() + "'";
-		sql += " WHERE ID = '" + ingredienteProducto.getId()+"'";
+		sql += " WHERE NOMBRE_INGREDIENTE = '" + ingredienteProducto.getNombreIngrediente()+"' AND ID_PRODUCTO = '" + ingredienteProducto.getIdProducto()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -167,7 +164,7 @@ public class DAOTablaIngredienteProducto
 	public void deleteIngredienteProducto(IngredienteProducto ingredienteProducto) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM INGREDIENTE_PRODUCTO";
-		sql += " WHERE ID = '" + ingredienteProducto.getId()+"'";
+		sql += " WHERE NOMBRE_INGREDIENTE = '" + ingredienteProducto.getNombreIngrediente()+"' AND ID_PRODUCTO = '" + ingredienteProducto.getIdProducto()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

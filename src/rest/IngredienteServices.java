@@ -18,8 +18,6 @@ import javax.ws.rs.core.Response;
 import tm.RotondTM;
 import vos.Ingrediente;
 
-
-
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
  */
@@ -42,7 +40,11 @@ public class IngredienteServices
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
 	
-	
+	/**
+	 * 
+	 * @param e
+	 * @return
+	 */
 	private String doErrorMessage(Exception e)
 	{
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
@@ -175,8 +177,6 @@ public class IngredienteServices
 		}
 		return Response.status(200).entity(ingrediente).build();
 	}
-
-
 }
 
 

@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.IngredienteProductoPersonalizado;
+import vos.MenuPedido;
 
-public class DAOTablaIngredienteProductoPersonalizado
+public class DAOTablaMenuPedido 
 {
 	/**
 	 * Arraylits de recursos que se usan para la ejecucion de sentencias SQL
@@ -24,7 +24,7 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * Metodo constructor que crea DAOVideo
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaIngredienteProductoPersonalizado()
+	public DAOTablaMenuPedido()
 	{
 		recursos = new ArrayList<Object>();
 	}
@@ -56,7 +56,6 @@ public class DAOTablaIngredienteProductoPersonalizado
 		this.conn = con;
 	}
 
-
 	/**
 	 * Metodo que, usando la conexion a la base de datos, saca todos los videos de la base de datos
 	 * <b>SQL Statement:</b> SELECT * FROM VIDEOS;
@@ -64,11 +63,11 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<IngredienteProductoPersonalizado> darIngredienteProductoPersonalizadovs() throws SQLException, Exception
+	public ArrayList<MenuPedido> darMenuPedidos() throws SQLException, Exception
 	{
-		ArrayList<IngredienteProductoPersonalizado> ingredienteProductoPersonalizado = new ArrayList<IngredienteProductoPersonalizado>();
+		ArrayList<MenuPedido> menuPedido = new ArrayList<MenuPedido>();
 
-		String sql = "SELECT * FROM INGREDIENTE_PERSONALIZADO";
+		String sql = "SELECT * FROM MENU_PEDIDO";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -76,12 +75,12 @@ public class DAOTablaIngredienteProductoPersonalizado
 
 		while (rs.next())
 		{
-			String nombre = rs.getString("NOMBRE_INGREDIENTE");
-			long idProducto = rs.getLong("ID_PRODUCTO");
-			long id = rs.getLong("ID");
-			ingredienteProductoPersonalizado.add(new IngredienteProductoPersonalizado(nombre,idProducto,id));
+			Long IDPEDIDO = rs.getLong("IDPEDIDO");
+			Long IDMENUPER = rs.getLong("IDMENUPER");
+			int CANTIDAD = rs.getInt("CANTIDAD");
+			menuPedido.add(new MenuPedido(IDPEDIDO,IDMENUPER,CANTIDAD));
 		}
-		return ingredienteProductoPersonalizado;
+		return menuPedido;
 	}
 
 
@@ -92,11 +91,11 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<IngredienteProductoPersonalizado> buscarIngredienteProductoPersonalizadoPorIdProducto(long id) throws SQLException, Exception
+	public MenuPedido buscarMenuPedidoPorIdPedido(Long idPedido) throws SQLException, Exception
 	{
-		ArrayList<IngredienteProductoPersonalizado> ingredienteProducto = new ArrayList<IngredienteProductoPersonalizado>();
+		MenuPedido menuPedido = null;
 
-		String sql = "SELECT * FROM INGREDIENTE_PERSONALIZADO WHERE ID_PRODUCTO ='" + id +"'";
+		String sql = "SELECT * FROM MENU_PEDIDO WHERE IDPEDIDO ='" + idPedido +"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -104,13 +103,13 @@ public class DAOTablaIngredienteProductoPersonalizado
 
 		if(rs.next())
 		{
-			String name = rs.getString("NOMBRE_INGREDIENTE");
-			long idProducto = rs.getLong("ID_PRODUCTO");
-			long idd = rs.getLong("ID");
-			ingredienteProducto.add(new IngredienteProductoPersonalizado(name,idProducto,idd));
+			Long IDPEDIDO = rs.getLong("IDPEDIDO");
+			Long IDMENUPER = rs.getLong("IDMENUPER");
+			int CANTIDAD = rs.getInt("CANTIDAD");
+			menuPedido = new MenuPedido(IDPEDIDO,IDMENUPER,CANTIDAD);
 		}
 
-		return ingredienteProducto;
+		return menuPedido;
 	}
 
 
@@ -122,12 +121,12 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el video a la base de datos
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void addIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws SQLException, Exception
+	public void addMenuPedido(MenuPedido menuPedido) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO INGREDIENTE_PERSONALIZADO VALUES ('";
-		sql += ingredienteProducto.getNombreIngrediente() + "','";
-		sql += ingredienteProducto.getIdProducto() + "','";
-		sql += ingredienteProducto.getId() + "')";
+		String sql = "INSERT INTO MENU_PEDIDO VALUES ('";
+		sql += menuPedido.getIdPedido() + "','";
+		sql += menuPedido.getIdMenuPer() + "','";
+		sql += menuPedido.getCantidad() + "')";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -142,14 +141,13 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void updateIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws SQLException, Exception
+	public void updateMenuPedido(MenuPedido menuPedido) throws SQLException, Exception
 	{
-		
-		String sql = "UPDATE INGREDIENTE_PERSONALIZADO SET ";
-		sql += "NOMBRE_INGREDIENTE='" + ingredienteProducto.getNombreIngrediente() + "'";
-		sql += "ID_PRODUCTO='" + ingredienteProducto.getIdProducto() + "'";
-		sql += " WHERE ID = '" + ingredienteProducto.getId()+"'";
-
+		String sql = "UPDATE MENU_PEDIDO SET ";
+		sql += "IDPEDIDO='" + menuPedido.getIdPedido() + "'";
+		sql += "IDMENUPER='" + menuPedido.getIdMenuPer()+"'";
+		sql += "CANTIDAD='" + menuPedido.getCantidad()+"'";
+		sql += " WHERE IDPEDIDO = '" + menuPedido.getIdPedido()+"' AND IDMENUPER = '"+ menuPedido.getIdMenuPer()+"'";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -163,13 +161,14 @@ public class DAOTablaIngredienteProductoPersonalizado
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void deleteIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws SQLException, Exception
+	public void deleteMenuPedido(MenuPedido menuPedido) throws SQLException, Exception
 	{
-		String sql = "DELETE FROM INGREDIENTE_PERSONALIZADO";
-		sql += " WHERE ID = '" + ingredienteProducto.getId()+"'";
+		String sql = "DELETE FROM MENU_PEDIDO";
+		sql += " WHERE IDPEDIDO = '" + menuPedido.getIdPedido()+"' AND IDMENUPER = '"+ menuPedido.getIdMenuPer()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
 }

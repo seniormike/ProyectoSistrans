@@ -10,8 +10,6 @@ public class IngredienteProducto
 	 */
 	@JsonProperty(value="nombreIngrediente")
 	private String nombreIngrediente;
-	
-
 
 	/**
 	 * Id del Producto.
@@ -19,19 +17,11 @@ public class IngredienteProducto
 	@JsonProperty(value="idProducto")
 	private long idProducto;
 	
-	/**
-	 * id
-	 */
-	@JsonProperty(value="id")
-	private long id;
-	
-
 	public IngredienteProducto(@JsonProperty(value="nombreIngrediente")String nombreIngrediente,
-			@JsonProperty(value="idProducto") long idProducto, @JsonProperty(value="id")long id) {
+			@JsonProperty(value="idProducto") long idProducto) {
 		super();
 		this.nombreIngrediente = nombreIngrediente;
 		this.idProducto = idProducto;
-		this.id = id;
 	}
 
 	public String getNombreIngrediente() {
@@ -49,14 +39,4 @@ public class IngredienteProducto
 	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
 }

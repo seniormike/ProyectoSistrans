@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 
 import tm.RotondTM;
 import vos.Menu;
-@Path("menus")
+@Path("menu")
 public class MenuSevices 
 {
 		/**
@@ -50,7 +50,7 @@ public class MenuSevices
 		 */
 		@GET
 		@Produces({ MediaType.APPLICATION_JSON })
-		public Response getIngredientes()
+		public Response getMenus()
 		{
 			RotondTM tm = new RotondTM(getPath());
 			List<Menu> menu;
@@ -147,6 +147,5 @@ public class MenuSevices
 			}
 			return Response.status(200).entity(menu).build();
 		}
-
 
 }

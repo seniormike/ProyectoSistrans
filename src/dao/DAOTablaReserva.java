@@ -60,7 +60,6 @@ public class DAOTablaReserva
 		this.conn = con;
 	}
 
-
 	/**
 	 * Metodo que, usando la conexion a la base de datos, saca todos los videos de la base de datos
 	 * <b>SQL Statement:</b> SELECT * FROM VIDEOS;
@@ -80,16 +79,15 @@ public class DAOTablaReserva
 
 		while (rs.next())
 		{
-			Long id = rs.getLong("ID");
-			Date fecha = rs.getDate("FECHA");
+			Long id = rs.getLong("IDRESERVA");
+			String fecha = "" +  rs.getDate("FECHA");
 			String hora = rs.getString("HORA");
-			Integer numComensales = rs.getInt("NUM_COMENSALES");
+			Integer numComensales = rs.getInt("NUMERO_COMENSALES");
 			String estado = rs.getString("ESTADO");
-			Long idZona = rs.getLong("ID_ZONA");
-			Long idUsuario = rs.getLong("ID_USUARIO");
-			Long idMenu = rs.getLong("ID_MENU");
-			
-			
+			Long idZona = rs.getLong("IDZONA");
+			Long idUsuario = rs.getLong("IDUSUARIO");
+			Long idMenu = rs.getLong("IDMENU");
+						
 			reservas.add(new Reserva(id,fecha,hora,numComensales,estado,idZona,idUsuario,idMenu));
 		}
 		return reservas;
@@ -116,19 +114,18 @@ public class DAOTablaReserva
 		if(rs.next())
 		{
 			Long id1 = rs.getLong("ID");
-			Date fecha = rs.getDate("FECHA");
+			String fecha = "" + rs.getDate("FECHA");
 			String hora = rs.getString("HORA");
-			Integer numComensales = rs.getInt("NUM_COMENSALES");
+			Integer numComensales = rs.getInt("NUMERO_COMENSALES");
 			String estado = rs.getString("ESTADO");
-			Long idZona = rs.getLong("ID_ZONA");
-			Long idUsuario = rs.getLong("ID_USUARIO");
-			Long idMenu = rs.getLong("ID_MENU");
+			Long idZona = rs.getLong("IDZONA");
+			Long idUsuario = rs.getLong("IDUSUARIO");
+			Long idMenu = rs.getLong("IDMENU");
 			reserva = new Reserva(id1,fecha,hora,numComensales,estado,idZona,idUsuario,idMenu);
 		}
 
 		return reserva;
 	}
-
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
@@ -140,9 +137,15 @@ public class DAOTablaReserva
 	 */
 	public void addReserva(Reserva reserva) throws SQLException, Exception
 	{
+		String[] fech = reserva.getFecha().split("-");
+		String dia = fech[0];
+		String mes = fech[1];
+		String año = fech[2];
+		String fecha= dia+"/"+mes+"/"+año;
+		
 		String sql = "INSERT INTO RESERVA VALUES (";
 		sql += reserva.getId() + ",'";
-		sql += reserva.getFecha() + "','";
+		sql += fecha + "','";
 		sql += reserva.getHora() + "',";
 		sql += reserva.getNumComensales() + ",'";
 		sql += reserva.getEstado() + "',";
@@ -167,16 +170,21 @@ public class DAOTablaReserva
 	 */
 	public void updateReserva(Reserva reserva) throws SQLException, Exception
 	{
-
+		String[] fech = reserva.getFecha().split("-");
+		String dia = fech[0];
+		String mes = fech[1];
+		String año = fech[2];
+		String fecha= dia+"/"+mes+"/"+año;
+		
 		String sql = "UPDATE RESERVA SET ";
-		sql += "FECHA='" + reserva.getFecha() + "',";
+		sql += "FECHA='" + fecha + "',";
 		sql += "HORA='" + reserva.getHora() + "',";
-		sql += "NUM_COMENSALES=" + reserva.getNumComensales() + ",";
+		sql += "NUMERO_COMENSALES=" + reserva.getNumComensales() + ",";
 		sql += "ESTADO='" + reserva.getEstado() + "',";
-		sql += "ID_ZONA=" +reserva.getIdZona() + ",";
-		sql += "ID_USUARIO=" +reserva.getIdUsuario() + ",";
-		sql += "ID_MENU=" +reserva.getIdMenu() +")";
-		sql += " WHERE ID = " + reserva.getId();
+		sql += "IDZONA=" +reserva.getIdZona() + ",";
+		sql += "IDUSUARIO=" +reserva.getIdUsuario() + ",";
+		sql += "IDMENU=" +reserva.getIdMenu() +")";
+		sql += " WHERE IDRESERVA = " + reserva.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -194,7 +202,7 @@ public class DAOTablaReserva
 	public void deleteReserva(Reserva reserva) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM RESERVA";
-		sql += " WHERE ID = " + reserva.getId();
+		sql += " WHERE IDRESERVA = " + reserva.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

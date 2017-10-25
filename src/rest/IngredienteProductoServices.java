@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import tm.RotondTM;
 import vos.IngredienteProducto;
 
-@Path("ingredienteProductos")
+@Path("ingredienteProducto")
 public class IngredienteProductoServices 
 {
 	/**

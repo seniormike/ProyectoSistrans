@@ -114,7 +114,6 @@ public class DAOTablaIngrediente
 		return ingrediente;
 	}
 
-
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
 	 * @param video - el video a agregar. video !=  null
@@ -149,7 +148,7 @@ public class DAOTablaIngrediente
 		String sql = "UPDATE INGREDIENTE SET ";
 		sql += "DESCRIPCION='" + ingrediente.getDescripcion() + "'";
 		sql += "IDESCRIPTION='" + ingrediente.getIdescripcion()+"'";
-		sql += " WHERE NAME = '" + ingrediente.getNombre()+"'";
+		sql += " WHERE NOMBRE = '" + ingrediente.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -175,5 +174,3 @@ public class DAOTablaIngrediente
 	}
 
 }
-
-

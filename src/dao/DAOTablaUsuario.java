@@ -85,7 +85,6 @@ public class DAOTablaUsuario
 		return usuarios;
 	}
 
-
 	/**
 	 * Metodo que busca el/los videos con el nombre que entra como parametro.
 	 * @param name - Nombre de el/los videos a buscar
@@ -114,7 +113,6 @@ public class DAOTablaUsuario
 		return usuario;
 	}
 
-
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
 	 * @param video - el video a agregar. video !=  null
@@ -134,7 +132,6 @@ public class DAOTablaUsuario
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
-
 	}
 
 	/**
@@ -177,6 +174,3 @@ public class DAOTablaUsuario
 	}
 
 }
-
-
-

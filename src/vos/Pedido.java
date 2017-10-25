@@ -17,7 +17,7 @@ public class Pedido
 	 * Nombre del Restaurante.
 	 */
 	@JsonProperty(value="fecha")
-	private Date fecha;
+	private String fecha;
 	
 	
 	/**
@@ -26,19 +26,11 @@ public class Pedido
 	@JsonProperty(value="valorTotal")
 	private Double valorTotal;
 	
-	
-	/**
-	 * Nombre del Restaurante.
-	 */
-	@JsonProperty(value="idMenu")
-	private Long idMenu;
-	
 	/**
 	 * Nombre del Restaurante.
 	 */
 	@JsonProperty(value="idUsuario")
 	private Long idUsuario;
-
 
 	/**
 	 * Metodo constructor de la clase video
@@ -47,66 +39,46 @@ public class Pedido
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public Pedido(@JsonProperty(value="id")Long id,@JsonProperty(value="fecha")Date fecha, @JsonProperty(value="valorTotal")Double valorTotal,@JsonProperty(value="idMenu")Long idMenu,@JsonProperty(value="idUsuario")Long idUsuario)
+	public Pedido(@JsonProperty(value="id")Long id,@JsonProperty(value="fecha")String fecha, @JsonProperty(value="valorTotal")Double valorTotal,@JsonProperty(value="idUsuario")Long idUsuario)
 	{
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.valorTotal = valorTotal;
-		this.idMenu = idMenu;
 		this.idUsuario = idUsuario;
 	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
 
 	public Double getValorTotal() {
 		return valorTotal;
 	}
 
-
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
-
-	public Long getIdMenu() {
-		return idMenu;
-	}
-
-
-	public void setIdMenu(Long idMenu) {
-		this.idMenu = idMenu;
-	}
-
 
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
-	}
-	
+	}	
 	
 }
 

@@ -24,7 +24,7 @@ import vos.Producto;
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
  */
-@Path("productos")
+@Path("producto")
 public class ProductoServices
 {
 

@@ -21,8 +21,6 @@ public class Usuario
 	@JsonProperty(value="tipo")
 	private String tipo;
 
-
-
 	/**
 	 * Metodo constructor de la clase video
 	 * <b>post: </b> Crea el video con los valores que entran como parametro
@@ -38,42 +36,28 @@ public class Usuario
 		this.tipo = tipo;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
-
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
 	public String getTipo() {
 		return tipo;
 	}
-
-
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-
 }
-

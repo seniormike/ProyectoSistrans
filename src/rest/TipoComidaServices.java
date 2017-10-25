@@ -23,7 +23,7 @@ import vos.TipoComida;
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
  */
-@Path("tiposcomida")
+@Path("tipocomida")
 public class TipoComidaServices
 {
 

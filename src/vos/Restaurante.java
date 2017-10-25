@@ -3,13 +3,17 @@ import org.codehaus.jackson.annotate.*;
 
 public class Restaurante
 {
-
+	/**
+	 * ID del restaurante
+	 */
+	@JsonProperty(value="idRestaurante")
+	private long idRestaurante;
+	
 	/**
 	 * Nombre del Restaurante.
 	 */
 	@JsonProperty(value="nombre")
 	private String nombre;
-
 
 	/**
 	 * Tipo de restaurante.
@@ -24,10 +28,10 @@ public class Restaurante
 	private String paginaWeb;
 
 	/**
-	 * Identificador del representante.
+	 * Nombre del Restaurante.
 	 */
-	@JsonProperty(value="idRepresentante")
-	private Long idRepresentante;
+	@JsonProperty(value="nombreRepresentante")
+	private String nombreRepresentante;
 
 	/**
 	 * Identificador de la zona que corresponde al restaurante.
@@ -36,101 +40,69 @@ public class Restaurante
 	private Long idZona;
 
 	/**
-	 * Nombre del Restaurante.
-	 */
-	@JsonProperty(value="nombreRepresentante")
-	private String nombreRepresentante;
-
-
-	/**
 	 * Metodo constructor de la clase video
 	 * <b>post: </b> Crea el video con los valores que entran como parametro
 	 * @param id - Id del video.
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public Restaurante(@JsonProperty(value="nombre")String nombre, @JsonProperty(value="tipo")String tipo,@JsonProperty(value="paginaWeb")String paginaWeb, @JsonProperty(value="idRepresentante")Long idRepresentante, @JsonProperty(value="idZona")Long idZona,@JsonProperty(value="nombreRepresentante")String nombreRepresentante)
+	public Restaurante(@JsonProperty(value="idRestaurante")long idRestaurante, @JsonProperty(value="nombre")String nombre, @JsonProperty(value="tipo")String tipo,@JsonProperty(value="paginaWeb")String paginaWeb,@JsonProperty(value="nombreRepresentante")String nombreRepresentante, @JsonProperty(value="idZona")Long idZona)
 	{
 		super();
+		this.idRestaurante = idRestaurante;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.paginaWeb = paginaWeb;
-		this.idRepresentante = idRepresentante;
-		this.idZona = idZona;
 		this.nombreRepresentante = nombreRepresentante;
+		this.idZona = idZona;
 	}
-
-
-
-
+	
 	public String getNombreRepresentante() {
 		return nombreRepresentante;
 	}
-
-
-
 
 	public void setNombreRepresentante(String nombreRepresentante) {
 		this.nombreRepresentante = nombreRepresentante;
 	}
 
-
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
-
 	public String getTipo() {
 		return tipo;
 	}
-
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-
 	public String getPaginaWeb() {
 		return paginaWeb;
 	}
-
 
 	public void setPaginaWeb(String paginaWeb) {
 		this.paginaWeb = paginaWeb;
 	}
 
-
-	public Long getIdRepresentante() {
-		return idRepresentante;
-	}
-
-
-	public void setIdRepresentante(Long idRepresentante) {
-		this.idRepresentante = idRepresentante;
-	}
-
-
 	public Long getIdZona() {
 		return idZona;
 	}
-
 
 	public void setIdZona(Long idZona) {
 		this.idZona = idZona;
 	}
 
+	public long getIdRestaurante() {
+		return idRestaurante;
+	}
 
-
+	public void setIdRestaurante(long idRestaurante) {
+		this.idRestaurante = idRestaurante;
+	}
 
 }

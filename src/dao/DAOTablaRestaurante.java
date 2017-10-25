@@ -77,17 +77,16 @@ public class DAOTablaRestaurante
 
 		while (rs.next())
 		{
+			Long id = rs.getLong("IDRESTAURANTE");
 			String nombre = rs.getString("NOMBRE");
 			String tipo = rs.getString("TIPO");
 			String paginaWeb = rs.getString("PAGINA_WEB");
-			Long idRepresentante = rs.getLong("IDREPRESENTANTE");
-			Long idZona = rs.getLong("ID_ZONA");
-			String nombreRepresentante = rs.getString("NOMBRERE_PRESENTANTE");
-			restaurantes.add(new Restaurante(nombre,tipo, paginaWeb,idRepresentante, idZona,nombreRepresentante));
+			String nombreRepresentante = rs.getString("NOMBRE_REPRESENTANTE");
+			Long idZona = rs.getLong("IDZONA");
+			restaurantes.add(new Restaurante(id, nombre, tipo, paginaWeb, nombreRepresentante, idZona));
 		}
 		return restaurantes;
 	}
-
 
 	/**
 	 * Metodo que busca el/los videos con el nombre que entra como parametro.
@@ -100,7 +99,7 @@ public class DAOTablaRestaurante
 	{
 		Restaurante restaurante = null;
 
-		String sql = "SELECT * FROM PRODUCTO WHERE NOMBRE ='" + nombre +"'";
+		String sql = "SELECT * FROM RESTAURANTE WHERE NOMBRE ='" + nombre +"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -108,18 +107,17 @@ public class DAOTablaRestaurante
 
 		if(rs.next())
 		{
+			Long id = rs.getLong("IDRESTAURANTE");
 			String name = rs.getString("NOMBRE");
 			String tipo = rs.getString("TIPO");
 			String paginaWeb = rs.getString("PAGINA_WEB");
-			Long idRepresentante = rs.getLong("IDREPRESENTANTE");
-			Long idZona = rs.getLong("ID_ZONA");
-			String nombreRepresentante = rs.getString("NOMBRERE_PRESENTANTE");
-			restaurante = new Restaurante(name,tipo, paginaWeb,idRepresentante, idZona,nombreRepresentante);
+			String nombreRepresentante = rs.getString("NOMBRE_REPRESENTANTE");
+			Long idZona = rs.getLong("IDZONA");
+			restaurante = new Restaurante(id, name, tipo, paginaWeb, nombreRepresentante, idZona);
 		}
 
 		return restaurante;
 	}
-
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
@@ -132,10 +130,11 @@ public class DAOTablaRestaurante
 	public void addRestaurante(Restaurante restaurante) throws SQLException, Exception
 	{
 		String sql = "INSERT INTO PRODUCTO VALUES ('";
+		sql += restaurante.getIdRestaurante() + "','";
 		sql += restaurante.getNombre() + "','";
 		sql += restaurante.getTipo() + "','";
 		sql += restaurante.getPaginaWeb() + "',";
-		sql += restaurante.getIdRepresentante() + ",";
+		sql += restaurante.getNombreRepresentante() + ",";
 		sql += restaurante.getIdZona() + ")";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -155,11 +154,12 @@ public class DAOTablaRestaurante
 	{
 
 		String sql = "UPDATE RESTAURANTE SET ";
+		sql += "NOMBER" + restaurante.getNombre() + "','";
 		sql += "TIPO='" + restaurante.getTipo() + "',";
 		sql += "PAGINA_WEB='" + restaurante.getPaginaWeb() + "',";
-		sql += "ID_REPRESENTANTE=" + restaurante.getIdRepresentante() + ",";
+		sql += "ID_REPRESENTANTE=" + restaurante.getNombreRepresentante() + ",";
 		sql += "ID_ZONA=" + restaurante.getIdZona();
-		sql += " WHERE NAME = " + restaurante.getNombre();
+		sql += " WHERE IDRESTAURANTE = " + restaurante.getIdRestaurante();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -177,7 +177,7 @@ public class DAOTablaRestaurante
 	public void deleteRestaurante(Restaurante restaurante) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM RESTAURANTE";
-		sql += " WHERE NOMBRE = " + restaurante.getNombre();
+		sql += " WHERE IDRESTAURANTE = " + restaurante.getIdRestaurante();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

@@ -16,7 +16,7 @@ public class Reserva
 	 * Id de la reserva.
 	 */
 	@JsonProperty(value="fecha")
-	private Date fecha;
+	private String fecha;
 	/**
 	 * Id de la reserva.
 	 */
@@ -48,10 +48,6 @@ public class Reserva
 	@JsonProperty(value="idMenu")
 	private Long idMenu;
 
-
-
-
-
 	/**
 	 * Metodo constructor de la clase video
 	 * <b>post: </b> Crea el video con los valores que entran como parametro
@@ -59,7 +55,7 @@ public class Reserva
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public Reserva(@JsonProperty(value="id")Long id, @JsonProperty(value="id")Date fecha, @JsonProperty(value="hora")String hora, @JsonProperty(value="numComensales")Integer numComensales, @JsonProperty(value="estado")String estado, @JsonProperty(value="idZona")Long idZona, @JsonProperty(value="idUsuario")Long idUsuario, @JsonProperty(value="idMenu")Long idMenu)
+	public Reserva(@JsonProperty(value="id")Long id, @JsonProperty(value="fecha")String fecha, @JsonProperty(value="hora")String hora, @JsonProperty(value="numComensales")Integer numComensales, @JsonProperty(value="estado")String estado, @JsonProperty(value="idZona")Long idZona, @JsonProperty(value="idUsuario")Long idUsuario, @JsonProperty(value="idMenu")Long idMenu)
 	{
 		super();
 		this.id = id;
@@ -72,136 +68,70 @@ public class Reserva
 		this.idMenu = idMenu;
 		
 	}
-
-
-
-
-
+	
 	public Long getId() {
 		return id;
 	}
 
-
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
-
-
-	public Date getFecha() {
+	
+	public String getFecha() {
 		return fecha;
 	}
 
-
-
-
-
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
-
-
-
 
 	public String getHora() {
 		return hora;
 	}
 
-
-
-
-
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-
-
-
-
 
 	public Integer getNumComensales() {
 		return numComensales;
 	}
 
-
-
-
-
 	public void setNumComensales(Integer numComensales) {
 		this.numComensales = numComensales;
 	}
-
-
-
-
 
 	public String getEstado() {
 		return estado;
 	}
 
-
-
-
-
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
-
-
-
 
 	public Long getIdZona() {
 		return idZona;
 	}
 
-
-
-
-
 	public void setIdZona(Long idZona) {
 		this.idZona = idZona;
 	}
-
-
-
-
 
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-
-
-
-
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-
-
-
-
 
 	public Long getIdMenu() {
 		return idMenu;
 	}
 
-
-
-
-
 	public void setIdMenu(Long idMenu) {
 		this.idMenu = idMenu;
 	}
-
-
 
 }
 

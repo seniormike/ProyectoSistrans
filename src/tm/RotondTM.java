@@ -12,10 +12,13 @@ import java.util.Properties;
 
 import dao.DAOTablaIngrediente;
 import dao.DAOTablaIngredienteProducto;
-import dao.DAOTablaIngredienteProductoPersonalizado;
+import dao.DAOTablaIngredientePersonalizado;
 import dao.DAOTablaMenu;
+import dao.DAOTablaMenuPedido;
+import dao.DAOTablaMenuPersonalizado;
 import dao.DAOTablaPedido;
 import dao.DAOTablaProducto;
+import dao.DAOTablaProductoPersonalizado;
 import dao.DAOTablaReserva;
 import dao.DAOTablaRestaurante;
 import dao.DAOTablaTipoComida;
@@ -23,10 +26,13 @@ import dao.DAOTablaUsuario;
 import dao.DAOTablaZona;
 import vos.Ingrediente;
 import vos.IngredienteProducto;
-import vos.IngredienteProductoPersonalizado;
+import vos.IngredientePersonalizado;
 import vos.Menu;
+import vos.MenuPedido;
+import vos.MenuPersonalizado;
 import vos.Pedido;
 import vos.Producto;
+import vos.ProductoPersonalizado;
 import vos.Reserva;
 import vos.Restaurante;
 import vos.TipoComida;
@@ -1924,10 +1930,10 @@ public class RotondTM {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<IngredienteProductoPersonalizado> darIngredienteProductoPersonalizados() throws Exception
+	public List<IngredientePersonalizado> darIngredienteProductoPersonalizados() throws Exception
 	{
-		List<IngredienteProductoPersonalizado> ingredienteProducto;
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		List<IngredientePersonalizado> ingredienteProducto;
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -1963,10 +1969,10 @@ public class RotondTM {
 	 * @return
 	 * @throws Exception
 	 */
-	public ArrayList<IngredienteProductoPersonalizado> buscarIngredienteProductoPorIdProductoPersonalizado(long id) throws Exception
+	public ArrayList<IngredientePersonalizado> buscarIngredienteProductoPorIdProductoPersonalizado(long id) throws Exception
 	{
-		ArrayList<IngredienteProductoPersonalizado> ingredienteProducto;
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		ArrayList<IngredientePersonalizado> ingredienteProducto;
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2000,9 +2006,9 @@ public class RotondTM {
 	 * @param menu
 	 * @throws Exception
 	 */
-	public void addIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws Exception
+	public void addIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws Exception
 	{
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2037,9 +2043,9 @@ public class RotondTM {
 	 * @param menu
 	 * @throws Exception
 	 */
-	public void updateIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws Exception
+	public void updateIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws Exception
 	{
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2072,9 +2078,9 @@ public class RotondTM {
 	 * @param menu
 	 * @throws Exception
 	 */
-	public void deleteIngredienteProductoPersonalizado(IngredienteProductoPersonalizado ingredienteProducto) throws Exception
+	public void deleteIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws Exception
 	{
-		DAOTablaIngredienteProductoPersonalizado daoIngredienteProductos = new DAOTablaIngredienteProductoPersonalizado();
+		DAOTablaIngredientePersonalizado daoIngredienteProductos = new DAOTablaIngredientePersonalizado();
 		try 
 		{
 			//////transaccion
@@ -2103,7 +2109,7 @@ public class RotondTM {
 		}
 	}
 	/**
-	 * TRANSACCIONES PARA INGREDIENTE_PRODUCTO_PERZONALIZADO
+	 * TRANSACCIONES PARA RESERVA
 	 */
 
 	/**
@@ -2327,5 +2333,609 @@ public class RotondTM {
 			}
 		}
 	}
+	
+	/**
+	 * TRANSACCIONES PARA MENU_PEDIDO
+	 */
+
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MenuPedido> darMenuPedido() throws Exception
+	{
+		List<MenuPedido> menuPedido;
+		DAOTablaMenuPedido daoMenuPedido = new DAOTablaMenuPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPedido.setConn(conn);
+			menuPedido = daoMenuPedido.darMenuPedidos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menuPedido;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public MenuPedido buscarMenuPedidoPorIdPedido(long id) throws Exception
+	{
+		MenuPedido menuPedido;
+		DAOTablaMenuPedido daoMenuPedidos = new DAOTablaMenuPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPedidos.setConn(conn);
+			menuPedido = daoMenuPedidos.buscarMenuPedidoPorIdPedido(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPedidos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menuPedido;
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void addMenuPedido(MenuPedido menuPedido) throws Exception
+	{
+		DAOTablaMenuPedido daoTablaMenuPedido = new DAOTablaMenuPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoTablaMenuPedido.setConn(conn);
+			daoTablaMenuPedido.addMenuPedido(menuPedido);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoTablaMenuPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updateMenuPedido(MenuPedido menuPedido) throws Exception
+	{
+		DAOTablaMenuPedido daoTablaMenuPedido = new DAOTablaMenuPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoTablaMenuPedido.setConn(conn);
+			daoTablaMenuPedido.updateMenuPedido(menuPedido);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoTablaMenuPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	public void addMenuPedidos(List<MenuPedido> menuPedido) throws Exception
+	{
+		DAOTablaMenuPedido daoMenuPedidos = new DAOTablaMenuPedido();
+		try 
+		{
+			//////transaccion - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoMenuPedidos.setConn(conn);
+			Iterator<MenuPedido> it = menuPedido.iterator();
+			while(it.hasNext())
+			{
+				daoMenuPedidos.addMenuPedido(it.next());
+			}
+
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoMenuPedidos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deleteMenuPedido(MenuPedido menuPedido) throws Exception
+	{
+		DAOTablaMenuPedido daoTablaMenuPedido = new DAOTablaMenuPedido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoTablaMenuPedido.setConn(conn);
+			daoTablaMenuPedido.deleteMenuPedido(menuPedido);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoTablaMenuPedido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * TRANSACCIONES PARA MENU_PERSONALIZADO
+	 */
+
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MenuPersonalizado> darMenuPersonalizados() throws Exception
+	{
+		List<MenuPersonalizado> menuPersonalizado;
+		DAOTablaMenuPersonalizado daoMenuPersonalizados = new DAOTablaMenuPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPersonalizados.setConn(conn);
+			menuPersonalizado = daoMenuPersonalizados.darMenuPersonalizados();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPersonalizados.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menuPersonalizado;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public MenuPersonalizado buscarMenuPersonalizadoPorId(long id) throws Exception
+	{
+		MenuPersonalizado menuPersonalizado;
+		DAOTablaMenuPersonalizado daoMenuPersonalizados = new DAOTablaMenuPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPersonalizados.setConn(conn);
+			menuPersonalizado = daoMenuPersonalizados.buscarMenuPersonalizadoPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPersonalizados.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return menuPersonalizado;
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void addMenuPersonalizado(MenuPersonalizado menuPersonalizado) throws Exception
+	{
+		DAOTablaMenuPersonalizado daoMenuPersonalizados = new DAOTablaMenuPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPersonalizados.setConn(conn);
+			daoMenuPersonalizados.addMenuPersonalizado(menuPersonalizado);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPersonalizados.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updateMenuPersonalizado(MenuPersonalizado menuPersonalizado) throws Exception
+	{
+		DAOTablaMenuPersonalizado daoMenuPersonalizados = new DAOTablaMenuPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPersonalizados.setConn(conn);
+			daoMenuPersonalizados.updateMenuPersonalizado(menuPersonalizado);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPersonalizados.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deleteMenuPersonalizado(MenuPersonalizado menuPersonalizado) throws Exception
+	{
+		DAOTablaMenuPersonalizado daoMenuPersonalizados = new DAOTablaMenuPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoMenuPersonalizados.setConn(conn);
+			daoMenuPersonalizados.deletemenuPersonalizado(menuPersonalizado);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoMenuPersonalizados.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
+	/**
+	 * TRANSACCIONES PARA PRODUCTO_PERZONALIZADO
+	 */
+
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ProductoPersonalizado> darProductoPersonalizados() throws Exception
+	{
+		List<ProductoPersonalizado> productoPersonalizado;
+		DAOTablaProductoPersonalizado daoProductoPersonalizado = new DAOTablaProductoPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoPersonalizado.setConn(conn);
+			productoPersonalizado = daoProductoPersonalizado.darProductoPersonalizadovs();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoPersonalizado.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productoPersonalizado;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<ProductoPersonalizado> buscarProductoPorIdProductoPersonalizado(long id) throws Exception
+	{
+		ArrayList<ProductoPersonalizado> productoPersonalizado;
+		DAOTablaProductoPersonalizado daoProductoPersonalizado = new DAOTablaProductoPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoPersonalizado.setConn(conn);
+			productoPersonalizado = daoProductoPersonalizado.buscarProductoPersonalizadoPorIdProductoPer(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoPersonalizado.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productoPersonalizado;
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void addProductoPersonalizado(ProductoPersonalizado productoPersonalizado) throws Exception
+	{
+		DAOTablaProductoPersonalizado daoProductoPersonalizado = new DAOTablaProductoPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoPersonalizado.setConn(conn);
+			daoProductoPersonalizado.addProductoPersonalizado(productoPersonalizado);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoPersonalizado.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updateProductoPersonalizado(ProductoPersonalizado productoPersonalizado) throws Exception
+	{
+		DAOTablaProductoPersonalizado daoProductoPersonalizado = new DAOTablaProductoPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoPersonalizado.setConn(conn);
+			daoProductoPersonalizado.updateProductoPersonalizado(productoPersonalizado);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoPersonalizado.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deleteProductoPersonalizado(ProductoPersonalizado productoPersonalizado) throws Exception
+	{
+		DAOTablaProductoPersonalizado daoProductoPersonalizado = new DAOTablaProductoPersonalizado();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoPersonalizado.setConn(conn);
+			daoProductoPersonalizado.deleteProductoPersonalizado(productoPersonalizado);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoPersonalizado.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
 
 }

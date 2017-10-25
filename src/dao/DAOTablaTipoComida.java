@@ -77,14 +77,13 @@ public class DAOTablaTipoComida
 
 		while (rs.next())
 		{
-			Long idTipoComida = rs.getLong("ID");
-			Long idProducto = rs.getLong("ID_PRODUCTO");
+			Long idTipoComida = rs.getLong("IDCOMIDA");
+			Long idProducto = rs.getLong("IDPRODUCTO");
 			String tipoComida = rs.getString("TIPO_COMIDA");
 			tiposComida.add(new TipoComida(idTipoComida,idProducto,tipoComida));
 		}
 		return tiposComida;
 	}
-
 
 	/**
 	 * Metodo que busca el/los videos con el nombre que entra como parametro.
@@ -97,7 +96,7 @@ public class DAOTablaTipoComida
 	{
 		TipoComida tipoComida = null;
 
-		String sql = "SELECT * FROM TIPO_COMIDA WHERE ID =" + id;
+		String sql = "SELECT * FROM TIPO_COMIDA WHERE IDCOMIDA =" + id;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -105,15 +104,14 @@ public class DAOTablaTipoComida
 
 		if(rs.next())
 		{
-			Long idTipoComida = rs.getLong("ID");
-			Long idProducto = rs.getLong("ID_PRODUCTO");
+			Long idTipoComida = rs.getLong("IDCOMIDA");
+			Long idProducto = rs.getLong("IDPRODUCTO");
 			String tipoComidaString = rs.getString("TIPO_COMIDA");
 			tipoComida = new TipoComida(idTipoComida,idProducto,tipoComidaString);
 		}
 
 		return tipoComida;
 	}
-
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
@@ -146,9 +144,9 @@ public class DAOTablaTipoComida
 	{
 
 		String sql = "UPDATE TIPO_COMIDA SET ";
-		sql += "TIPO_COMIDA='" + tipoComida.getTipoComida()+"'";
-		sql += "ID_PRODUCTO=" + tipoComida.getIdProducto() ;
-		sql += " WHERE ID = " + tipoComida.getId();
+		sql += "IDPRODUCTO=" + tipoComida.getIdProducto()+"'";
+		sql += "TIPO_COMIDA='" + tipoComida.getTipoComida();
+		sql += " WHERE IDCOMIDA = " + tipoComida.getId();
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -165,7 +163,7 @@ public class DAOTablaTipoComida
 	public void deleteTipoComida(TipoComida tipoComida) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM TIPO_COMIDA";
-		sql += " WHERE ID = " + tipoComida.getId();
+		sql += " WHERE IDCOMIDA = " + tipoComida.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -173,5 +171,3 @@ public class DAOTablaTipoComida
 	}
 
 }
-
-

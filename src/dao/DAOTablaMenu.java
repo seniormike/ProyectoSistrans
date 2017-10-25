@@ -74,16 +74,16 @@ public class DAOTablaMenu
 
 		while (rs.next())
 		{
-			long id = rs.getLong("ID");
+			long id = rs.getLong("IDMENU");
 			String medioPago = rs.getString("MEDIO_PAGO");
 			double precio = rs.getDouble("PRECIO");
-			String nomRestaurante = rs.getString("NOMBRE_RESTAURANTE");
+			Long idRestaurante = rs.getLong("IDRESTAURANTE");
 			long entrada = rs.getLong("ENTRADA");
 			long fuerte = rs.getLong("PLATO_FUERTE");
 			long postre = rs.getLong("POSTRE");
 			long bebida = rs.getLong("BEBIDA");
 			long acompanamiento = rs.getLong("ACOMPANAMIENTO");
-			menus.add(new Menu(id,medioPago,precio,nomRestaurante,entrada,fuerte,postre,bebida,acompanamiento));
+			menus.add(new Menu(id,medioPago,precio,idRestaurante,entrada,fuerte,postre,bebida,acompanamiento));
 		}
 		return menus;
 	}
@@ -99,7 +99,7 @@ public class DAOTablaMenu
 	{
 		Menu menu = null;
 
-		String sql = "SELECT * FROM MENU WHERE ID ='" + id +"'";
+		String sql = "SELECT * FROM MENU WHERE IDMENU ='" + id +"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -107,16 +107,16 @@ public class DAOTablaMenu
 
 		if(rs.next())
 		{
-			long idd = rs.getLong("ID");
+			long idd = rs.getLong("IDMENU");
 			String medioPago = rs.getString("MEDIO_PAGO");
 			double precio = rs.getDouble("PRECIO");
-			String nomRestaurante = rs.getString("NOMBRE_RESTAURANTE");
+			Long idRestaurante = rs.getLong("IDRESTAURANTE");
 			long entrada = rs.getLong("ENTRADA");
 			long fuerte = rs.getLong("PLATO_FUERTE");
 			long postre = rs.getLong("POSTRE");
 			long bebida = rs.getLong("BEBIDA");
 			long acompanamiento = rs.getLong("ACOMPANAMIENTO");
-			menu = new Menu(idd,medioPago,precio,nomRestaurante,entrada,fuerte,postre,bebida,acompanamiento);
+			menu = new Menu(idd,medioPago,precio,idRestaurante,entrada,fuerte,postre,bebida,acompanamiento);
 		}
 
 		return menu;
@@ -135,7 +135,7 @@ public class DAOTablaMenu
 		sql += menu.getId() + "','";
 		sql += menu.getMedioPago() + "','";
 		sql += menu.getPrecio() + "','";
-		sql += menu.getNomRestaurante() + "','";
+		sql += menu.getIdRestaurante() + "','";
 		sql += menu.getEntrada() + "','";
 		sql += menu.getPlatoFuerte() + "','";
 		sql += menu.getPostre() + "','";
@@ -159,19 +159,18 @@ public class DAOTablaMenu
 		sql += "MEDIO_PAGO='" + menu.getMedioPago() + "'";
 		sql += "PRECIO='" + menu.getPrecio() + "'";
 		sql += "MEDIO_PAGO='" + menu.getMedioPago() + "'";
-		sql += "NOMBRE_RESTAURANTE='" + menu.getNomRestaurante() + "'";
+		sql += "IDRESTAURANTE='" + menu.getIdRestaurante() + "'";
 		sql += "ENTRADA='" + menu.getEntrada() + "'";
 		sql += "PLATO_FUERTE='" + menu.getPlatoFuerte() + "'";
 		sql += "POSTRE='" + menu.getPostre() + "'";
 		sql += "BEBIDA='" + menu.getBebida() + "'";
 		sql += "ACOMPANAMIENTO='" + menu.getAcompanamiento() + "'";
-		sql += " WHERE ID = '" + menu.getId()+"'";
+		sql += " WHERE IDMENU = '" + menu.getId()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 		
-
 	}
 
 	/**
@@ -185,7 +184,7 @@ public class DAOTablaMenu
 	public void deletemenu(Menu menu) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM MENU";
-		sql += " WHERE ID = '" + menu.getId()+"'";
+		sql += " WHERE IDMENU = '" + menu.getId()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

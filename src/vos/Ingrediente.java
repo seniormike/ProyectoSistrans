@@ -5,15 +5,12 @@ public class Ingrediente
 {
 
 	/**
-	 * Nombre del Restaurante.
+	 * Nombre del Ingrediente.
 	 */
 	@JsonProperty(value="nombre")
 	private String nombre;
-	
-
-
 	/**
-	 * Tipo de restaurante.
+	 * Descripcion Ingrediente.
 	 */
 	@JsonProperty(value="descripcion")
 	private String descripcion;
@@ -21,65 +18,67 @@ public class Ingrediente
 	/**
 	 * Traduccion al ingles de la descripcion.
 	 */
-	@JsonProperty(value="idescripcion")
-	private String idescripcion;
-
-
-
+	@JsonProperty(value="idescription")
+	private String idescription;
 
 	/**
-	 * Metodo constructor de la clase video
-	 * <b>post: </b> Crea el video con los valores que entran como parametro
-	 * @param id - Id del video.
-	 * @param name - Nombre del video. name != null
-	 * @param duration - Duracion en minutos del video.
+	 * 
+	 * @param nombre
+	 * @param descripcion
+	 * @param idescription
 	 */
-	public Ingrediente(@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescripcion")String idescripcion)
+	public Ingrediente(@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescription")String idescription)
 	{
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.idescripcion = idescripcion;
+		this.idescription = idescription;
 	}
-
-
-
-
+	
+	/**
+	 * 
+	 * @return idescription
+	 */
 	public String getIdescripcion() {
-		return idescripcion;
+		return idescription;
 	}
-
-
-
-
+	
+	/**
+	 * 
+	 * @param idescripcion
+	 */
 	public void setIdescripcion(String idescripcion) {
-		this.idescripcion = idescripcion;
+		this.idescription = idescripcion;
 	}
-
-
-
-
+	
+	/**
+	 * 
+	 * @return nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
-
-
-
-
+	
+	/**
+	 * 
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-
-
-
+	
+	/**
+	 * 
+	 * @return descripcion
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
-
-
-
-
+	
+	/**
+	 * 
+	 * @param descripcion
+	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}

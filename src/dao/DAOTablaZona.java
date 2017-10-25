@@ -77,7 +77,7 @@ public class DAOTablaZona
 
 		while (rs.next())
 		{
-			Long id = rs.getLong("ID");
+			Long id = rs.getLong("IDZONA");
 			String tipoEspacio = rs.getString("TIPO_ESPACIO");
 			Integer capacidad = rs.getInt("CAPACIDAD");
 			String discapacitados = rs.getString("DISCAPACITADOS");
@@ -85,7 +85,6 @@ public class DAOTablaZona
 		}
 		return zonas;
 	}
-
 
 	/**
 	 * Metodo que busca el/los videos con el nombre que entra como parametro.
@@ -106,7 +105,7 @@ public class DAOTablaZona
 
 		if(rs.next())
 		{
-			Long id1 = rs.getLong("ID");
+			Long id1 = rs.getLong("IDZONA");
 			String tipoEspacio = rs.getString("TIPO_ESPACIO");
 			Integer capacidad = rs.getInt("CAPACIDAD");
 			String discapacitados = rs.getString("DISCAPACITADOS");
@@ -115,7 +114,6 @@ public class DAOTablaZona
 
 		return zona;
 	}
-
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
@@ -132,12 +130,10 @@ public class DAOTablaZona
 		sql += zona.getTipoEspacio() + "',";
 		sql += zona.getCapacidad() + ",'";
 		sql += zona.getDiscapacitados() + "')";
-		
-		
+			
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
-
 	}
 
 	/**
@@ -155,7 +151,7 @@ public class DAOTablaZona
 		sql += "TIPO_ESPACIO='" + zona.getTipoEspacio() + "',";
 		sql += "CAPACIDAD=" + zona.getCapacidad() +",";
 		sql += "DISCAPACITADOS='" + zona.getDiscapacitados() + "'";
-		sql += " WHERE ID = " + zona.getId();
+		sql += " WHERE IDZONA = " + zona.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -173,7 +169,7 @@ public class DAOTablaZona
 	public void deleteZona(Zona zona) throws SQLException, Exception
 	{
 		String sql = "DELETE FROM ZONA";
-		sql += " WHERE ID = '" + zona.getId();
+		sql += " WHERE IDZONA = '" + zona.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -181,6 +177,3 @@ public class DAOTablaZona
 	}
 
 }
-
-
-
