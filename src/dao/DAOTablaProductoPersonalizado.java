@@ -123,9 +123,9 @@ public class DAOTablaProductoPersonalizado {
 	 */
 	public void addProductoPersonalizado(ProductoPersonalizado productoPersonalizado) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO Producto_Personalizado VALUES ('";
-		sql += productoPersonalizado.getIdProductoPer() + "','";
-		sql += productoPersonalizado.getIdProducto() + "','";
+		String sql = "INSERT INTO PRODUCTO_PERSONALIZADO VALUES (";
+		sql += productoPersonalizado.getIdProductoPer() + ",";
+		sql += productoPersonalizado.getIdProducto() + ")";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

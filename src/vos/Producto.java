@@ -56,8 +56,8 @@ public class Producto
 	/**
 	 * Nombre del Restaurante.
 	 */
-	@JsonProperty(value="idescripcion")
-	private String idescripcion;
+	@JsonProperty(value="idescription")
+	private String idescription;
 
 	/**
 	 * Metodo constructor de la clase video
@@ -66,13 +66,12 @@ public class Producto
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public Producto(@JsonProperty(value="id")Long id,@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescripcion")String idescripcion,@JsonProperty(value="tiempoPreparacion")Integer tiempoPreparacion, @JsonProperty(value="costoProduccion")Double costoProduccion,@JsonProperty(value="precioVenta")Double precioVenta,@JsonProperty(value="disponible")String disponible,@JsonProperty(value="clasificacion")String clasificacion,@JsonProperty(value="idRestaurante")Long idRestaurante)
+	public Producto(@JsonProperty(value="id")Long id,@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescription")String idescripcion,@JsonProperty(value="tiempoPreparacion")Integer tiempoPreparacion, @JsonProperty(value="costoProduccion")Double costoProduccion,@JsonProperty(value="precioVenta")Double precioVenta,@JsonProperty(value="disponible")String disponible,@JsonProperty(value="clasificacion")String clasificacion,@JsonProperty(value="idRestaurante")Long idRestaurante)
 	{
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.idescripcion = idescripcion;
+		this.idescription = idescripcion;
 		this.tiempoPreparacion = tiempoPreparacion;
 		this.costoProduccion = costoProduccion;
 		this.precioVenta = precioVenta;
@@ -91,11 +90,11 @@ public class Producto
 	}
 
 	public String getIdescripcion() {
-		return idescripcion;
+		return idescription;
 	}
 
 	public void setIdescripcion(String idescripcion) {
-		this.idescripcion = idescripcion;
+		this.idescription = idescripcion;
 	}
 
 	public String getNombre() {

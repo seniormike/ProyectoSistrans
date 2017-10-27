@@ -77,6 +77,7 @@ public class DAOTablaIngredientePersonalizado
 		{
 			String nombre = rs.getString("NOMBRE_INGREDIENTE");
 			long idProducto = rs.getLong("ID_PRODUCTO");
+			ingredienteProductoPersonalizado.add(new IngredientePersonalizado(nombre, idProducto));
 		}
 		return ingredienteProductoPersonalizado;
 	}
@@ -93,7 +94,7 @@ public class DAOTablaIngredientePersonalizado
 	{
 		ArrayList<IngredientePersonalizado> ingredienteProducto = new ArrayList<IngredientePersonalizado>();
 
-		String sql = "SELECT * FROM INGREDIENTE_PERSONALIZADO WHERE ID_PRODUCTO ='" + id +"'";
+		String sql = "SELECT * FROM INGREDIENTE_PERSONALIZADO WHERE ID_PRODUCTO =" + id ;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -121,8 +122,8 @@ public class DAOTablaIngredientePersonalizado
 	public void addIngredienteProductoPersonalizado(IngredientePersonalizado ingredienteProducto) throws SQLException, Exception
 	{
 		String sql = "INSERT INTO INGREDIENTE_PERSONALIZADO VALUES ('";
-		sql += ingredienteProducto.getNombreIngrediente() + "','";
-		sql += ingredienteProducto.getIdProducto() + "','";
+		sql += ingredienteProducto.getNombreIngrediente() + "',";
+		sql += ingredienteProducto.getIdProducto() +")" ;
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
