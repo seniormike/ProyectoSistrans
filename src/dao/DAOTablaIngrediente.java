@@ -124,7 +124,7 @@ public class DAOTablaIngrediente
 	 */
 	public void addIngrediente(Ingrediente ingrediente) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO INGREDIENTE VALUES ('";
+		String sql = "INSERT INTO INGREDIENTE (NOMBRE, DESCRIPCION, IDESCRIPTION) VALUES ('";
 		sql += ingrediente.getNombre() + "','";
 		sql += ingrediente.getDescripcion() + "','";
 		sql += ingrediente.getIdescripcion() + "')";

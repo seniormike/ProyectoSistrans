@@ -29,7 +29,6 @@ public class Ingrediente
 	 */
 	public Ingrediente(@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescription")String idescription)
 	{
-		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.idescription = idescription;
@@ -82,9 +81,6 @@ public class Ingrediente
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
-
 
 
 }
