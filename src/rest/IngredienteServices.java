@@ -117,26 +117,26 @@ public class IngredienteServices
 		return Response.status(200).entity(ingrediente).build();
 	}
 	
-    /**
-     * Metodo que expone servicio REST usando POST que agrega los videos que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/varios
-     * @param videos - videos a agregar. 
-     * @return Json con el video que agrego o Json con el error que se produjo
-     */
-	@POST
-	@Path("/ingredientes")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addIngredientes(List<Ingrediente> ingredientes)
-	{
-		RotondTM tm = new RotondTM(getPath());
-		try {
-			tm.addIngredientes(ingredientes);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(ingredientes).build();
-	}
+//    /**
+//     * Metodo que expone servicio REST usando POST que agrega los videos que recibe en Json
+//     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/varios
+//     * @param videos - videos a agregar. 
+//     * @return Json con el video que agrego o Json con el error que se produjo
+//     */
+//	@POST
+//	@Path("/ingredientes")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addIngredientes(List<Ingrediente> ingredientes)
+//	{
+//		RotondTM tm = new RotondTM(getPath());
+//		try {
+//			tm.addIngredientes(ingredientes);
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(ingredientes).build();
+//	}
 	
     /**
      * Metodo que expone servicio REST usando PUT que actualiza el video que recibe en Json

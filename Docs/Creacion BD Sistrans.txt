@@ -1,0 +1,138 @@
+drop table Reserva;
+drop table MENU_PEDIDO;
+drop table PEDIDO;
+drop table MENU_PERSONALIZADO;
+drop table menu;
+drop table tipo_comida;
+drop table ingrediente_personalizado;
+drop table producto_personalizado;
+drop table ingrediente_producto;
+drop table producto;
+drop table restaurante;
+drop table usuario;
+drop table zona;
+drop table Ingrediente;
+--------------------------------------------------------------------------------
+create table INGREDIENTE
+(
+Nombre varchar(50) constraint pk_NombreIngrediente primary key,
+Descripcion varchar(50),
+IDescription varchar(50)
+);
+create table ZONA
+(
+IdZona number(10) constraint pk_zona primary key,
+Tipo_Espacio varchar(10),
+Capacidad number (5),
+Discapacitados varchar(3)
+constraint ch_r_discapacitado check
+(Discapacitados IN ('Si','No')),
+constraint ch_r_espacio check
+(Tipo_Espacio IN ('Abierto','Cerrado'))
+);
+create table USUARIO
+(
+Identificacion number(10) constraint pk_UsuarioId primary key,
+Nombre varchar(50),
+Tipo varchar(20),
+constraint ch_r_tipo check
+(Tipo IN ('Cliente','Administrador','NN'))
+);
+create table Restaurante 
+(
+IdRestaurante number(10) constraint pk_RestauranteId primary key,
+Nombre varchar(50),
+Tipo varchar(50),
+Pagina_Web varchar(100),
+Nombre_Representante varchar(50),
+IdZona number(10) not null constraint fk_sr_zonas references ZONA
+);
+create table PRODUCTO
+(
+IdProducto number(10) constraint pk_productoId primary key,
+Nombre varchar(50),
+Descripcion varchar(100),
+IDescription varchar(100),
+Tiempo_Preparacion number(10),
+Costo_Produccion float(10),
+Precio_Venta float(10),
+Disponible varchar(4) constraint ch_r_disponible check (Disponible IN ('Si','No')),
+Clasificacion varchar(10)constraint ch_r_clasificacion check (Clasificacion IN ('Entrada','Fuerte','Postre','Bebida','Acompanamiento')),
+idRestaurante number(10) not null constraint fk_sr_restaurante references Restaurante
+);
+create table INGREDIENTE_PRODUCTO
+(
+Nombre_Ingrediente varchar(50)  not null constraint fk_sr_ingredienteNom references Ingrediente,
+Id_producto number(10) not null constraint fk_sr_productoId references Producto,
+constraint pk_ingredienteProducto primary key
+(Nombre_Ingrediente, Id_producto)
+);
+create table PRODUCTO_PERSONALIZADO
+(
+IdProductoPer number(10) constraint pk_productoPerId primary key,
+IdProducto number(10)not null constraint fk_sr_ProductoPer references Producto
+);
+create table INGREDIENTE_PERSONALIZADO
+(
+Nombre_Ingrediente varchar(50)  not null constraint fk_sr_ingredientePerNom references Ingrediente,
+Id_producto number(10) not null constraint fk_sr_productoPerId references PRODUCTO_PERSONALIZADO,
+constraint pk_ingredienteProductoPer primary key
+(Nombre_Ingrediente, Id_producto)
+);
+create table TIPO_COMIDA
+(
+IdComida number(10) constraint pk_tipoComida primary key,
+IdProducto number(10) not null constraint fk_sr_productoComidaId  references Producto,
+Tipo_Comida varchar(50)
+);
+create table MENU
+(
+IdMenu number(10) constraint pk_menu primary key,
+Medio_Pago varchar(50),
+Precio float(10),
+IdRestaurante number(10) not null constraint fk_sr_RestauranteMenuId references Restaurante,
+Entrada number(10) constraint fk_sr_productoEntrada references PRODUCTO,
+Plato_Fuerte number(10) constraint fk_sr_productoFuerte references PRODUCTO,
+Postre number(10) constraint fk_sr_productoPostre references PRODUCTO,
+Bebida number(10) constraint fk_sr_productoBebida references PRODUCTO,
+Acompanamiento number(10) constraint fk_sr_productoAcompanamiento references PRODUCTO
+);
+create table MENU_PERSONALIZADO
+(
+IdMenuPer number(10) constraint pk_menuPer primary key,
+Precio float(10),
+Entrada number(10) constraint fk_sr_prodEnPer references PRODUCTO_PERSONALIZADO,
+Plato_Fuerte number(10) constraint fk_sr_prodFuePer references PRODUCTO_PERSONALIZADO,
+Postre number(10) constraint fk_sr_prodPosPer references PRODUCTO_PERSONALIZADO,
+Bebida number(10) constraint fk_sr_prodBebPer references PRODUCTO_PERSONALIZADO,
+Acompanamiento number(10) constraint fk_sr_prodAcomPer references PRODUCTO_PERSONALIZADO,
+IdMenu number(10) not null constraint fk_sr_menuMenuPer references Menu
+);
+create table PEDIDO
+(
+IdPedido number(10) constraint pk_pedido primary key,
+Fecha date,
+Valor_Total float(10),
+IdUsuario number(10) not null constraint fk_sr_usuarioPedido references Usuario
+);
+create table MENU_PEDIDO
+(
+IdPedido number(10) not null constraint fk_sr_pedidoMenu references Pedido,
+IdMenuPer number(10) not null constraint fk_sr_menuPedidoPer references MENU_PERSONALIZADO,
+Cantidad number(5),
+constraint pk_menuPedido primary key
+(IdPedido, IdMenuPer)
+);
+create table Reserva
+(
+IdReserva number(10) constraint pk_reserva primary key,
+Fecha date,
+Hora number(10),
+Numero_Comensales number(10),
+Estado varchar(20),
+IdZona number(10) not null constraint fk_sr_zonaReserva references Zona,
+IdUsuario number(10) not null constraint fk_sr_usuarioReserva references Usuario,
+IdMenu number(10) not null constraint fk_sr_menuReserva references MENU_PERSONALIZADO,
+constraint ch_r_estado check
+(Estado IN ('Disponible','No Disponible'))
+);
