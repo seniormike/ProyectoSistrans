@@ -10,13 +10,13 @@ drop table ingrediente_producto;
 drop table PRODUCTO_OFRECIDO;
 drop table PRODUCTO_EQUIVALENTE;
 drop table producto;
-drop table INGREDIENTE_EQUIVALENTE;
 drop table restaurante;
 drop table PREFERENCIA_CATEGORIA;
 drop table PREFERENCIA_ZONA;
 drop table PREFERENCIA_PRECIO;
 drop table usuario;
 drop table zona;
+drop table INGREDIENTE_EQUIVALENTE;
 drop table Ingrediente;
 --------------------------------------------------------------------------------
 create table INGREDIENTE
@@ -24,6 +24,13 @@ create table INGREDIENTE
 Nombre varchar(50) constraint pk_NombreIngrediente primary key,
 Descripcion varchar(200),
 IDescription varchar(200)
+);
+create table INGREDIENTE_EQUIVALENTE
+(
+Nombre varchar(50) not null constraint fk_sr_ing REFERENCES Ingrediente,
+NomEquivalencia varchar(50) not null constraint fk_sr_ingEquivalente REFERENCES Ingrediente,
+constraint pk_IngEquiv primary key
+(Nombre, NomEquivalencia)
 );
 create table ZONA
 (
@@ -75,14 +82,6 @@ Pagina_Web varchar(100),
 Nombre_Representante varchar(50),
 IdZona number(10) not null constraint fk_sr_zonas references ZONA
 );
-create table INGREDIENTE_EQUIVALENTE
-(
-Nombre varchar(50) not null constraint fk_sr_ing REFERENCES Ingrediente,
-idRetaurante number(10) not null constraint fk_sr_ingRestaurante REFERENCES Restaurante, 
-NomEquivalencia varchar(50) not null constraint fk_sr_ingEquivalente REFERENCES Ingrediente,
-constraint pk_IngEquiv primary key
-(Nombre, idRetaurante)
-);
 create table PRODUCTO
 (
 IdProducto number(10) constraint pk_productoId primary key,
@@ -106,10 +105,9 @@ constraint pk_prodOfre primary key
 create table PRODUCTO_EQUIVALENTE
 (
 IdProducto number(10) not null constraint  fk_sr_prodEquiv REFERENCES Producto,
-idRestaurante number(10) not null constraint fk_sr_prodRestaurante REFERENCES Restaurante,
 IdProdEquivalente number(10) not null constraint fk_sr_prodEquivalente REFERENCES Producto,
 constraint pk_prodEquiv primary key
-(IdProducto, idRestaurante)
+(IdProducto, IdProdEquivalente)
 );
 create table INGREDIENTE_PRODUCTO
 (
