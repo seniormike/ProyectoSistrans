@@ -79,8 +79,8 @@ public class DAOTablaIngrediente
 		{
 			String nombre = rs.getString("NOMBRE");
 			String descripcion = rs.getString("DESCRIPCION");
-			String idescripcion = rs.getString("IDESCRIPTION");
-			ingredientes.add(new Ingrediente(nombre,descripcion,idescripcion));
+			String idescription = rs.getString("IDESCRIPTION");
+			ingredientes.add(new Ingrediente(nombre,descripcion,idescription));
 		}
 		return ingredientes;
 	}
@@ -127,7 +127,8 @@ public class DAOTablaIngrediente
 		String sql = "INSERT INTO INGREDIENTE (NOMBRE, DESCRIPCION, IDESCRIPTION) VALUES ('";
 		sql += ingrediente.getNombre() + "','";
 		sql += ingrediente.getDescripcion() + "','";
-		sql += ingrediente.getIdescripcion() + "')";
+		sql += ingrediente.getIdescription() + "')";
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -146,7 +147,7 @@ public class DAOTablaIngrediente
 
 		String sql = "UPDATE INGREDIENTE SET ";
 		sql += "DESCRIPCION='" + ingrediente.getDescripcion() + "'";
-		sql += "IDESCRIPTION='" + ingrediente.getIdescripcion()+"'";
+		sql += "IDESCRIPTION='" + ingrediente.getIdescription()+"'";
 		sql += " WHERE NOMBRE = '" + ingrediente.getNombre()+"'";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

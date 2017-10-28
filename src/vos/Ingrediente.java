@@ -36,22 +36,6 @@ public class Ingrediente
 	
 	/**
 	 * 
-	 * @return idescription
-	 */
-	public String getIdescripcion() {
-		return idescription;
-	}
-	
-	/**
-	 * 
-	 * @param idescripcion
-	 */
-	public void setIdescripcion(String idescripcion) {
-		this.idescription = idescripcion;
-	}
-	
-	/**
-	 * 
 	 * @return nombre
 	 */
 	public String getNombre() {
@@ -81,7 +65,21 @@ public class Ingrediente
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
+	
+	/**
+	 * 
+	 * @return idescription
+	 */
+	public String getIdescription() {
+		return idescription;
+	}
+	
+	/**
+	 * 
+	 * @param idescripcion
+	 */
+	public void setIdescripcion(String idescripcion) {
+		this.idescription = idescripcion;
+	}
 }
 

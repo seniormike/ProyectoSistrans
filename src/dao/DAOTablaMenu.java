@@ -40,9 +40,9 @@ public class DAOTablaMenu
 				try {
 					((PreparedStatement) ob).close();
 				} catch (Exception ex)
-				{
+			{
 					ex.printStackTrace();
-				}
+			}
 		}
 	}
 
@@ -99,7 +99,7 @@ public class DAOTablaMenu
 	{
 		Menu menu = null;
 
-		String sql = "SELECT * FROM MENU WHERE IDMENU ='" + id +"'";
+		String sql = "SELECT * FROM MENU WHERE IDMENU =" + id;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -131,20 +131,87 @@ public class DAOTablaMenu
 	 */
 	public void addMenu(Menu menu) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO MENU VALUES ('";
-		sql += menu.getId() + "','";
-		sql += menu.getMedioPago() + "','";
-		sql += menu.getPrecio() + "','";
-		sql += menu.getIdRestaurante() + "','";
-		sql += menu.getEntrada() + "','";
-		sql += menu.getPlatoFuerte() + "','";
-		sql += menu.getPostre() + "','";
-		sql += menu.getBebida() + "','";
-		sql += menu.getAcompanamiento() + "')";
+		String sql = "INSERT INTO MENU (IDMENU, MEDIO_PAGO,PRECIO,IDRESTAURANTE,ENTRADA,PLATO_FUERTE,POSTRE,BEBIDA,ACOMPANAMIENTO) VALUES (";
+		sql += menu.getId() + ",'";
+		sql += menu.getMedioPago() + "',";
+		sql += menu.getPrecio() + ",";
+		sql += menu.getIdRestaurante() + ",";
+
+		if(menu.getEntrada() != -1 || menu.getPlatoFuerte() != -1 || menu.getPostre() != -1 ||  menu.getBebida() != -1 || menu.getAcompanamiento() != -1)
+		{
+			if(menu.getEntrada() != -1)
+			{
+				if(darClasificacionProducto(menu.getEntrada()).equals("Entrada"))
+				sql += menu.getEntrada() + ",";
+				else
+					throw new Exception("La Categoria de este producto no corresponde");
+			}
+			else {
+				sql += "null,";
+			}
+			if(menu.getPlatoFuerte() != -1)
+			{
+				if(darClasificacionProducto(menu.getPlatoFuerte()).equals("Fuerte"))
+				sql += menu.getPlatoFuerte() + ",";
+				else
+					throw new Exception("La Categoria de este producto no corresponde");
+			}
+			else {
+				sql += "null,";
+			}
+			if(menu.getPostre() != -1)
+			{
+				if(darClasificacionProducto(menu.getPostre()).equals("Postre"))
+				sql += menu.getPostre() + ",";
+				else
+					throw new Exception("La Categoria de este producto no corresponde");
+			}
+			else {
+				sql += "null,";
+			}
+			if(menu.getBebida() != -1)
+			{
+				if(darClasificacionProducto(menu.getBebida()).equals("Bebida"))
+				sql += menu.getBebida() + ",";
+				else
+					throw new Exception("La Categoria de este producto no corresponde");
+			}
+			else {
+				sql += "null,";
+			}
+			if(menu.getAcompanamiento() != -1)
+			{
+				if(darClasificacionProducto(menu.getAcompanamiento()).equals("Acompanamiento"))
+				sql += menu.getAcompanamiento() + ")";
+				else
+					throw new Exception("La Categoria de este producto no corresponde");
+			}
+			else {
+				sql += "null)";
+			}
+		}
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return Clasificacion Producto
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public String darClasificacionProducto(long id) throws SQLException, Exception
+	{
+		String sql = "SELECT * FROM PRODUCTO WHERE IDPRODUCTO =" + id ;
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		return rs.getString("CLASIFICACION");
 	}
 
 	/**
@@ -170,7 +237,7 @@ public class DAOTablaMenu
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
-		
+
 	}
 
 	/**

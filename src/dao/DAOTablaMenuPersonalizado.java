@@ -39,9 +39,9 @@ public class DAOTablaMenuPersonalizado {
 				try {
 					((PreparedStatement) ob).close();
 				} catch (Exception ex)
-				{
+			{
 					ex.printStackTrace();
-				}
+			}
 		}
 	}
 
@@ -65,7 +65,7 @@ public class DAOTablaMenuPersonalizado {
 	{
 		ArrayList<MenuPersonalizado> menuPersonalizados = new ArrayList<MenuPersonalizado>();
 
-		String sql = "SELECT * FROM MENU_Personalizado";
+		String sql = "SELECT * FROM MENU_PERSONALIZADO";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -128,15 +128,50 @@ public class DAOTablaMenuPersonalizado {
 	 */
 	public void addMenuPersonalizado(MenuPersonalizado menuPersonalizado) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO MENU_Personalizado VALUES ('";
-		sql += menuPersonalizado.getId() + "','";
-		sql += menuPersonalizado.getPrecio() + "','";
-		sql += menuPersonalizado.getEntrada() + "','";
-		sql += menuPersonalizado.getPlatoFuerte() + "','";
-		sql += menuPersonalizado.getPostre() + "','";
-		sql += menuPersonalizado.getBebida() + "','";
-		sql += menuPersonalizado.getAcompanamiento() + "','";
-		sql += menuPersonalizado.getIdMenu() + "')";
+		String sql = "INSERT INTO MENU_PERSONALIZADO (IDMENUPER,PRECIO,ENTRADA,PLATO_FUERTE,POSTRE,BEBIDA,ACOMPANAMIENTO,IDMENU) VALUES (";
+		sql += menuPersonalizado.getId() + ",";
+		sql += menuPersonalizado.getPrecio() + ",";
+
+		if(menuPersonalizado.getEntrada() != -1 || menuPersonalizado.getPlatoFuerte() != -1 || menuPersonalizado.getPostre() != -1 ||  menuPersonalizado.getBebida() != -1 || menuPersonalizado.getAcompanamiento() != -1)
+		{
+
+			if(menuPersonalizado.getEntrada() != -1)
+			{
+				sql += menuPersonalizado.getEntrada() + ",";
+			}
+			else {
+				sql += "null,";
+			}
+			if(menuPersonalizado.getPlatoFuerte() != -1)
+			{
+				sql += menuPersonalizado.getPlatoFuerte() + ",";
+			}
+			else {
+				sql += "null,";
+			}
+			if(menuPersonalizado.getPostre() != -1)
+			{
+				sql += menuPersonalizado.getPostre() + ",";
+			}
+			else {
+				sql += "null,";
+			}
+			if(menuPersonalizado.getBebida() != -1)
+			{
+				sql += menuPersonalizado.getBebida() + ",";
+			}
+			else {
+				sql += "null,";
+			}
+			if(menuPersonalizado.getAcompanamiento() != -1)
+			{
+				sql += menuPersonalizado.getAcompanamiento() + ",";
+			}
+			else {
+				sql += "null,";
+			}
+		}
+		sql += menuPersonalizado.getIdMenu() + ")";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -164,7 +199,7 @@ public class DAOTablaMenuPersonalizado {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
-		
+
 	}
 
 	/**

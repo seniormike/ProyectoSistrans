@@ -126,12 +126,11 @@ public class DAOTablaProducto
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
 			Long idRestaurante = rs.getLong("IDRESTAURANTE");
-			producto = new Producto(id,nombre, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante);
+			producto = new Producto(id,nombre1, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante);
 		}
 
 		return producto;
 	}
-	
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.

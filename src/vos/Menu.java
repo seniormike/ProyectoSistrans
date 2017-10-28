@@ -48,7 +48,6 @@ public class Menu
 			    @JsonProperty(value="idRestaurante") long idRestaurante,@JsonProperty(value="entrada") long entrada,@JsonProperty(value="platoFuerte") long platoFuerte,
 	            @JsonProperty(value="postre")long postre, @JsonProperty(value="bebida") long bebida,@JsonProperty(value="acompanamiento") long acompanamiento)
 	{
-		super();
 		this.id = id;
 		this.medioPago = medioPago;
 		this.precio = precio;

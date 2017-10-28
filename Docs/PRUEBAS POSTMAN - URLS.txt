@@ -15,7 +15,7 @@ http://localhost:8080/RotondAndesIteracionDos/rest/ingredientes
 JSON:
 
 	{
-        "nombre": "Arroooz",
+        "nombre": "Arroz",
         "descripcion": "Es un buen cereal",
         "idescription": "It's a good cereal"
     }
@@ -41,9 +41,9 @@ http://localhost:8080/RotondAndesIteracionDos/rest/zonas
 JSON:
 
 	{
-        "id": "1000",
+        "id": 1000,
         "tipoEspacio": "Abierto",
-        "capacidad": "350",
+        "capacidad": 350,
         "discapacitados": "Si"
     }
     
@@ -239,7 +239,7 @@ JSON:
 
 	{
         "id": 1,
-        "idProducto": "3",
+        "idProducto": 3,
         "tipoComida": "Indu"
     }
 	
@@ -267,17 +267,17 @@ http://localhost:8080/RotondAndesIteracionDos/rest/menu
 
 JSON:
 
-	{
+{
         "id": 1,
         "medioPago": "PSE",
         "precio": 5000,
-        "idRestaurante" : "1",
+        "idRestaurante" : 1,
         "entrada" : 1,
-        "platoFuerte" : 1,
-        "postre" : 1,
-        "bebida" : 0,
-        "acompanamiento" : 0
-    }
+        "platoFuerte" : -1,
+        "postre" : -1,
+        "bebida" : -1,
+        "acompanamiento" : -1
+}
 	
 PUT
 
@@ -299,16 +299,19 @@ http://localhost:8080/RotondAndesIteracionDos/rest/menuPersonalizado
 
 JSON:
 
-	{
+{
         "id": 1,
         "precio": 5000,
         "entrada" : 1,
         "platoFuerte" : 1,
-        "postre" : 1,
-        "bebida" : 0,
-        "acompanamiento" : 0,
+        "postre" : -1,
+        "bebida" : 1,
+        "acompanamiento" : -1,
         "idMenu" : 1
-    }
+}
+   
+    
+    
 	
 PUT
 
