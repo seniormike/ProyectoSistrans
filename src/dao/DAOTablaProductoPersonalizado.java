@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.IngredientePersonalizado;
 import vos.ProductoPersonalizado;
 
 public class DAOTablaProductoPersonalizado {
@@ -96,7 +95,7 @@ public class DAOTablaProductoPersonalizado {
 	{
 		ArrayList<ProductoPersonalizado> productoPersonalizado = new ArrayList<ProductoPersonalizado>();
 
-		String sql = "SELECT * FROM Producto_Personalizado WHERE IDPRODUCTOPER ='" + id +"'";
+		String sql = "SELECT * FROM Producto_Personalizado WHERE IDPRODUCTOPER =" + id ;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -123,9 +122,9 @@ public class DAOTablaProductoPersonalizado {
 	 */
 	public void addProductoPersonalizado(ProductoPersonalizado productoPersonalizado) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO Producto_Personalizado VALUES ('";
-		sql += productoPersonalizado.getIdProductoPer() + "','";
-		sql += productoPersonalizado.getIdProducto() + "','";
+		String sql = "INSERT INTO PRODUCTO_PERSONALIZADO VALUES (";
+		sql += productoPersonalizado.getIdProductoPer() + ",";
+		sql += productoPersonalizado.getIdProducto() + ")";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

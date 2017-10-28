@@ -124,8 +124,8 @@ public class DAOTablaIngredienteProducto
 	public void addIngredienteProducto(IngredienteProducto ingredienteProducto) throws SQLException, Exception
 	{
 		String sql = "INSERT INTO INGREDIENTE_PRODUCTO VALUES ('";
-		sql += ingredienteProducto.getNombreIngrediente() + "','";
-		sql += ingredienteProducto.getIdProducto() + "','";
+		sql += ingredienteProducto.getNombreIngrediente() + "',";
+		sql += ingredienteProducto.getIdProducto() + ")";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

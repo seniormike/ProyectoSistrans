@@ -126,12 +126,11 @@ public class DAOTablaProducto
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
 			Long idRestaurante = rs.getLong("IDRESTAURANTE");
-			producto = new Producto(id,nombre, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante);
+			producto = new Producto(id,nombre1, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante);
 		}
 
 		return producto;
 	}
-	
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
@@ -144,16 +143,16 @@ public class DAOTablaProducto
 	public void addProducto(Producto producto) throws SQLException, Exception
 	{
 
-		String sql = "INSERT INTO PRODUCTO VALUES ('";
-		sql += producto.getId() + "','"; 
-		sql += producto.getNombre() + "',";
-		sql += producto.getDescripcion() + "',";
+		String sql = "INSERT INTO PRODUCTO (IDPRODUCTO,NOMBRE,DESCRIPCION,IDESCRIPTION,TIEMPO_PREPARACION,COSTO_PRODUCCION,PRECIO_VENTA,DISPONIBLE,CLASIFICACION,IDRESTAURANTE) VALUES (";
+		sql += producto.getId() + ",'"; 
+		sql += producto.getNombre() + "','";
+		sql += producto.getDescripcion() + "','";
 		sql += producto.getIdescripcion() + "',";
-		sql += producto.getTiempoPreparacion() + ",'";
+		sql += producto.getTiempoPreparacion() + ",";
 		sql += producto.getCostoProduccion() + ",";
 		sql += producto.getPrecioVenta() + ",'";
 		sql += producto.getDisponible() + "','";
-		sql += producto.getClasificacion() + "','";
+		sql += producto.getClasificacion() + "',";
 		sql += producto.getIdRestaurante() +")";		
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

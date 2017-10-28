@@ -29,26 +29,9 @@ public class Ingrediente
 	 */
 	public Ingrediente(@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescription")String idescription)
 	{
-		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.idescription = idescription;
-	}
-	
-	/**
-	 * 
-	 * @return idescription
-	 */
-	public String getIdescripcion() {
-		return idescription;
-	}
-	
-	/**
-	 * 
-	 * @param idescripcion
-	 */
-	public void setIdescripcion(String idescripcion) {
-		this.idescription = idescripcion;
 	}
 	
 	/**
@@ -82,10 +65,21 @@ public class Ingrediente
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-
-
-
-
+	
+	/**
+	 * 
+	 * @return idescription
+	 */
+	public String getIdescription() {
+		return idescription;
+	}
+	
+	/**
+	 * 
+	 * @param idescripcion
+	 */
+	public void setIdescripcion(String idescripcion) {
+		this.idescription = idescripcion;
+	}
 }
 

@@ -129,12 +129,12 @@ public class DAOTablaRestaurante
 	 */
 	public void addRestaurante(Restaurante restaurante) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO PRODUCTO VALUES ('";
-		sql += restaurante.getIdRestaurante() + "','";
+		String sql = "INSERT INTO RESTAURANTE (IDRESTAURANTE,NOMBRE,TIPO,PAGINA_WEB,NOMBRE_REPRESENTANTE,IDZONA) VALUES (";
+		sql += restaurante.getIdRestaurante() + ",'";
 		sql += restaurante.getNombre() + "','";
 		sql += restaurante.getTipo() + "','";
-		sql += restaurante.getPaginaWeb() + "',";
-		sql += restaurante.getNombreRepresentante() + ",";
+		sql += restaurante.getPaginaWeb() + "','";
+		sql += restaurante.getNombreRepresentante() + "',";
 		sql += restaurante.getIdZona() + ")";
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
