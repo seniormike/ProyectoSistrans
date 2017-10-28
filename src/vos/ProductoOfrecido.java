@@ -21,6 +21,10 @@ public class ProductoOfrecido
 	@JsonProperty(value="cantidad")
 	private Integer cantidad;
 	
+	
+	@JsonProperty(value="cantidadMaxima")
+	private Integer cantidadMaxima;
+	
 
 	/**
 	 * Metodo constructor de la clase video
@@ -29,12 +33,23 @@ public class ProductoOfrecido
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public ProductoOfrecido(@JsonProperty(value="idProducto")Long idProducto,@JsonProperty(value="idRestaurante")Long idRestaurante, @JsonProperty(value="cantidad")Integer cantidad)
+	public ProductoOfrecido(@JsonProperty(value="idProducto")Long idProducto,@JsonProperty(value="idRestaurante")Long idRestaurante, @JsonProperty(value="cantidad")Integer cantidad, @JsonProperty(value="cantidadMaxima")Integer cantidadMaxima)
 	{
 		this.idProducto = idProducto;
 		this.idRestaurante = idRestaurante;
 		this.cantidad = cantidad;
+		this.cantidadMaxima = cantidadMaxima;
 		
+	}
+
+
+	public Integer getCantidadMaxima() {
+		return cantidadMaxima;
+	}
+
+
+	public void setCantidadMaxima(Integer cantidadMaxima) {
+		this.cantidadMaxima = cantidadMaxima;
 	}
 
 
