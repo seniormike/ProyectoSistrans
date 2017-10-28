@@ -90,8 +90,7 @@ public class DAOTablaProducto
 			Double precioVenta = rs.getDouble("PRECIO_VENTA");
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
-			Long idRestaurante = rs.getLong("IDRESTAURANTE");
-			productos.add(new Producto(id,nombre, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante));
+			productos.add(new Producto(id,nombre, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion));
 		}
 		return productos;
 	}
@@ -125,8 +124,7 @@ public class DAOTablaProducto
 			Double precioVenta = rs.getDouble("PRECIOVENTA");
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
-			Long idRestaurante = rs.getLong("IDRESTAURANTE");
-			producto = new Producto(id,nombre1, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion,idRestaurante);
+			producto = new Producto(id,nombre1, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion);
 		}
 
 		return producto;
@@ -143,7 +141,7 @@ public class DAOTablaProducto
 	public void addProducto(Producto producto) throws SQLException, Exception
 	{
 
-		String sql = "INSERT INTO PRODUCTO (IDPRODUCTO,NOMBRE,DESCRIPCION,IDESCRIPTION,TIEMPO_PREPARACION,COSTO_PRODUCCION,PRECIO_VENTA,DISPONIBLE,CLASIFICACION,IDRESTAURANTE) VALUES (";
+		String sql = "INSERT INTO PRODUCTO (IDPRODUCTO,NOMBRE,DESCRIPCION,IDESCRIPTION,TIEMPO_PREPARACION,COSTO_PRODUCCION,PRECIO_VENTA,DISPONIBLE,CLASIFICACION) VALUES (";
 		sql += producto.getId() + ",'"; 
 		sql += producto.getNombre() + "','";
 		sql += producto.getDescripcion() + "','";
@@ -152,8 +150,7 @@ public class DAOTablaProducto
 		sql += producto.getCostoProduccion() + ",";
 		sql += producto.getPrecioVenta() + ",'";
 		sql += producto.getDisponible() + "','";
-		sql += producto.getClasificacion() + "',";
-		sql += producto.getIdRestaurante() +")";		
+		sql += producto.getClasificacion() + "')";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -179,8 +176,7 @@ public class DAOTablaProducto
 		sql += "COSTO_PRODUCCION=" + producto.getCostoProduccion() + ",";
 		sql += "PRECIO_VENTA=" + producto.getPrecioVenta() + ",";
 		sql += "DISPONIBLE='" + producto.getDisponible() + "','";
-		sql += "CLASIFICACION='" + producto.getClasificacion() + "',";
-		sql += "IDRESTAURANTE='" + producto.getIdRestaurante() + "',";
+		sql += "CLASIFICACION='" + producto.getClasificacion()+ "'";
 		sql += " WHERE IDPRODUCTO = " + producto.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

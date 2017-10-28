@@ -44,14 +44,7 @@ public class Producto
 	 * Clasificacion del producto.
 	 */
 	@JsonProperty(value="clasificacion")
-	private String clasificacion;
-	
-	/**
-	 * Nombre del Restaurante.
-	 */
-	@JsonProperty(value="idRestaurante")
-	private Long idRestaurante;
-	
+	private String clasificacion;	
 	
 	/**
 	 * Nombre del Restaurante.
@@ -66,7 +59,7 @@ public class Producto
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public Producto(@JsonProperty(value="id")Long id,@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescription")String idescripcion,@JsonProperty(value="tiempoPreparacion")Integer tiempoPreparacion, @JsonProperty(value="costoProduccion")Double costoProduccion,@JsonProperty(value="precioVenta")Double precioVenta,@JsonProperty(value="disponible")String disponible,@JsonProperty(value="clasificacion")String clasificacion,@JsonProperty(value="idRestaurante")Long idRestaurante)
+	public Producto(@JsonProperty(value="id")Long id,@JsonProperty(value="nombre")String nombre, @JsonProperty(value="descripcion")String descripcion,@JsonProperty(value="idescription")String idescripcion,@JsonProperty(value="tiempoPreparacion")Integer tiempoPreparacion, @JsonProperty(value="costoProduccion")Double costoProduccion,@JsonProperty(value="precioVenta")Double precioVenta,@JsonProperty(value="disponible")String disponible,@JsonProperty(value="clasificacion")String clasificacion)
 	{
 		this.id = id;
 		this.nombre = nombre;
@@ -77,7 +70,6 @@ public class Producto
 		this.precioVenta = precioVenta;
 		this.disponible = disponible;
 		this.clasificacion = clasificacion;
-		this.idRestaurante = idRestaurante;
 		
 	}
 
@@ -153,12 +145,5 @@ public class Producto
 		this.clasificacion = clasificacion;
 	}
 
-	public Long getIdRestaurante() {
-		return idRestaurante;
-	}
-
-	public void setNombreRestaurante(Long idRestaurante) {
-		this.idRestaurante = idRestaurante;
-	}	
 	
 }

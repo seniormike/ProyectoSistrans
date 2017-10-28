@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import vos.*;
 
-public class DAOTablaZona
+public class DAOTablaPreferenciaZona
 {
 
 	/**
@@ -25,7 +25,7 @@ public class DAOTablaZona
 	 * Metodo constructor que crea DAOVideo
 	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
 	 */
-	public DAOTablaZona()
+	public DAOTablaPreferenciaZona()
 	{
 		recursos = new ArrayList<Object>();
 	}
@@ -65,11 +65,11 @@ public class DAOTablaZona
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<Zona> darZonas() throws SQLException, Exception
+	public ArrayList<PreferenciaZona> darPreferenciaZonas() throws SQLException, Exception
 	{
-		ArrayList<Zona> zonas = new ArrayList<Zona>();
+		ArrayList<PreferenciaZona> preferenciaZonas = new ArrayList<PreferenciaZona>();
 
-		String sql = "SELECT * FROM ZONA";
+		String sql = "SELECT * FROM PREFERENCIA_ZONA";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -77,14 +77,12 @@ public class DAOTablaZona
 
 		while (rs.next())
 		{
-			Long id = rs.getLong("IDZONA");
-			String tipoEspacio = rs.getString("TIPO_ESPACIO");
-			Integer capacidad = rs.getInt("CAPACIDAD");
-			String discapacitados = rs.getString("DISCAPACITADOS");
-			String condicionesTecnicas = rs.getString("CONDICIONESTECNICAS");
-			zonas.add(new Zona(id,tipoEspacio,capacidad,discapacitados,condicionesTecnicas));
+			Long idUsuario = rs.getLong("IDUSUARIO");
+			Long idZona = rs.getLong("IDZONA");
+
+			preferenciaZonas.add(new PreferenciaZona(idUsuario,idZona));
 		}
-		return zonas;
+		return preferenciaZonas;
 	}
 
 	/**
@@ -94,11 +92,11 @@ public class DAOTablaZona
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public Zona buscarIngredientePorId(Long id) throws SQLException, Exception
+	public PreferenciaZona buscarPreferenciaZonaPorIdUsuario(Long idUsuario) throws SQLException, Exception
 	{
-		Zona zona = null;
+		PreferenciaZona preferenciaZona = null;
 
-		String sql = "SELECT * FROM ZONA WHERE ID =" + id ;
+		String sql = "SELECT * FROM PREFERENCIA_ZONA WHERE IDUSUARIO =" + idUsuario ;
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -106,15 +104,13 @@ public class DAOTablaZona
 
 		if(rs.next())
 		{
-			Long id1 = rs.getLong("IDZONA");
-			String tipoEspacio = rs.getString("TIPO_ESPACIO");
-			Integer capacidad = rs.getInt("CAPACIDAD");
-			String discapacitados = rs.getString("DISCAPACITADOS");
-			String condicionesTecnicas = rs.getString("CONDICIONESTECNICAS");
-			zona = new Zona(id1,tipoEspacio,capacidad,discapacitados,condicionesTecnicas);
+			Long id1 = rs.getLong("IDUSUARIO");
+			Long idZona = rs.getLong("IDZONA");
+			
+			preferenciaZona = new PreferenciaZona(id1,idZona);
 		}
 
-		return zona;
+		return preferenciaZona;
 	}
 
 	/**
@@ -125,14 +121,11 @@ public class DAOTablaZona
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el video a la base de datos
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void addZona(Zona zona) throws SQLException, Exception
+	public void addPreferenciaZona(PreferenciaZona preferenciaZona) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO ZONA (IDZONA,TIPO_ESPACIO,CAPACIDAD,DISCAPACITADOS,CONDICIONESTECNICAS) VALUES (";
-		sql += zona.getId() + ",'";
-		sql += zona.getTipoEspacio() + "',";
-		sql += zona.getCapacidad() + ",'";
-		sql += zona.getDiscapacitados() + "','";
-		sql += zona.getCondicionesTecnicas() + "')";
+		String sql = "INSERT INTO PREFERENCIA_ZONA (IDUSUARIO,IDZONA) VALUES (";
+		sql += preferenciaZona.getIdUsuario() + ",";
+		sql += preferenciaZona.getIdZona() + ")";
 			
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -147,15 +140,12 @@ public class DAOTablaZona
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void updateZona(Zona zona) throws SQLException, Exception
+	public void updatePreferenciaZona(PreferenciaZona preferenciaZona) throws SQLException, Exception
 	{
 
-		String sql = "UPDATE ZONA SET ";
-		sql += "TIPO_ESPACIO='" + zona.getTipoEspacio() + "',";
-		sql += "CAPACIDAD=" + zona.getCapacidad() +",";
-		sql += "DISCAPACITADOS='" + zona.getDiscapacitados() + "',";
-		sql += "CONDICIONESTECNICAS='" + zona.getCondicionesTecnicas() + "'";
-		sql += " WHERE IDZONA = " + zona.getId();
+		String sql = "UPDATE PREFERENCIA_ZONA SET ";
+		sql += "IDZONA= " + preferenciaZona.getIdZona();
+		sql += " WHERE IDUSUARIO = " + preferenciaZona.getIdUsuario();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -170,10 +160,11 @@ public class DAOTablaZona
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void deleteZona(Zona zona) throws SQLException, Exception
+	public void deletePreferenciaZona(PreferenciaZona preferenciaZona) throws SQLException, Exception
 	{
-		String sql = "DELETE FROM ZONA";
-		sql += " WHERE IDZONA = '" + zona.getId();
+		String sql = "DELETE FROM PREFERENCIA_ZONA";
+		sql += " WHERE IDZONA = '" + preferenciaZona.getIdZona();
+		sql += "AND IDUSUARIO =" + preferenciaZona.getIdUsuario();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
