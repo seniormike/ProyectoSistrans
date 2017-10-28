@@ -81,7 +81,8 @@ public class DAOTablaZona
 			String tipoEspacio = rs.getString("TIPO_ESPACIO");
 			Integer capacidad = rs.getInt("CAPACIDAD");
 			String discapacitados = rs.getString("DISCAPACITADOS");
-			zonas.add(new Zona(id,tipoEspacio,capacidad,discapacitados));
+			String condicionesTecnicas = rs.getString("CONDICIONESTECNICAS");
+			zonas.add(new Zona(id,tipoEspacio,capacidad,discapacitados,condicionesTecnicas));
 		}
 		return zonas;
 	}
@@ -109,7 +110,8 @@ public class DAOTablaZona
 			String tipoEspacio = rs.getString("TIPO_ESPACIO");
 			Integer capacidad = rs.getInt("CAPACIDAD");
 			String discapacitados = rs.getString("DISCAPACITADOS");
-			zona = new Zona(id1,tipoEspacio,capacidad,discapacitados);
+			String condicionesTecnicas = rs.getString("CONDICIONESTECNICAS");
+			zona = new Zona(id1,tipoEspacio,capacidad,discapacitados,condicionesTecnicas);
 		}
 
 		return zona;
@@ -125,11 +127,12 @@ public class DAOTablaZona
 	 */
 	public void addZona(Zona zona) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO ZONA VALUES (";
+		String sql = "INSERT INTO ZONA (IDZONA,TIPO_ESPACIO,CAPACIDAD,DISCAPACITADOS,CONDICIONESTECNICAS) VALUES (";
 		sql += zona.getId() + ",'";
 		sql += zona.getTipoEspacio() + "',";
 		sql += zona.getCapacidad() + ",'";
-		sql += zona.getDiscapacitados() + "')";
+		sql += zona.getDiscapacitados() + ",'";
+		sql += zona.getCondicionesTecnicas() + "')";
 			
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -150,7 +153,8 @@ public class DAOTablaZona
 		String sql = "UPDATE ZONA SET ";
 		sql += "TIPO_ESPACIO='" + zona.getTipoEspacio() + "',";
 		sql += "CAPACIDAD=" + zona.getCapacidad() +",";
-		sql += "DISCAPACITADOS='" + zona.getDiscapacitados() + "'";
+		sql += "DISCAPACITADOS='" + zona.getDiscapacitados() + "',";
+		sql += "CONDICIONESTECNICAS='" + zona.getCondicionesTecnicas() + "'";
 		sql += " WHERE IDZONA = " + zona.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
