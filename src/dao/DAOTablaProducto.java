@@ -141,7 +141,7 @@ public class DAOTablaProducto
 	public void addProducto(Producto producto) throws SQLException, Exception
 	{
 
-		String sql = "INSERT INTO PRODUCTO (IDPRODUCTO,NOMBRE,DESCRIPCION,IDESCRIPTION,TIEMPO_PREPARACION,COSTO_PRODUCCION,PRECIO_VENTA,DISPONIBLE,CLASIFICACION,IDRESTAURANTE) VALUES (";
+		String sql = "INSERT INTO PRODUCTO (IDPRODUCTO,NOMBRE,DESCRIPCION,IDESCRIPTION,TIEMPO_PREPARACION,COSTO_PRODUCCION,PRECIO_VENTA,DISPONIBLE,CLASIFICACION) VALUES (";
 		sql += producto.getId() + ",'"; 
 		sql += producto.getNombre() + "','";
 		sql += producto.getDescripcion() + "','";

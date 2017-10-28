@@ -131,7 +131,7 @@ public class DAOTablaZona
 		sql += zona.getId() + ",'";
 		sql += zona.getTipoEspacio() + "',";
 		sql += zona.getCapacidad() + ",'";
-		sql += zona.getDiscapacitados() + ",'";
+		sql += zona.getDiscapacitados() + "','";
 		sql += zona.getCondicionesTecnicas() + "')";
 			
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

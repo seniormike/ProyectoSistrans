@@ -17,7 +17,7 @@ JSON:
 	{
         "nombre": "Arroz",
         "descripcion": "Es un buen cereal",
-        "idescription": "It's a good cereal"
+        "idescription": "Its a good cereal"
     }
     
 PUT
@@ -44,7 +44,8 @@ JSON:
         "id": 1000,
         "tipoEspacio": "Abierto",
         "capacidad": 350,
-        "discapacitados": "Si"
+        "discapacitados": "Si",
+        "condicionesTecnicas":"No tiene"
     }
     
 PUT
@@ -135,8 +136,7 @@ JSON:
         "costoProduccion" : 5000,
         "precioVenta" : 9500,
         "disponible" : "Si",
-        "clasificacion" : "Fuerte",
-        "idRestaurante" : 1
+        "clasificacion" : "Fuerte"
 }
 	
 PUT
