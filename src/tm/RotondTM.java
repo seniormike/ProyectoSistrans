@@ -11,12 +11,15 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.DAOTablaIngrediente;
+import dao.DAOTablaIngredienteEquivalente;
 import dao.DAOTablaIngredienteProducto;
 import dao.DAOTablaIngredientePersonalizado;
 import dao.DAOTablaMenu;
 import dao.DAOTablaMenuPedido;
 import dao.DAOTablaMenuPersonalizado;
 import dao.DAOTablaPedido;
+import dao.DAOTablaPrefCategoria;
+import dao.DAOTablaPrefPrecio;
 import dao.DAOTablaProducto;
 import dao.DAOTablaProductoPersonalizado;
 import dao.DAOTablaReserva;
@@ -25,12 +28,15 @@ import dao.DAOTablaTipoComida;
 import dao.DAOTablaUsuario;
 import dao.DAOTablaZona;
 import vos.Ingrediente;
+import vos.IngredienteEquivalente;
 import vos.IngredienteProducto;
 import vos.IngredientePersonalizado;
 import vos.Menu;
 import vos.MenuPedido;
 import vos.MenuPersonalizado;
 import vos.Pedido;
+import vos.PrefCategoria;
+import vos.PrefPrecio;
 import vos.Producto;
 import vos.ProductoPersonalizado;
 import vos.Reserva;
@@ -2750,6 +2756,382 @@ public class RotondTM {
 
 	
 	/**
+	 * TRANSACCIONES PARA PREFERENCIA_PRECIO
+	 */
+
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrefPrecio> darPrefPrecios() throws Exception
+	{
+		List<PrefPrecio> PrefPrecio;
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefPrecio.setConn(conn);
+			PrefPrecio = daoPrefPrecio.darPrefPrecios();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return PrefPrecio;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public PrefPrecio buscarPrefPrecioPorIdUsuario(long id) throws Exception
+	{
+		PrefPrecio prefPrecio;
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefPrecio.setConn(conn);
+			prefPrecio = daoPrefPrecio.buscarrefPrecioPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return prefPrecio;
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void addPrefPrecio(PrefPrecio prefPrecio) throws Exception
+	{
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefPrecio.setConn(conn);
+			daoPrefPrecio.addPrefPrecio(prefPrecio);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updatePrefPrecio(PrefPrecio prefPrecio) throws Exception
+	{
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefPrecio.setConn(conn);
+			daoPrefPrecio.updatePrefPrecio(prefPrecio);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deletePrefPrecio(PrefPrecio prefPrecio) throws Exception
+	{
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefPrecio.setConn(conn);
+			daoPrefPrecio.deletePrefPrecio(prefPrecio);;
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * TRANSACCIONES PARA INGREDIENTE_EQUIVALENTE
+	 */
+
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<IngredienteEquivalente> darIngredienteEquivalentes() throws Exception
+	{
+		List<IngredienteEquivalente> ingredienteEquivalente;
+		DAOTablaIngredienteEquivalente daoIngredienteEquivalente = new DAOTablaIngredienteEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredienteEquivalente.setConn(conn);
+			ingredienteEquivalente = daoIngredienteEquivalente.darIngredientes();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredienteEquivalente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return ingredienteEquivalente;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<IngredienteEquivalente> buscarIngredienteEquivalentePorNombreIngrediente(String nombre) throws Exception
+	{
+		ArrayList<IngredienteEquivalente> ingredienteEquivalente;
+		DAOTablaIngredienteEquivalente daoIngredienteEquivalente = new DAOTablaIngredienteEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredienteEquivalente.setConn(conn);
+			ingredienteEquivalente = daoIngredienteEquivalente.buscarIngredienteEquivalentePorNombre(nombre);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredienteEquivalente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return ingredienteEquivalente;
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void addIngredienteEquivalente(IngredienteEquivalente ingredienteEquivalente) throws Exception
+	{
+		DAOTablaIngredienteEquivalente daoIngredienteEquivalente = new DAOTablaIngredienteEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredienteEquivalente.setConn(conn);
+			daoIngredienteEquivalente.addIngredienteEquivalente(ingredienteEquivalente);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredienteEquivalente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updateIngredienteEquivalente(IngredienteEquivalente ingredienteEquivalente) throws Exception
+	{
+		DAOTablaIngredienteEquivalente daoIngredienteEquivalente = new DAOTablaIngredienteEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredienteEquivalente.setConn(conn);
+			daoIngredienteEquivalente.updateIngredienteEquivalente(ingredienteEquivalente);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredienteEquivalente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deleteIngredienteEquivalente(IngredienteEquivalente ingredienteEquivalente) throws Exception
+	{
+		DAOTablaIngredienteEquivalente daoIngredienteEquivalente = new DAOTablaIngredienteEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoIngredienteEquivalente.setConn(conn);
+			daoIngredienteEquivalente.deleteIngredienteEquivalente(ingredienteEquivalente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoIngredienteEquivalente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
 	 * TRANSACCIONES PARA PRODUCTO_PERZONALIZADO
 	 */
 
@@ -2936,6 +3318,193 @@ public class RotondTM {
 			}
 		}
 	}
+	
+	/**
+	 * TRANSACCIONES PARA PREFERENCIA_CATEGORIA
+	 */
 
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrefCategoria> darPrefCategorias() throws Exception
+	{
+		List<PrefCategoria> PrefCategoria;
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefCategoria.setConn(conn);
+			PrefCategoria = daoPrefCategoria.darPrefCategoria();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return PrefCategoria;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public PrefCategoria buscarPrefCategoriaPorIdUsuario(long id) throws Exception
+	{
+		PrefCategoria PrefCategoria;
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefCategoria.setConn(conn);
+			PrefCategoria = daoPrefCategoria.buscarrefCategoriaPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return PrefCategoria;
+	}
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void addPrefCategoria(PrefCategoria PrefCategoria) throws Exception
+	{
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefCategoria.setConn(conn);
+			daoPrefCategoria.addPrefCategoria(PrefCategoria);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updatePrefCategoria(PrefCategoria PrefCategoria) throws Exception
+	{
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefCategoria.setConn(conn);
+			daoPrefCategoria.updatePrefCategoria(PrefCategoria);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deletePrefCategoria(PrefCategoria PrefCategoria) throws Exception
+	{
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPrefCategoria.setConn(conn);
+			daoPrefCategoria.deletePrefCategoria(PrefCategoria);;
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 
 }
