@@ -30,7 +30,7 @@ create table ZONA
 IdZona number(10) constraint pk_zona primary key,
 Tipo_Espacio varchar(10),
 Capacidad number (5),
-CondiconesTecnicas varchar(200),
+CondicionesTecnicas varchar(200),
 Discapacitados varchar(3)
 constraint ch_r_discapacitado check
 (Discapacitados IN ('Si','No')),
@@ -78,10 +78,10 @@ IdZona number(10) not null constraint fk_sr_zonas references ZONA
 create table INGREDIENTE_EQUIVALENTE
 (
 Nombre varchar(50) not null constraint fk_sr_ing REFERENCES Ingrediente,
-idRetaurante number(10) not null constraint fk_sr_ingRestaurante REFERENCES Restaurante, 
+idRestaurante number(10) not null constraint fk_sr_ingRestaurante REFERENCES Restaurante, 
 NomEquivalencia varchar(50) not null constraint fk_sr_ingEquivalente REFERENCES Ingrediente,
 constraint pk_IngEquiv primary key
-(Nombre, idRetaurante)
+(Nombre, idRestaurante)
 );
 create table PRODUCTO
 (

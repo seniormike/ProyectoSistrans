@@ -3367,9 +3367,9 @@ public class RotondTM {
 	 * @return
 	 * @throws Exception
 	 */
-	public PrefCategoria buscarPrefCategoriaPorIdUsuario(long id) throws Exception
+	public ArrayList<PrefCategoria> buscarPrefCategoriaPorIdUsuario(long id) throws Exception
 	{
-		PrefCategoria PrefCategoria;
+		ArrayList<PrefCategoria> PrefCategoria;
 		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
 		try 
 		{

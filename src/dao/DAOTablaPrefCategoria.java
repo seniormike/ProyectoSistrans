@@ -90,9 +90,9 @@ public class DAOTablaPrefCategoria
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public PrefCategoria buscarrefCategoriaPorId(Long id) throws SQLException, Exception
+	public ArrayList<PrefCategoria> buscarrefCategoriaPorId(Long id) throws SQLException, Exception
 	{
-		PrefCategoria prefCategoria = null;
+		ArrayList<PrefCategoria> prefCategoria = null;
 
 		String sql = "SELECT * FROM PREFERENCIA_CATEGORIA WHERE IDUSUARIO =" + id;
 
@@ -105,7 +105,7 @@ public class DAOTablaPrefCategoria
 			Long idUsuario = rs.getLong("IdUsuario");
 			String cat = rs.getString("Categoria");
 		
-			prefCategoria = new PrefCategoria(idUsuario,cat);
+			prefCategoria.add(new PrefCategoria(idUsuario,cat));
 		}
 
 		return prefCategoria;
