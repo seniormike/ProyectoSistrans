@@ -42,9 +42,9 @@ public class DAOTablaUsuario
 				try {
 					((PreparedStatement) ob).close();
 				} catch (Exception ex)
-				{
+			{
 					ex.printStackTrace();
-				}
+			}
 		}
 	}
 
@@ -127,8 +127,8 @@ public class DAOTablaUsuario
 		sql += usuario.getId() + ",'";
 		sql += usuario.getNombre() + "','";
 		sql += usuario.getTipo() + "')";
-		
-		
+
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -171,6 +171,54 @@ public class DAOTablaUsuario
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+
+
+	public boolean esAdministrador (Long idUsuario) throws SQLException, Exception
+	{
+		boolean answ = false;
+		Usuario usuario = buscarUsuarioPorId(idUsuario);
+		if(usuario.getTipo().equals("Administrador") )
+		{
+			answ = true;
+		}
+
+		return answ;
+
+	}
+	public void registrarClientePorAdministrador(Long idUsuarioAdministrador, Usuario usuario) throws SQLException, Exception
+	{
+		if(esAdministrador(idUsuarioAdministrador))
+		{
+			addUsuario(usuario);
+		}else
+		{
+			throw new Exception("El usuario con id" + idUsuarioAdministrador + "No es administrador");
+		}
+	}
+
+	public void registrarRestaurantePorAdministrador(Long idUsuarioAdministrador, Restaurante restaurante) throws SQLException, Exception
+	{
+		if(esAdministrador(idUsuarioAdministrador))
+		{
+			DAOTablaRestaurante daoRestaurante = new DAOTablaRestaurante();
+			daoRestaurante.addRestaurante(restaurante);
+		}else
+		{
+			throw new Exception ("El usuario con id " + idUsuarioAdministrador + "no es administrador");
+		}
+	}
+
+	public void registrarZonaPorAdministrador(Long idUsuarioAdministrador, Zona zona) throws SQLException, Exception
+	{
+		if(esAdministrador(idUsuarioAdministrador))
+		{
+			DAOTablaZona daoTablaZona = new DAOTablaZona();
+			daoTablaZona.addZona(zona);
+		}else
+		{
+			throw new Exception ("El usuario con id " + idUsuarioAdministrador + "no es administrador");
+		}
 	}
 
 }

@@ -1588,6 +1588,126 @@ public class RotondTM {
 			}
 		}
 	}
+	
+	/**
+	 * Agregar un cliente por un administrador
+	 * @param usuario
+	 * @throws Exception
+	 */
+	public void addClientPorAdministrador(Long idAdministrador, Usuario usuario) throws Exception
+	{
+		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoUsuarios.setConn(conn);
+			daoUsuarios.registrarClientePorAdministrador(idAdministrador, usuario);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Un administrador agregar un restaurante.
+	 * @param usuarios
+	 * @throws Exception
+	 */
+	
+	public void addRestaurantePorAdministrador(Long idAdministrador, Restaurante restaurante) throws Exception
+	{
+		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoUsuarios.setConn(conn);
+			daoUsuarios.registrarRestaurantePorAdministrador(idAdministrador, restaurante);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Un administrador agrega una zona
+	 * @param idAdministrador
+	 * @param restaurante
+	 * @throws Exception
+	 */
+	public void addZonaPorAdministrador(Long idAdministrador, Zona zona) throws Exception
+	{
+		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoUsuarios.setConn(conn);
+			daoUsuarios.registrarZonaPorAdministrador(idAdministrador, zona);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 
 	public void addUsuarios(List<Usuario> usuarios) throws Exception
 	{
