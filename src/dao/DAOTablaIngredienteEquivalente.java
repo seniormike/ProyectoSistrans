@@ -95,7 +95,7 @@ public class DAOTablaIngredienteEquivalente
 	 */
 	public ArrayList<IngredienteEquivalente> buscarIngredienteEquivalentePorNombre(String nombre) throws SQLException, Exception
 	{
-		ArrayList<IngredienteEquivalente> ingrediente = null;
+		ArrayList<IngredienteEquivalente> ingredientes = new ArrayList<IngredienteEquivalente>();
 
 		String sql = "SELECT * FROM INGREDIENTE_EQUIVALENTE WHERE NOMBRE ='" + nombre +"'";
 
@@ -108,10 +108,10 @@ public class DAOTablaIngredienteEquivalente
 			String name = rs.getString("NOMBRE");
 			Long id = rs.getLong("IDRESTAURANTE");
 			String nomEq = rs.getString("NOMEQUIVALENCIA");
-			ingrediente.add(new IngredienteEquivalente(name,id,nomEq));
+			ingredientes.add(new IngredienteEquivalente(name,id,nomEq));
 		}
 
-		return ingrediente;
+		return ingredientes;
 	}
 
 	/**

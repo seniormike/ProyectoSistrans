@@ -1,5 +1,4 @@
 package vos;
-import java.util.Date;
 
 import org.codehaus.jackson.annotate.*;
 

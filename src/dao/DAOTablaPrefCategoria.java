@@ -92,7 +92,7 @@ public class DAOTablaPrefCategoria
 	 */
 	public ArrayList<PrefCategoria> buscarrefCategoriaPorId(Long id) throws SQLException, Exception
 	{
-		ArrayList<PrefCategoria> prefCategoria = null;
+		ArrayList<PrefCategoria> prefCategoria = new ArrayList<PrefCategoria>();
 
 		String sql = "SELECT * FROM PREFERENCIA_CATEGORIA WHERE IDUSUARIO =" + id;
 
