@@ -31,6 +31,12 @@ public class Pedido
 	 */
 	@JsonProperty(value="idUsuario")
 	private Long idUsuario;
+	
+	/**
+	 * Nombre del Restaurante.
+	 */
+	@JsonProperty(value="estado")
+	private String estado;
 
 	/**
 	 * Metodo constructor de la clase video
@@ -39,13 +45,14 @@ public class Pedido
 	 * @param name - Nombre del video. name != null
 	 * @param duration - Duracion en minutos del video.
 	 */
-	public Pedido(@JsonProperty(value="id")Long id,@JsonProperty(value="fecha")String fecha, @JsonProperty(value="valorTotal")Double valorTotal,@JsonProperty(value="idUsuario")Long idUsuario)
+	public Pedido(@JsonProperty(value="id")Long id,@JsonProperty(value="fecha")String fecha, @JsonProperty(value="valorTotal")Double valorTotal,@JsonProperty(value="idUsuario")Long idUsuario, @JsonProperty(value="estado")String estado)
 	{
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.valorTotal = valorTotal;
 		this.idUsuario = idUsuario;
+		this.estado = estado;
 	}
 
 	public Long getId() {
@@ -78,6 +85,14 @@ public class Pedido
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}	
 	
 }

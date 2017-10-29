@@ -22,8 +22,8 @@ drop table Ingrediente;
 create table INGREDIENTE
 (
 Nombre varchar(50) constraint pk_NombreIngrediente primary key,
-Descripcion varchar(200),
-IDescription varchar(200)
+Descripcion varchar(300),
+IDescription varchar(300)
 );
 create table ZONA
 (
@@ -87,8 +87,8 @@ create table PRODUCTO
 (
 IdProducto number(10) constraint pk_productoId primary key,
 Nombre varchar(50),
-Descripcion varchar(200),
-IDescription varchar(200),
+Descripcion varchar(300),
+IDescription varchar(300),
 Tiempo_Preparacion number(10),
 Costo_Produccion float(10),
 Precio_Venta float(10),

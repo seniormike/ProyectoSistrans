@@ -85,8 +85,9 @@ public class DAOTablaPedido
 			String fecha = ""+rs.getDate("FECHA");
 			Double valorTotal = rs.getDouble("VALOR_TOTAL");
 			Long idUsuario = rs.getLong("IDUSUARIO");
+			String estado = rs.getString("ESTADO");
 		
-			pedidos.add(new Pedido(id,fecha,valorTotal,idUsuario));
+			pedidos.add(new Pedido(id,fecha,valorTotal,idUsuario,estado));
 		}
 		return pedidos;
 	}
@@ -115,7 +116,8 @@ public class DAOTablaPedido
 			String fecha = ""+rs.getDate("FECHA");
 			Double valorTotal = rs.getDouble("VALOR_TOTAL");
 			Long idUsuario = rs.getLong("IDUSUARIO");
-			pedido = new Pedido(id1,fecha,valorTotal,idUsuario);
+			String estado = rs.getString("ESTADO");
+			pedido = new Pedido(id1,fecha,valorTotal,idUsuario,estado);
 		}
 
 		return pedido;
@@ -142,7 +144,8 @@ public class DAOTablaPedido
 		sql += pedido.getId() + ",'";
 		sql += fecha + "',";
 		sql += pedido.getValorTotal() + ",";
-		sql += pedido.getIdUsuario() + ")";
+		sql += pedido.getIdUsuario() + ",";
+		sql += pedido.getEstado() + ")";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -169,7 +172,8 @@ public class DAOTablaPedido
 		String sql = "UPDATE PEDIDO SET ";
 		sql += "FECHA='" + fecha + "',";
 		sql += "VALOR_TOTAL=" + pedido.getValorTotal() + ",";
-		sql += "IDUSUARIO=" + pedido.getIdUsuario();
+		sql += "IDUSUARIO=" + pedido.getIdUsuario() + ",";
+		sql += "ESTADO=" + pedido.getEstado();
 		sql += " WHERE IDPEDIDO =" + pedido.getId();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

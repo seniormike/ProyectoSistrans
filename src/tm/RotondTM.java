@@ -216,6 +216,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoProductos.setConn(conn);
 			daoProductos.addProducto(producto);
 			conn.commit();
@@ -223,10 +224,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -287,16 +290,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoProductos.setConn(conn);
 			daoProductos.updateProducto(producto);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -318,16 +324,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoProductos.setConn(conn);
 			daoProductos.deleteProducto(producto);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -388,16 +397,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoRestaurantes.setConn(conn);
 			restaurante = daoRestaurantes.buscarRestaurantePorNombre(name);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -419,6 +431,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoRestaurantes.setConn(conn);
 			daoRestaurantes.addRestaurante(restaurante);
 			conn.commit();
@@ -426,10 +439,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -490,15 +505,18 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoRestaurantes.setConn(conn);
 			daoRestaurantes.updateRestaurante(restaurante);
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -520,16 +538,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoRestaurantes.setConn(conn);
 			daoRestaurantes.deleteRestaurante(restaurante);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -619,6 +641,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredientes.setConn(conn);
 			daoIngredientes.addIngrediente(ingrediente);
 			conn.commit();
@@ -626,10 +649,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -690,15 +715,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredientes.setConn(conn);
 			daoIngredientes.updateIngrediente(ingrediente);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -720,16 +749,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredientes.setConn(conn);
 			daoIngredientes.deleteIngrediente(ingrediente);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -819,6 +852,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTiposComida.setConn(conn);
 			daoTiposComida.addTipoComida(tipoComida);
 			conn.commit();
@@ -826,10 +860,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -890,15 +926,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTiposComida.setConn(conn);
 			daoTiposComida.updateTipoComida(tipoComida);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -920,16 +960,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTiposComida.setConn(conn);
 			daoTiposComida.deleteTipoComida(tipoComida);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1020,6 +1064,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoZonas.setConn(conn);
 			daoZonas.addZona(zona);
 			conn.commit();
@@ -1027,10 +1072,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1091,15 +1138,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoZonas.setConn(conn);
 			daoZonas.updateZona(zona);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1121,16 +1172,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoZonas.setConn(conn);
 			daoZonas.deleteZona(zona);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1223,6 +1278,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoPedidos.setConn(conn);
 			daoPedidos.addPedido(pedido);
 			conn.commit();
@@ -1230,10 +1286,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1294,15 +1352,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoPedidos.setConn(conn);
 			daoPedidos.updatePedido(pedido);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1325,16 +1387,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoPedidos.setConn(conn);
 			daoPedidos.deletePedido(pedido);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1426,6 +1492,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoUsuarios.setConn(conn);
 			daoUsuarios.addUsuario(usuario);
 			conn.commit();
@@ -1433,10 +1500,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1497,15 +1566,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoUsuarios.setConn(conn);
 			daoUsuarios.updateUsuario(usuario);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1527,16 +1600,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoUsuarios.setConn(conn);
 			daoUsuarios.deleteUsuario(usuario);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1644,6 +1721,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredienteProductos.setConn(conn);
 			daoIngredienteProductos.addIngredienteProducto(ingredienteProducto);
 			conn.commit();
@@ -1651,10 +1729,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1681,15 +1761,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredienteProductos.setConn(conn);
 			daoIngredienteProductos.updateIngredienteProducto(ingredienteProducto);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1716,16 +1800,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredienteProductos.setConn(conn);
 			daoIngredienteProductos.deleteIngredienteProducto(ingredienteProducto);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1832,6 +1920,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoMenus.setConn(conn);
 			daoMenus.addMenu(menu);
 			conn.commit();
@@ -1839,10 +1928,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1869,15 +1960,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoMenus.setConn(conn);
 			daoMenus.updateMenu(menu);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -1904,16 +1999,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoMenus.setConn(conn);
 			daoMenus.deletemenu(menu);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2021,6 +2120,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredienteProductos.setConn(conn);
 			daoIngredienteProductos.addIngredienteProductoPersonalizado(ingredienteProducto);
 			conn.commit();
@@ -2028,10 +2128,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2058,15 +2160,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredienteProductos.setConn(conn);
 			daoIngredienteProductos.updateIngredienteProductoPersonalizado(ingredienteProducto);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2093,16 +2199,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoIngredienteProductos.setConn(conn);
 			daoIngredienteProductos.deleteIngredienteProductoPersonalizado(ingredienteProducto);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2208,6 +2318,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTablaReserva.setConn(conn);
 			daoTablaReserva.addReserva(reserva);
 			conn.commit();
@@ -2215,10 +2326,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2245,15 +2358,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTablaReserva.setConn(conn);
 			daoTablaReserva.updateReserva(reserva);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2318,16 +2435,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTablaReserva.setConn(conn);
 			daoTablaReserva.deleteReserva(reserva);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2434,6 +2555,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTablaMenuPedido.setConn(conn);
 			daoTablaMenuPedido.addMenuPedido(menuPedido);
 			conn.commit();
@@ -2441,10 +2563,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2471,15 +2595,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTablaMenuPedido.setConn(conn);
 			daoTablaMenuPedido.updateMenuPedido(menuPedido);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2544,16 +2672,20 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoTablaMenuPedido.setConn(conn);
 			daoTablaMenuPedido.deleteMenuPedido(menuPedido);
+			conn.commit();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2660,6 +2792,7 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoMenuPersonalizados.setConn(conn);
 			daoMenuPersonalizados.addMenuPersonalizado(menuPersonalizado);
 			conn.commit();
@@ -2667,10 +2800,12 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -2697,15 +2832,19 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
 			daoMenuPersonalizados.setConn(conn);
 			daoMenuPersonalizados.updateMenuPersonalizado(menuPersonalizado);
+			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
+			conn.rollback();
 			throw e;
 		} finally {
 			try {
