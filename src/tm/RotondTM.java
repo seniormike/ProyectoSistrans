@@ -3689,7 +3689,38 @@ public class RotondTM {
 	 */
 	
 	//---
-	
+	public ArrayList<ProductoOfrecido> buscarProductosOfrecidosPorIdRestaurante(Long idRestaurante) throws Exception
+	{
+		ArrayList<ProductoOfrecido> productoOfrecido;
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoOfrecido.setConn(conn);
+			productoOfrecido = daoProductoOfrecido.buscarProductosOfrecidosPorIdRestaurante(idRestaurante);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productoOfrecido;
+	}
 	
 	
 	public void addProductoOfrecido(ProductoOfrecido productoOfrecido) throws Exception

@@ -78,20 +78,21 @@ public class ProductoOfrecidoServices
      * el error que se produjo
      */
 	@GET
-	@Path( "{idRestaurante}" + "{idProducto}" )
+	@Path("{idRestaurante}")
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getProducto( @PathParam( "idRestaurante" ) Long idRestaurante, @PathParam( "idProducto" ) Long idProducto )
+	public Response getProductosPorIdRestaurante( @PathParam( "idRestaurante" ) Long idRestaurante)
 	{
 		RotondTM tm = new RotondTM( getPath( ) );
+		List<ProductoOfrecido> productosOfrecidos;
 		try
 		{
-			ProductoOfrecido productoOfrecido = tm.buscarProductoOfrecido();
-			return Response.status( 200 ).entity( p ).build( );			
+			productosOfrecidos = tm.buscarProductosOfrecidosPorIdRestaurante(idRestaurante);
 		}
 		catch( Exception e )
 		{
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
+		return Response.status( 200 ).entity( productosOfrecidos ).build( );			
 	}
 
    
@@ -104,37 +105,37 @@ public class ProductoOfrecidoServices
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addProducto(Producto producto)
+	public Response addProducto(ProductoOfrecido productoOfrecido)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
-			tm.addProducto(producto);
+			tm.addProductoOfrecido(productoOfrecido);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(producto).build();
+		return Response.status(200).entity(productoOfrecido).build();
 	}
 	
-    /**
-     * Metodo que expone servicio REST usando POST que agrega los videos que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/varios
-     * @param videos - videos a agregar. 
-     * @return Json con el video que agrego o Json con el error que se produjo
-     */
-	@POST
-	@Path("/productos")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addProductos(List<Producto> productos)
-	{
-		RotondTM tm = new RotondTM(getPath());
-		try {
-			tm.addProductos(productos);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(productos).build();
-	}
+//    /**
+//     * Metodo que expone servicio REST usando POST que agrega los videos que recibe en Json
+//     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/varios
+//     * @param videos - videos a agregar. 
+//     * @return Json con el video que agrego o Json con el error que se produjo
+//     */
+//	@POST
+//	@Path("/productos")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addProductosOfrecidos(List<ProductoOfrecido> productos)
+//	{
+//		RotondTM tm = new RotondTM(getPath());
+//		try {
+//			tm.addProductosOfre(productos);
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(productos).build();
+//	}
 	
     /**
      * Metodo que expone servicio REST usando PUT que actualiza el video que recibe en Json
@@ -145,15 +146,15 @@ public class ProductoOfrecidoServices
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateProducto(Producto producto)
+	public Response updateProductoOfrecido(ProductoOfrecido productoOfrecido)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
-			tm.updateProducto(producto);
+			tm.updateProductoOfrecido(productoOfrecido);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(producto).build();
+		return Response.status(200).entity(productoOfrecido).build();
 	}
 	
     /**
@@ -165,15 +166,15 @@ public class ProductoOfrecidoServices
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteProducto(Producto producto)
+	public Response deleteProductoOfrecido(ProductoOfrecido productoOfrecido)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
-			tm.deleteProducto(producto);
+			tm.deleteProductoOfrecido(productoOfrecido);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
-		return Response.status(200).entity(producto).build();
+		return Response.status(200).entity(productoOfrecido).build();
 	}
 
 

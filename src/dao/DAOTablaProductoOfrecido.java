@@ -56,8 +56,28 @@ public class DAOTablaProductoOfrecido
 	{
 		this.conn = con;
 	}
+public ArrayList<ProductoOfrecido> buscarProductosOfrecidosPorIdRestaurante(Long idRestaurante) throws SQLException
+{
+	ArrayList<ProductoOfrecido> productosOfrecidosRestaurante = new ArrayList<ProductoOfrecido>();
 
+	String sql = "SELECT * FROM PRODUCTO_OFRECIDO WHERE IDRESTAURANTE =" + idRestaurante;
 
+	PreparedStatement prepStmt = conn.prepareStatement(sql);
+	recursos.add(prepStmt);
+	ResultSet rs = prepStmt.executeQuery();
+
+	while (rs.next())
+	{
+		Long idProducto = rs.getLong("IDPRODUCTO");
+		Long idRestaurantew = rs.getLong("IDRESTAURANTE");
+		Integer cantidad = rs.getInt("CANTIDAD");
+		Integer cantidadMax = rs.getInt("CANTIDADMAX");
+		ProductoOfrecido nuevo = new ProductoOfrecido(idProducto,idRestaurantew, cantidad,cantidadMax);
+		productosOfrecidosRestaurante.add(nuevo);
+	}
+
+	return productosOfrecidosRestaurante;
+}
 	/**
 	 * Metodo que, usando la conexion a la base de datos, saca todos los videos de la base de datos
 	 * <b>SQL Statement:</b> SELECT * FROM VIDEOS;
