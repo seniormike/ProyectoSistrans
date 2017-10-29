@@ -65,7 +65,7 @@ public class DAOTablaProductoOfrecido
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ArrayList<ProductoOfrecido> darProductoOfrecido() throws SQLException, Exception
+	public ArrayList<ProductoOfrecido> darProductosOfrecidos() throws SQLException, Exception
 	{
 		ArrayList<ProductoOfrecido> productoOfrecido = new ArrayList<ProductoOfrecido>();
 
@@ -80,7 +80,8 @@ public class DAOTablaProductoOfrecido
 			Long idProducto = rs.getLong("IDPRODUCTO");
 			Long idRestaurante = rs.getLong("IDRESTAURANTE");
 			Integer cantidad = rs.getInt("CANTIDAD");
-			productoOfrecido.add(new ProductoOfrecido(idProducto,idRestaurante,cantidad));
+			Integer cantidadMaxima = rs.getInt("CANTIDADMAX");
+			productoOfrecido.add(new ProductoOfrecido(idProducto,idRestaurante,cantidad,cantidadMaxima));
 		}
 		return productoOfrecido;
 	}
@@ -97,10 +98,11 @@ public class DAOTablaProductoOfrecido
 	 */
 	public void addProductoOfrecido(ProductoOfrecido productoOfrecido) throws SQLException, Exception
 	{
-		String sql = "INSERT INTO PRODUCTO_OFRECIDO (IDPRODUCTO,IDRESTAURANTE,CANTIDAD) VALUES (";
+		String sql = "INSERT INTO PRODUCTO_OFRECIDO (IDPRODUCTO,IDRESTAURANTE,CANTIDAD,CANTIDADMAX) VALUES (";
 		sql += productoOfrecido.getIdProducto() + ",";
 		sql += productoOfrecido.getIdRestaurante() + ",";
-		sql += productoOfrecido.getCantidad() + ")";
+		sql += productoOfrecido.getCantidad() + ",";
+		sql += productoOfrecido.getCantidadMaxima() + ")";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -120,6 +122,7 @@ public class DAOTablaProductoOfrecido
 
 		String sql = "UPDATE PRODUCTO_OFRECIDO SET ";
 		sql += "CANTIDAD=" + productoOfrecido.getCantidad();
+		sql += "CANTIDADMAX = " + productoOfrecido.getCantidadMaxima();
 		sql += " WHERE IDPRODUCTO = " + productoOfrecido.getIdProducto() + " AND IDRESTAURANTE =" + productoOfrecido.getIdRestaurante();
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

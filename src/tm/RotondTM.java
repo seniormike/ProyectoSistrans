@@ -21,6 +21,7 @@ import dao.DAOTablaPedido;
 import dao.DAOTablaPrefCategoria;
 import dao.DAOTablaPrefPrecio;
 import dao.DAOTablaProducto;
+import dao.DAOTablaProductoOfrecido;
 import dao.DAOTablaProductoPersonalizado;
 import dao.DAOTablaReserva;
 import dao.DAOTablaRestaurante;
@@ -38,6 +39,7 @@ import vos.Pedido;
 import vos.PrefCategoria;
 import vos.PrefPrecio;
 import vos.Producto;
+import vos.ProductoOfrecido;
 import vos.ProductoPersonalizado;
 import vos.Reserva;
 import vos.Restaurante;
@@ -3636,6 +3638,153 @@ public class RotondTM {
 		} finally {
 			try {
 				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * TRANSACCIONES PARA PRODUCTO_OFRECIDO
+	 */
+
+	public List<ProductoOfrecido> darProductosOfrecidos() throws Exception
+	{
+		List<ProductoOfrecido> productosOfrecidos;
+		DAOTablaProductoOfrecido daoTablaProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			this.conn = darConexion();
+			daoTablaProductoOfrecido.setConn(conn);
+			productosOfrecidos = daoTablaProductoOfrecido.darProductosOfrecidos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoTablaProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productosOfrecidos;
+	}
+
+	/**
+	 *	Metodo pendiente, buscar producto ofrecido por dos ids
+	 */
+	
+	//---
+	
+	
+	
+	public void addProductoOfrecido(ProductoOfrecido productoOfrecido) throws Exception
+	{
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoOfrecido.setConn(conn);
+			daoProductoOfrecido.addProductoOfrecido(productoOfrecido);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void updateProductoOfrecido(ProductoOfrecido productoOfrecido) throws Exception
+	{
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoOfrecido.setConn(conn);
+			daoProductoOfrecido.updateProductoOfrecido(productoOfrecido);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param menu
+	 * @throws Exception
+	 */
+	public void deleteProductoOfrecido(ProductoOfrecido productoOfrecido) throws Exception
+	{
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoOfrecido.setConn(conn);
+			daoProductoOfrecido.deleteProductoOfrecido(productoOfrecido);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
