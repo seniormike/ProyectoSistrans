@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 
 
 import tm.RotondTM;
-import vos.Producto;
+import vos.ProductoOfrecido;
 
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
@@ -58,12 +58,12 @@ public class ProductoOfrecidoServices
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getProductos()
+	public Response getProductosOfrecidos()
 	{
 		RotondTM tm = new RotondTM(getPath());
-		List<Producto> productos;
+		List<ProductoOfrecido> productos;
 		try {
-			productos = tm.darProductos();
+			productos = tm.darProductosOfrecidos();
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -78,14 +78,14 @@ public class ProductoOfrecidoServices
      * el error que se produjo
      */
 	@GET
-	@Path( "{nombre}" )
+	@Path( "{idRestaurante}" + "{idProducto}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getProducto( @PathParam( "nombre" ) String nombre )
+	public Response getProducto( @PathParam( "idRestaurante" ) Long idRestaurante, @PathParam( "idProducto" ) Long idProducto )
 	{
 		RotondTM tm = new RotondTM( getPath( ) );
 		try
 		{
-			Producto p = tm.buscarProductoPorNombre(nombre);
+			ProductoOfrecido productoOfrecido = tm.buscarProductoOfrecido();
 			return Response.status( 200 ).entity( p ).build( );			
 		}
 		catch( Exception e )

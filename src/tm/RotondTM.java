@@ -3546,7 +3546,7 @@ public class RotondTM {
 	}
 
 	/**
-	 *	Metodo pendiente, buscar producto ofrecido por dos ids
+	 *	Metodo pendiente, buscar producto ofrecido por id de restaurante
 	 */
 	
 	//---
