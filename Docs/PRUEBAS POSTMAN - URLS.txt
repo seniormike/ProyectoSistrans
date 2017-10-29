@@ -41,7 +41,7 @@ http://localhost:8080/RotondAndesIteracionDos/rest/zonas
 JSON:
 
 	{
-        "id": 1000,
+        "id": 1,
         "tipoEspacio": "Abierto",
         "capacidad": 350,
         "discapacitados": "Si",

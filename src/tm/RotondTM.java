@@ -20,7 +20,9 @@ import dao.DAOTablaMenuPersonalizado;
 import dao.DAOTablaPedido;
 import dao.DAOTablaPrefCategoria;
 import dao.DAOTablaPrefPrecio;
+import dao.DAOTablaPreferenciaZona;
 import dao.DAOTablaProducto;
+import dao.DAOTablaProductoEquivalente;
 import dao.DAOTablaProductoOfrecido;
 import dao.DAOTablaProductoPersonalizado;
 import dao.DAOTablaReserva;
@@ -38,7 +40,9 @@ import vos.MenuPersonalizado;
 import vos.Pedido;
 import vos.PrefCategoria;
 import vos.PrefPrecio;
+import vos.PreferenciaZona;
 import vos.Producto;
+import vos.ProductoEquivalente;
 import vos.ProductoOfrecido;
 import vos.ProductoPersonalizado;
 import vos.Reserva;
@@ -174,7 +178,7 @@ public class RotondTM {
 		return productos;
 	}
 
-	
+
 
 	public Producto buscarProductoPorNombre(String nombre) throws Exception
 	{
@@ -186,6 +190,39 @@ public class RotondTM {
 			this.conn = darConexion();
 			daoProductos.setConn(conn);
 			producto = daoProductos.buscarProductoPorNombre(nombre);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return producto;
+	}
+
+	public Producto buscarProductoPorId(Long id) throws Exception
+	{
+		Producto producto;
+		DAOTablaProducto daoProductos = new DAOTablaProducto();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			producto = daoProductos.buscarProductoPorId(id);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -421,6 +458,41 @@ public class RotondTM {
 		}
 		return restaurante;
 	}
+	public Restaurante buscarRestaurantePorId(Long id) throws Exception
+	{
+		Restaurante restaurante;
+		DAOTablaRestaurante daoRestaurantes = new DAOTablaRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurantes.setConn(conn);
+			restaurante = daoRestaurantes.buscarRestaurantePorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			//			throw e;
+			throw new Exception("Restaurante no encontrado");
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			//			throw e;
+			throw new Exception("No se encontro el restaurante");
+		} finally {
+			try {
+				daoRestaurantes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return restaurante;
+	}
+
 	public void addRestaurante(Restaurante restaurante) throws Exception
 	{
 		DAOTablaRestaurante daoRestaurantes = new DAOTablaRestaurante();
@@ -1412,7 +1484,7 @@ public class RotondTM {
 		}
 	}
 
-	
+
 	/**
 	 * TRANSACCIONES PARA USUARIOS
 	 */
@@ -1624,7 +1696,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 
 	/**
 	 * TRANSACCIONES PARA INGREDIENTE_PRODUCTO
@@ -1745,7 +1817,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -1824,7 +1896,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * TRANSACCIONES PARA MENU
 	 */
@@ -1944,7 +2016,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -2144,7 +2216,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -2342,7 +2414,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -2459,7 +2531,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * TRANSACCIONES PARA MENU_PEDIDO
 	 */
@@ -2579,7 +2651,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -2696,7 +2768,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * TRANSACCIONES PARA MENU_PERSONALIZADO
 	 */
@@ -2816,7 +2888,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -2896,7 +2968,7 @@ public class RotondTM {
 		}
 	}
 
-	
+
 	/**
 	 * TRANSACCIONES PARA PREFERENCIA_PRECIO
 	 */
@@ -3016,7 +3088,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -3215,7 +3287,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -3414,7 +3486,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -3493,7 +3565,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * TRANSACCIONES PARA PREFERENCIA_CATEGORIA
 	 */
@@ -3613,7 +3685,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -3692,7 +3764,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * TRANSACCIONES PARA PRODUCTO_OFRECIDO
 	 */
@@ -3730,13 +3802,75 @@ public class RotondTM {
 	}
 
 	/**
-	 *	Metodo pendiente, buscar producto ofrecido por dos ids
+	 *	Metodo pendiente, buscar producto ofrecido por id de restaurante
 	 */
-	
+
 	//---
-	
-	
-	
+	public ArrayList<ProductoOfrecido> buscarProductosOfrecidosPorIdRestaurante(Long idRestaurante) throws Exception
+	{
+		ArrayList<ProductoOfrecido> productoOfrecido;
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoOfrecido.setConn(conn);
+			productoOfrecido = daoProductoOfrecido.buscarProductosOfrecidosPorIdRestaurante(idRestaurante);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productoOfrecido;
+	}
+	public ProductoOfrecido buscarProductosOfrecidosPorId(Long idRestaurante, Long id) throws Exception
+	{
+		ProductoOfrecido productoOfrecido;
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoOfrecido.setConn(conn);
+			productoOfrecido = daoProductoOfrecido.buscarProductosOfrecidosPorId(idRestaurante, id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productoOfrecido;
+	}
+
 	public void addProductoOfrecido(ProductoOfrecido productoOfrecido) throws Exception
 	{
 		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
@@ -3744,7 +3878,6 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
-			this.conn.setAutoCommit(false);
 			daoProductoOfrecido.setConn(conn);
 			daoProductoOfrecido.addProductoOfrecido(productoOfrecido);
 			conn.commit();
@@ -3752,12 +3885,10 @@ public class RotondTM {
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
-			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
-			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -3771,7 +3902,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param menu
@@ -3784,19 +3915,15 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
-			this.conn.setAutoCommit(false);
 			daoProductoOfrecido.setConn(conn);
 			daoProductoOfrecido.updateProductoOfrecido(productoOfrecido);
-			conn.commit();
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
 			e.printStackTrace();
-			conn.rollback();
 			throw e;
 		} catch (Exception e) {
 			System.err.println("GeneralException:" + e.getMessage());
 			e.printStackTrace();
-			conn.rollback();
 			throw e;
 		} finally {
 			try {
@@ -3823,9 +3950,110 @@ public class RotondTM {
 		{
 			//////transaccion
 			this.conn = darConexion();
-			this.conn.setAutoCommit(false);
 			daoProductoOfrecido.setConn(conn);
 			daoProductoOfrecido.deleteProductoOfrecido(productoOfrecido);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	/**
+	 * TRANSACCIONES PARA PRODUCTO_EQUIVALENTE
+	 */
+	public List<ProductoEquivalente> darProductosEquivalentes() throws Exception
+	{
+		List<ProductoEquivalente> productosEquivalentes;
+		DAOTablaProductoEquivalente daoProductosEquivalentes = new DAOTablaProductoEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductosEquivalentes.setConn(conn);
+			productosEquivalentes = daoProductosEquivalentes.darProductosEquivalentes();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductosEquivalentes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productosEquivalentes;
+	}
+
+
+
+	public ProductoEquivalente buscarProductoEquivalentePorId(Long idProductoEquivalente) throws Exception
+	{
+		ProductoEquivalente productoEquivalente;
+		DAOTablaProductoEquivalente daoProductoEquivalente = new DAOTablaProductoEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoProductoEquivalente.setConn(conn);
+			productoEquivalente = daoProductoEquivalente.buscarProductoEquivalentePorId(idProductoEquivalente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductoEquivalente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productoEquivalente;
+	}
+
+	public void addProductoEquivalente(ProductoEquivalente productoEquivalente) throws Exception
+	{
+		DAOTablaProductoEquivalente daoProductoEquivalente = new DAOTablaProductoEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoProductoEquivalente.setConn(conn);
+			daoProductoEquivalente.addProductoEquivalente(productoEquivalente);
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -3840,7 +4068,7 @@ public class RotondTM {
 			throw e;
 		} finally {
 			try {
-				daoProductoOfrecido.cerrarRecursos();
+				daoProductoEquivalente.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -3851,4 +4079,257 @@ public class RotondTM {
 		}
 	}
 
+
+	public void updateProductoEquivalente(ProductoEquivalente productoEquivalente) throws Exception
+	{
+		DAOTablaProductoEquivalente daoProductosEquivalentes = new DAOTablaProductoEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoProductosEquivalentes.setConn(conn);
+			daoProductosEquivalentes.updateProductoEquivalente(productoEquivalente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoProductosEquivalentes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	public void deleteProductoEquivalente(ProductoEquivalente productoEquivalente) throws Exception
+	{
+		DAOTablaProductoEquivalente daoProductosEquivalentes = new DAOTablaProductoEquivalente();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoProductosEquivalentes.setConn(conn);
+			daoProductosEquivalentes.deleteProductoEquivalente(productoEquivalente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoProductosEquivalentes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	/**
+	 * TRANSACCIONES PARA PREFERENCIA_ZONAS
+	 */
+	public List<PreferenciaZona> darPreferenciaSZonaS() throws Exception
+	{
+		List<PreferenciaZona> preferenciasZonas;
+		DAOTablaPreferenciaZona daoPreferenciasZonas = new DAOTablaPreferenciaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferenciasZonas.setConn(conn);
+			preferenciasZonas = daoPreferenciasZonas.darPreferenciaZonas();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferenciasZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return preferenciasZonas;
+	}
+
+
+
+	public PreferenciaZona buscarPreferenciaZonaPorIdUsuario(Long idUsuario) throws Exception
+	{
+		PreferenciaZona preferenciaZona;
+		DAOTablaPreferenciaZona daoPreferenciasZonas = new DAOTablaPreferenciaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferenciasZonas.setConn(conn);
+			preferenciaZona = daoPreferenciasZonas.buscarPreferenciaZonaPorIdUsuario(idUsuario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferenciasZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return preferenciaZona;
+	}
+
+	public void addPreferenciaZona (PreferenciaZona preferenciaZona) throws Exception
+	{
+		DAOTablaPreferenciaZona daoPreferenciasZonas = new DAOTablaPreferenciaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoPreferenciasZonas.setConn(conn);
+			daoPreferenciasZonas.addPreferenciaZona(preferenciaZona);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPreferenciasZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	public void updatePreferenciaZona(PreferenciaZona preferenciaZona) throws Exception
+	{
+		DAOTablaPreferenciaZona daoPreferenciasZonas = new DAOTablaPreferenciaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoPreferenciasZonas.setConn(conn);
+			daoPreferenciasZonas.updatePreferenciaZona(preferenciaZona);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPreferenciasZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	public void deletePreferenciaZona(PreferenciaZona preferenciaZona) throws Exception
+	{
+		DAOTablaPreferenciaZona daoPreferenciasZonas = new DAOTablaPreferenciaZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoPreferenciasZonas.setConn(conn);
+			daoPreferenciasZonas.deletePreferenciaZona(preferenciaZona);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPreferenciasZonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	/*
+	 * Existencia
+	 */
+	public void existeRestaurante(Long id) throws Exception 
+	{
+		Restaurante entity = buscarRestaurantePorId(id);
+		if (entity == null) {
+			throw new Exception("El Restaurante no existe");
+		}
+	}
 }

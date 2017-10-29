@@ -130,6 +130,33 @@ public class DAOTablaProducto
 		return producto;
 	}
 
+	public Producto buscarProductoPorId(Long id) throws SQLException, Exception
+	{
+		Producto producto = null;
+
+		String sql = "SELECT * FROM PRODUCTO WHERE IDPRODUCTO ='" + id +"'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next())
+		{
+			Long idd = rs.getLong("ID");
+			String nombre1 = rs.getString("NOMBRE");
+			String descripcion = rs.getString("DESCRIPCION");
+			String idescripcion = rs.getString("IDESCRIPTION");
+			Integer tiempoPreparacion = rs.getInt("TIEMPO_PREPARACION");
+			Double costoProduccion = rs.getDouble("COSTO_PRODUCCION");
+			Double precioVenta = rs.getDouble("PRECIOVENTA");
+			String disponible = rs.getString("DISPONIBLE");
+			String clasificacion = rs.getString("CLASIFICACION");
+			producto = new Producto(idd,nombre1, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion);
+		}
+
+		return producto;
+	}
+
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
 	 * @param video - el video a agregar. video !=  null

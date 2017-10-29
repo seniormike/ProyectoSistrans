@@ -15,7 +15,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import dao.DAOTablaRestaurante;
 import tm.RotondTM;
+import vos.ProductoOfrecido;
 import vos.Restaurante;
 
 
@@ -41,19 +44,19 @@ public class RestauranteServices
 	{
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	
+
+
 	private String doErrorMessage(Exception e)
 	{
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
-	
+
 
 	/**
 	 * Metodo que expone servicio REST usando GET que da todos los videos de la base de datos.
 	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
 	 * @return Json con todos los videos de la base de datos o json con 
-     * el error que se produjo
+	 * el error que se produjo
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -69,13 +72,13 @@ public class RestauranteServices
 		return Response.status(200).entity(productos).build();
 	}
 
-	 /**
-     * Metodo que expone servicio REST usando GET que busca el video con el id que entra como parametro
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/<<id>>" para la busqueda"
-     * @param name - Nombre del video a buscar que entra en la URL como parametro 
-     * @return Json con el/los videos encontrados con el nombre que entra como parametro o json con 
-     * el error que se produjo
-     */
+	/**
+	 * Metodo que expone servicio REST usando GET que busca el video con el id que entra como parametro
+	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/<<id>>" para la busqueda"
+	 * @param name - Nombre del video a buscar que entra en la URL como parametro 
+	 * @return Json con el/los videos encontrados con el nombre que entra como parametro o json con 
+	 * el error que se produjo
+	 */
 	@GET
 	@Path( "{nombre}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -93,14 +96,12 @@ public class RestauranteServices
 		}
 	}
 
-	
-
-    /**
-     * Metodo que expone servicio REST usando POST que agrega el video que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
-     * @param video - video a agregar
-     * @return Json con el video que agrego o Json con el error que se produjo
-     */
+	/**
+	 * Metodo que expone servicio REST usando POST que agrega el video que recibe en Json
+	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/video
+	 * @param video - video a agregar
+	 * @return Json con el video que agrego o Json con el error que se produjo
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -114,13 +115,13 @@ public class RestauranteServices
 		}
 		return Response.status(200).entity(restaurante).build();
 	}
-	
-    /**
-     * Metodo que expone servicio REST usando POST que agrega los videos que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/varios
-     * @param videos - videos a agregar. 
-     * @return Json con el video que agrego o Json con el error que se produjo
-     */
+
+	/**
+	 * Metodo que expone servicio REST usando POST que agrega los videos que recibe en Json
+	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos/varios
+	 * @param videos - videos a agregar. 
+	 * @return Json con el video que agrego o Json con el error que se produjo
+	 */
 	@POST
 	@Path("/restaurantes")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -135,13 +136,13 @@ public class RestauranteServices
 		}
 		return Response.status(200).entity(restaurantes).build();
 	}
-	
-    /**
-     * Metodo que expone servicio REST usando PUT que actualiza el video que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
-     * @param video - video a actualizar. 
-     * @return Json con el video que actualizo o Json con el error que se produjo
-     */
+
+	/**
+	 * Metodo que expone servicio REST usando PUT que actualiza el video que recibe en Json
+	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
+	 * @param video - video a actualizar. 
+	 * @return Json con el video que actualizo o Json con el error que se produjo
+	 */
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -155,13 +156,13 @@ public class RestauranteServices
 		}
 		return Response.status(200).entity(restaurante).build();
 	}
-	
-    /**
-     * Metodo que expone servicio REST usando DELETE que elimina el video que recibe en Json
-     * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
-     * @param video - video a aliminar. 
-     * @return Json con el video que elimino o Json con el error que se produjo
-     */
+
+	/**
+	 * Metodo que expone servicio REST usando DELETE que elimina el video que recibe en Json
+	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
+	 * @param video - video a aliminar. 
+	 * @return Json con el video que elimino o Json con el error que se produjo
+	 */
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -176,7 +177,28 @@ public class RestauranteServices
 		return Response.status(200).entity(restaurante).build();
 	}
 
-
+	@PUT
+	@Path("/{IdRestaurante: \\\\d+}/surtir")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response surtir(@PathParam("IdRestaurante") Long IdRestaurante, Long IdProductoOfrecido)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		ProductoOfrecido pro = null;
+		try {
+			tm.existeRestaurante(IdRestaurante);
+			pro = tm.buscarProductosOfrecidosPorId(IdRestaurante, IdProductoOfrecido);
+			if(IdRestaurante.equals(pro.getIdRestaurante())) {
+				pro.setCantidad(pro.getCantidadMaxima());
+				tm.updateProductoOfrecido(pro);
+			}
+			else
+				throw new Exception("No tiene permitido esta funcion");
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(pro).build();
+	}
 }
 
 

@@ -118,6 +118,30 @@ public class DAOTablaRestaurante
 
 		return restaurante;
 	}
+	
+	public Restaurante buscarRestaurantePorId(Long id) throws SQLException, Exception
+	{
+		Restaurante restaurante = null;
+		
+		String sql = "SELECT * FROM RESTAURANTE WHERE IDRESTAURANTE ='" + id +"'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next())
+		{
+			Long idd = rs.getLong("IDRESTAURANTE");
+			String name = rs.getString("NOMBRE");
+			String tipo = rs.getString("TIPO");
+			String paginaWeb = rs.getString("PAGINA_WEB");
+			String nombreRepresentante = rs.getString("NOMBRE_REPRESENTANTE");
+			Long idZona = rs.getLong("IDZONA");
+			restaurante = new Restaurante(idd, name, tipo, paginaWeb, nombreRepresentante, idZona);
+		}
+
+		return restaurante;
+	}
 
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
