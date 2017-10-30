@@ -67,5 +67,14 @@ public class Usuario
 		}
 		return false;
 	}
+	
+	public boolean esCliente()
+	{
+		if (tipo.equals("Cliente"))
+		{
+			return true;
+		}
+		return false;
+	}
 
 }
