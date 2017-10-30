@@ -1594,15 +1594,22 @@ public class RotondTM {
 	 * @param usuario
 	 * @throws Exception
 	 */
-	public void addClientPorAdministrador(Long idAdministrador, Usuario usuario) throws Exception
+	public void addClientePorAdministrador(Long idAdministrador, Usuario usuario) throws Exception
 	{
 		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		Usuario nuevo = buscarUsuarioPorId(idAdministrador);
 		try 
 		{
 			this.conn = darConexion();
 			this.conn.setAutoCommit(false);
-			daoUsuarios.setConn(conn);
-			daoUsuarios.registrarClientePorAdministrador(idAdministrador, usuario);
+			if (nuevo.esAdministrador())
+			{
+				daoUsuarios.setConn(conn);
+				daoUsuarios.addUsuario(usuario);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1636,13 +1643,21 @@ public class RotondTM {
 	
 	public void addRestaurantePorAdministrador(Long idAdministrador, Restaurante restaurante) throws Exception
 	{
-		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		DAOTablaRestaurante daoRestaurantes = new DAOTablaRestaurante();
+		Usuario nuevo = buscarUsuarioPorId(idAdministrador);
+		
 		try 
 		{
 			this.conn = darConexion();
 			this.conn.setAutoCommit(false);
-			daoUsuarios.setConn(conn);
-			daoUsuarios.registrarRestaurantePorAdministrador(idAdministrador, restaurante);
+			if (nuevo.esAdministrador())
+			{
+				daoRestaurantes.setConn(conn);
+				daoRestaurantes.addRestaurante(restaurante);
+			}else
+			{
+				throw new Exception("El usuario no es administrador");
+			}
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1657,7 +1672,7 @@ public class RotondTM {
 			throw e;
 		} finally {
 			try {
-				daoUsuarios.cerrarRecursos();
+				daoRestaurantes.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -1676,13 +1691,21 @@ public class RotondTM {
 	 */
 	public void addZonaPorAdministrador(Long idAdministrador, Zona zona) throws Exception
 	{
-		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		DAOTablaZona daoZonas = new DAOTablaZona();
+		Usuario nuevo = buscarUsuarioPorId(idAdministrador);
 		try 
 		{
 			this.conn = darConexion();
 			this.conn.setAutoCommit(false);
-			daoUsuarios.setConn(conn);
-			daoUsuarios.registrarZonaPorAdministrador(idAdministrador, zona);
+			if (nuevo.esAdministrador())
+			{
+				daoZonas.setConn(conn);
+				daoZonas.addZona(zona);
+				
+			}else
+			{
+				throw new Exception("El usuario no es administrador");
+			}
 			conn.commit();
 
 		} catch (SQLException e) {
@@ -1697,7 +1720,7 @@ public class RotondTM {
 			throw e;
 		} finally {
 			try {
-				daoUsuarios.cerrarRecursos();
+				daoZonas.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {

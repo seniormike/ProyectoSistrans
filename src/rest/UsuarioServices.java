@@ -150,7 +150,7 @@ public class UsuarioServices
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
-			tm.addClientPorAdministrador(idAdmin, usuario);
+			tm.addClientePorAdministrador(idAdmin, usuario);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -176,7 +176,7 @@ public class UsuarioServices
 	@Path( "{idAdmin: \\d+}/zonas" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addRestaurantePorAdministrador(@PathParam("idAdmin") Long idAdmin, Zona zona)
+	public Response addZonaPorAdministrador(@PathParam("idAdmin") Long idAdmin, Zona zona)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
