@@ -79,7 +79,7 @@ public class IngredienteEquivalenteServices
 		RotondTM tm = new RotondTM( getPath( ) );
 		try
 		{
-			ArrayList<IngredienteEquivalente> i = tm.buscarIngredienteEquivalentePorNombreIngrediente(nombre);
+			List<IngredienteEquivalente> i = tm.buscarIngredienteEquivalentePorNombreIngrediente(nombre);
 			return Response.status( 200 ).entity( i ).build( );			
 		}
 		catch( Exception e )

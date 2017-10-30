@@ -4195,9 +4195,9 @@ public class RotondTM {
 
 
 
-	public ProductoEquivalente buscarProductoEquivalentePorId(Long idProductoEquivalente) throws Exception
+	public List<ProductoEquivalente> buscarProductoEquivalentePorId(Long idProductoEquivalente) throws Exception
 	{
-		ProductoEquivalente productoEquivalente;
+		List<ProductoEquivalente> productoEquivalente;
 		DAOTablaProductoEquivalente daoProductoEquivalente = new DAOTablaProductoEquivalente();
 		try 
 		{

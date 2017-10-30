@@ -94,7 +94,6 @@ public class IngredienteServices
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-
 	
 
     /**

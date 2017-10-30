@@ -83,7 +83,7 @@ public class ProductoEquivalenteServices
 		RotondTM tm = new RotondTM( getPath( ) );
 		try
 		{
-			ProductoEquivalente p = tm.buscarProductoEquivalentePorId(idProductoEquivalente);
+			List<ProductoEquivalente> p = tm.buscarProductoEquivalentePorId(idProductoEquivalente);
 			return Response.status( 200 ).entity( p ).build( );			
 		}
 		catch( Exception e )

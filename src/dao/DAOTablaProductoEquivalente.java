@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import vos.*;
 
 public class DAOTablaProductoEquivalente
@@ -93,9 +95,9 @@ public class DAOTablaProductoEquivalente
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public ProductoEquivalente buscarProductoEquivalentePorId(Long idProductoEquivalente) throws SQLException, Exception
+	public List<ProductoEquivalente> buscarProductoEquivalentePorId(Long idProductoEquivalente) throws SQLException, Exception
 	{
-		ProductoEquivalente productoEquivalente = null;
+		List<ProductoEquivalente> productoEquivalente = null;
 
 		String sql = "SELECT * FROM PRODUCTO_EQUIVALENTE WHERE IDPRODEQUIVALENTE =" + idProductoEquivalente;
 
@@ -108,7 +110,7 @@ public class DAOTablaProductoEquivalente
 			Long idProducto = rs.getLong("IDPRODUCTO");
 			Long idRestaurante= rs.getLong("IDRESTAURANTE");
 			Long idProdEquivalente = rs.getLong("IDPRODEQUIVALENTE");
-			productoEquivalente = new ProductoEquivalente(idProducto, idRestaurante,idProdEquivalente);
+			productoEquivalente.add(new ProductoEquivalente(idProducto, idRestaurante,idProdEquivalente));
 		}
 
 		return productoEquivalente;
