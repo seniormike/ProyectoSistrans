@@ -42,9 +42,9 @@ public class DAOTablaUsuario
 				try {
 					((PreparedStatement) ob).close();
 				} catch (Exception ex)
-				{
+			{
 					ex.printStackTrace();
-				}
+			}
 		}
 	}
 
@@ -127,8 +127,8 @@ public class DAOTablaUsuario
 		sql += usuario.getId() + ",'";
 		sql += usuario.getNombre() + "','";
 		sql += usuario.getTipo() + "')";
-		
-		
+
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
@@ -171,6 +171,20 @@ public class DAOTablaUsuario
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+
+
+	public boolean esAdministrador (Long idUsuario) throws SQLException, Exception
+	{
+		boolean answ = false;
+		Usuario usuario = buscarUsuarioPorId(idUsuario);
+		if(usuario.getTipo().equals("Administrador") )
+		{
+			answ = true;
+		}
+
+		return answ;
+
 	}
 
 }

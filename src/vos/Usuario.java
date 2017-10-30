@@ -59,5 +59,13 @@ public class Usuario
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	public boolean esAdministrador()
+	{
+		if (tipo.equals("Administrador"))
+		{
+			return true;
+		}
+		return false;
+	}
 
 }

@@ -16,7 +16,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import tm.RotondTM;
+import vos.Restaurante;
 import vos.Usuario;
+import vos.Zona;
 
 
 
@@ -138,6 +140,53 @@ public class UsuarioServices
 		}
 		return Response.status(200).entity(usuarios).build();
 	}
+	
+	
+	@POST
+	@Path( "{idAdmin: \\d+}/clientes" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addClientePorAdministrador(@PathParam("idAdmin") Long idAdmin, Usuario usuario)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addClientePorAdministrador(idAdmin, usuario);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(usuario).build();
+	}
+	
+	@POST
+	@Path( "{idAdmin: \\d+}/restaurantes" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addRestaurantePorAdministrador(@PathParam("idAdmin") Long idAdmin, Restaurante restaurante)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addRestaurantePorAdministrador(idAdmin, restaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(restaurante).build();
+	}
+	
+	@POST
+	@Path( "{idAdmin: \\d+}/zonas" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addZonaPorAdministrador(@PathParam("idAdmin") Long idAdmin, Zona zona)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addZonaPorAdministrador(idAdmin, zona);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(zona).build();
+	}
+	
 	
     /**
      * Metodo que expone servicio REST usando PUT que actualiza el video que recibe en Json
