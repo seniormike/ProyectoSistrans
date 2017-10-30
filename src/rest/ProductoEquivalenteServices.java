@@ -127,11 +127,15 @@ public class ProductoEquivalenteServices
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateProductoEquivalente(ProductoEquivalente productoEquivalente)
+	public Response updateProductoEquivalente(@PathParam("IdRestaurante") Long IdRestaurante, ProductoEquivalente productoEquivalente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
-			tm.updateProductoEquivalente(productoEquivalente);
+			tm.existeRestaurante(IdRestaurante);
+			if(IdRestaurante.equals(productoEquivalente.getIdRestaurante()) && !productoEquivalente.getIdProducto().equals(productoEquivalente.getIdProdEquivalente()))
+				tm.updateProductoEquivalente(productoEquivalente);
+			else
+				throw new Exception("Los id de restaurante no coinciden o el producto es el mismo");
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -147,11 +151,14 @@ public class ProductoEquivalenteServices
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteProductoEquivalente(ProductoEquivalente productoEquivalente)
+	public Response deleteProductoEquivalente(@PathParam("IdRestaurante") Long IdRestaurante, ProductoEquivalente productoEquivalente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
-			tm.deleteProductoEquivalente(productoEquivalente);
+			if(IdRestaurante.equals(productoEquivalente.getIdRestaurante()))
+				tm.deleteProductoEquivalente(productoEquivalente);
+			else
+				throw new Exception("No tiene permitida esta accion");
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
