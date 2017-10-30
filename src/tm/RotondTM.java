@@ -1635,6 +1635,47 @@ public class RotondTM {
 		}
 	}
 	
+	public void updatePreferenciaClientePorCliente(Long idCliente, PreferenciaZona prefZona) throws Exception
+	{
+		DAOTablaPreferenciaZona daoPreferencias = new DAOTablaPreferenciaZona();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPreferencias.setConn(conn);
+				daoPreferencias.updatePreferenciaZona(prefZona);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPreferencias.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
 	/**
 	 * Un administrador agregar un restaurante.
 	 * @param usuarios
@@ -4507,6 +4548,289 @@ public class RotondTM {
 		} finally {
 			try {
 				daoPrefZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void deletePreferenciaZonaPorCliente(Long idCliente, PreferenciaZona prefZona) throws Exception
+	{
+		DAOTablaPreferenciaZona daoPrefZona = new DAOTablaPreferenciaZona();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefZona.setConn(conn);
+				daoPrefZona.deletePreferenciaZona(prefZona);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void addPreferenciaCategoriaPorCliente(Long idCliente, PrefCategoria prefCategoria) throws Exception
+	{
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefCategoria.setConn(conn);
+				daoPrefCategoria.deletePrefCategoria(prefCategoria);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updatePrefCategoriaPorCliente(Long idCliente, PrefCategoria prefCategoria) throws Exception
+	{
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefCategoria.setConn(conn);
+				daoPrefCategoria.updatePrefCategoria(prefCategoria);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void deletePreferenciaCategoria(Long idCliente, PrefCategoria prefCategoria) throws Exception
+	{
+		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefCategoria.setConn(conn);
+				daoPrefCategoria.deletePrefCategoria(prefCategoria);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefCategoria.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	public void addPreferenciaPrecioPorCliente(Long idCliente, PrefPrecio prefPrecio) throws Exception
+	{
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefPrecio.setConn(conn);
+				daoPrefPrecio.addPrefPrecio(prefPrecio);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void updatePreferenciaPrecioPorCliente(Long idCliente, PrefPrecio prefPrecio) throws Exception
+	{
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefPrecio.setConn(conn);
+				daoPrefPrecio.updatePrefPrecio(prefPrecio);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	public void deletePrefPrecioPorCliente(Long idCliente, PrefPrecio prefPrecio) throws Exception
+	{
+		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefPrecio.setConn(conn);
+				daoPrefPrecio.deletePrefPrecio(prefPrecio);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefPrecio.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {

@@ -16,6 +16,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import tm.RotondTM;
+import vos.PrefCategoria;
+import vos.PrefPrecio;
 import vos.PreferenciaZona;
 import vos.Restaurante;
 import vos.Usuario;
@@ -189,6 +191,36 @@ public class UsuarioServices
 	}
 	
 	@POST
+	@Path( "{idCliente: \\d+}/preferenciaCategoria" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addPreferenciaCategoriaPorCliente(@PathParam("idCliente") Long idCliente, PrefCategoria prefCategoria)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addPreferenciaCategoriaPorCliente(idCliente, prefCategoria);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(prefCategoria).build();
+	}
+	
+	@POST
+	@Path( "{idCliente: \\d+}/preferenciaPrecio" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addPreferenciaPrecioPorCliente(@PathParam("idCliente") Long idCliente, PrefPrecio prefPrecio)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addPreferenciaPrecioPorCliente(idCliente, prefPrecio);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(prefPrecio).build();
+	}
+	
+	@POST
 	@Path( "{idAdmin: \\d+}/zonas" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -202,6 +234,8 @@ public class UsuarioServices
 		}
 		return Response.status(200).entity(zona).build();
 	}
+	
+	
 	
 	
     /**
