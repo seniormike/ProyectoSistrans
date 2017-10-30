@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import tm.RotondTM;
 import vos.Ingrediente;
 import vos.IngredienteEquivalente;
+import vos.MenuPedido;
 import vos.PrefCategoria;
 import vos.PrefPrecio;
 import vos.PreferenciaZona;
@@ -216,6 +217,20 @@ public class UsuarioServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(prefPrecio).build();
+	}
+	
+	@POST
+	@Path("{idCliente: \\d+}/menuPedidos")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addMenuPedidoPorCliente(@PathParam("idCLiente") Long idCliente, MenuPedido menuPedido) {
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addMenuPedidoPorCliente(idCliente, menuPedido);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(menuPedido).build();
 	}
 
 	@POST

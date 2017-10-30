@@ -398,3 +398,16 @@ JSON:
 PUT
 
 http://localhost:8080/RotondAndesIteracionDos/rest/reserva
+
+------------------REGISTRAR CLIENTE POR ADMIN -------------------------------------------
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/usuarios/1/clientes
+
+POST 
+
+http://localhost:8080/RotondAndesIteracionDos/rest/usuarios/1/restaurantes
+
+
+
