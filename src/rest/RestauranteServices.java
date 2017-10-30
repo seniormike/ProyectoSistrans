@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import dao.DAOTablaRestaurante;
 import tm.RotondTM;
+import vos.Menu;
 import vos.ProductoOfrecido;
 import vos.Restaurante;
 
@@ -198,6 +199,24 @@ public class RestauranteServices
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(pro).build();
+	}
+	
+	@POST
+	@Path("{idRestaurante: \\d+}/menu")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addMenuPorRestaurante(@PathParam("idRestaurante") Long idRestaurante, Menu menu) {
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.existeRestaurante(idRestaurante);
+			if(idRestaurante.equals(menu.getIdRestaurante()))
+			tm.addMenu(menu);
+			else
+				throw new Exception("Los id de restaurante no corresponden");
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(menu).build();
 	}
 	
 }
