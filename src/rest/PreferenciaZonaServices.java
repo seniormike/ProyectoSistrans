@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import tm.RotondTM;
 import vos.PreferenciaZona;
+import vos.Zona;
 
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
@@ -115,6 +116,22 @@ public class PreferenciaZonaServices
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(preferenciaZona).build();
+	}
+	
+	
+	@POST
+	@Path( "{idCliente: \\d+}/zonas" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addZonaPorAdministrador(@PathParam("idCliente") Long idAdmin, Zona zona)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addZonaPorAdministrador(idAdmin, zona);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(zona).build();
 	}
 	
 //    /**
