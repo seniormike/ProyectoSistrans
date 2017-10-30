@@ -528,6 +528,49 @@ public class RotondTM {
 		}
 	}
 
+	/**
+	 * Registrar servicio de un producto por cliente
+	 * @param restaurante
+	 * @throws Exception
+	 */
+	public void registrarServicioPorCliente(ProductoOfrecido productoOfrecido) throws Exception
+	{
+		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
+		ProductoOfrecido temporal = productoOfrecido;
+		temporal.setCantidad(temporal.getCantidad()-1);
+		temporal.setCantidadMaxima(temporal.getCantidad()-1);
+		
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			daoProductoOfrecido.setConn(conn);
+			daoProductoOfrecido.updateProductoOfrecido(productoOfrecido);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoProductoOfrecido.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
 	public void addRestaurantes(List<Restaurante> restaurantes) throws Exception
 	{
 		DAOTablaRestaurante daoRestaurantes = new DAOTablaRestaurante();
