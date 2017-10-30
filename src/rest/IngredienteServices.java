@@ -21,7 +21,7 @@ import vos.Ingrediente;
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
  */
-@Path("ingredientes")
+@Path("restaurante/{IdRestaurante: \\d+}/ingredientes")
 public class IngredienteServices
 {
 
@@ -94,7 +94,6 @@ public class IngredienteServices
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-
 	
 
     /**
@@ -106,10 +105,11 @@ public class IngredienteServices
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addIngrediente(Ingrediente ingrediente)
+	public Response addIngrediente(@PathParam("IdRestaurante") Long IdRestaurante, Ingrediente ingrediente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
 			tm.addIngrediente(ingrediente);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -147,10 +147,11 @@ public class IngredienteServices
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateIngrediente(Ingrediente ingrediente)
+	public Response updateIngrediente(@PathParam("IdRestaurante") Long IdRestaurante, Ingrediente ingrediente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
 			tm.updateIngrediente(ingrediente);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -167,10 +168,11 @@ public class IngredienteServices
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteIngrediente(Ingrediente ingrediente)
+	public Response deleteIngrediente(@PathParam("IdRestaurante") Long IdRestaurante, Ingrediente ingrediente)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
 			tm.deleteIngrediente(ingrediente);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
