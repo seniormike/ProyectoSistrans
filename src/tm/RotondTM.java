@@ -1588,7 +1588,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * Agregar un cliente por un administrador
 	 * @param usuario
@@ -1634,7 +1634,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	public void updatePreferenciaClientePorCliente(Long idCliente, PreferenciaZona prefZona) throws Exception
 	{
 		DAOTablaPreferenciaZona daoPreferencias = new DAOTablaPreferenciaZona();
@@ -1675,18 +1675,18 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * Un administrador agregar un restaurante.
 	 * @param usuarios
 	 * @throws Exception
 	 */
-	
+
 	public void addRestaurantePorAdministrador(Long idAdministrador, Restaurante restaurante) throws Exception
 	{
 		DAOTablaRestaurante daoRestaurantes = new DAOTablaRestaurante();
 		Usuario nuevo = buscarUsuarioPorId(idAdministrador);
-		
+
 		try 
 		{
 			this.conn = darConexion();
@@ -1723,7 +1723,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * Un administrador agrega una zona
 	 * @param idAdministrador
@@ -1742,7 +1742,7 @@ public class RotondTM {
 			{
 				daoZonas.setConn(conn);
 				daoZonas.addZona(zona);
-				
+
 			}else
 			{
 				throw new Exception("El usuario no es administrador");
@@ -1771,7 +1771,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 
 	public void addUsuarios(List<Usuario> usuarios) throws Exception
 	{
@@ -4516,7 +4516,7 @@ public class RotondTM {
 			throw new Exception("El Restaurante no existe");
 		}
 	}
-	
+
 	public void addPreferenciaZonaPorCliente(Long idCliente, PreferenciaZona prefZona) throws Exception
 	{
 		DAOTablaPreferenciaZona daoPrefZona = new DAOTablaPreferenciaZona();
@@ -4557,6 +4557,74 @@ public class RotondTM {
 			}
 		}
 	}
+	/**
+	 * Hacer pedido Por cliente
+	 * @param idCliente
+	 * @param prefZona
+	 * @throws Exception
+	 */
+	public void addMenuPedidoPorCliente(Long idCliente, MenuPedido menuPedido) throws Exception
+	{
+		DAOTablaMenuPedido daoMenuPedido = new DAOTablaMenuPedido();
+		long idMenu = menuPedido.getIdMenuPer();
+		MenuPersonalizado menuPersonalizado = buscarMenuPersonalizadoPorId(idMenu);
+
+		long idAcompanamiento = menuPersonalizado.getAcompanamiento();
+		long idBebida = menuPersonalizado.getBebida();
+		long idEntrada = menuPersonalizado.getEntrada();
+		long idFuerte = menuPersonalizado.getPlatoFuerte();
+		long idPostre = menuPersonalizado.getPostre();
+
+		Producto acompanamiento = buscarProductoPorId(idAcompanamiento);
+		Producto bebida = buscarProductoPorId(idBebida);
+		Producto entrada = buscarProductoPorId(idEntrada);
+		Producto fuerte = buscarProductoPorId(idFuerte);
+		Producto postre = buscarProductoPorId(idPostre);
+
+
+
+		if (acompanamiento.getDisponible().equals("Si") && bebida.getDisponible().equals("Si") && entrada.getDisponible().equals("Si") && fuerte.getDisponible().equals("Si")&& postre.getDisponible().equals("Si"))
+		{
+
+			Usuario nuevo = buscarUsuarioPorId(idCliente);
+			try 
+			{
+				this.conn = darConexion();
+				this.conn.setAutoCommit(false);
+				if (nuevo.esCliente())
+				{
+					daoMenuPedido.setConn(conn);
+					daoMenuPedido.addMenuPedido(menuPedido);
+				}else
+				{
+					throw new Exception ("El usuario no es administrador");
+				}
+				conn.commit();
+
+			} catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				conn.rollback();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				conn.rollback();
+				throw e;
+			} finally {
+				try {
+					daoMenuPedido.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+	}
+
 	public void deletePreferenciaZonaPorCliente(Long idCliente, PreferenciaZona prefZona) throws Exception
 	{
 		DAOTablaPreferenciaZona daoPrefZona = new DAOTablaPreferenciaZona();
@@ -4637,7 +4705,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	public void updatePrefCategoriaPorCliente(Long idCliente, PrefCategoria prefCategoria) throws Exception
 	{
 		DAOTablaPrefCategoria daoPrefCategoria = new DAOTablaPrefCategoria();
@@ -4758,7 +4826,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	public void updatePreferenciaPrecioPorCliente(Long idCliente, PrefPrecio prefPrecio) throws Exception
 	{
 		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
@@ -4799,7 +4867,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	public void deletePrefPrecioPorCliente(Long idCliente, PrefPrecio prefPrecio) throws Exception
 	{
 		DAOTablaPrefPrecio daoPrefPrecio = new DAOTablaPrefPrecio();
