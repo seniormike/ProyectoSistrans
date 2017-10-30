@@ -1,6 +1,4 @@
-
 package rest;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,18 +60,20 @@ public class ProductoServices
 	 * @throws Exception 
 	 */
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getProductos(@PathParam("IdRestaurante") Long IdRestaurante) throws Exception
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response getProductos( @PathParam( "IdRestaurante" ) Long idRestaurante) throws Exception
 	{
 		RotondTM tm = new RotondTM(getPath());
 		List<Producto> productos;
 		try {
-			tm.existeRestaurante(IdRestaurante);
-			ArrayList<ProductoOfrecido> prod = tm.buscarProductosOfrecidosPorIdRestaurante(IdRestaurante);
-			List<Producto> pr = new ArrayList<Producto>();
+			tm.existeRestaurante(idRestaurante);
+			List<ProductoOfrecido> prod = tm.buscarProductosOfrecidosPorIdRestaurante(idRestaurante);
+			List<Producto> pr = new ArrayList<>();
 			for(int i =0; i < prod.size(); i++)
 			{
-				pr.add(tm.buscarProductoPorId(prod.get(i).getIdProducto()));
+				Long idd = prod.get(i).getIdProducto();
+				Producto p = tm.buscarProductoPorId(idd); 
+				pr.add(p);
 			}
 			productos = pr;
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class ProductoServices
 	 * el error que se produjo
 	 */
 	@GET
-	@Path( "{nombre}" )
+	@Path( "/{nombre: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response getProducto( @PathParam( "nombre" ) String nombre )
 	{
@@ -105,7 +105,6 @@ public class ProductoServices
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-
 
 	/**
 	 * Metodo que expone servicio REST usando POST que agrega el video que recibe en Json
@@ -159,10 +158,11 @@ public class ProductoServices
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateProducto(Producto producto)
+	public Response updateProducto(@PathParam("IdRestaurante") Long IdRestaurante, Producto producto)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
 			tm.updateProducto(producto);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -179,16 +179,16 @@ public class ProductoServices
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteProducto(Producto producto)
+	public Response deleteProducto(@PathParam("IdRestaurante") Long IdRestaurante, Producto producto)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
 			tm.deleteProducto(producto);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(producto).build();
 	}
-
 
 }

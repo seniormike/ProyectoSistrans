@@ -49,7 +49,6 @@ public class ProductoOfrecidoServices
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 
-
 	//	/**
 	//	 * Metodo que expone servicio REST usando GET que da todos los videos de la base de datos.
 	//	 * <b>URL: </b> http://"ip o nombre de host":8080/VideoAndes/rest/videos
@@ -150,11 +149,15 @@ public class ProductoOfrecidoServices
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateProductoOfrecido(ProductoOfrecido productoOfrecido)
+	public Response updateProductoOfrecido(@PathParam("IdRestaurante") Long IdRestaurante, ProductoOfrecido productoOfrecido)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
+			if(IdRestaurante.equals(productoOfrecido.getIdRestaurante()))
 			tm.updateProductoOfrecido(productoOfrecido);
+			else
+				throw new Exception("No tiene permitida realizar esta accion");
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -170,11 +173,15 @@ public class ProductoOfrecidoServices
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteProductoOfrecido(ProductoOfrecido productoOfrecido)
+	public Response deleteProductoOfrecido(@PathParam("IdRestaurante") Long IdRestaurante, ProductoOfrecido productoOfrecido)
 	{
 		RotondTM tm = new RotondTM(getPath());
 		try {
+			tm.existeRestaurante(IdRestaurante);
+			if(IdRestaurante.equals(productoOfrecido.getIdRestaurante()))
 			tm.deleteProductoOfrecido(productoOfrecido);
+			else
+				throw new Exception("No tiene permitida realizar esta accion");
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
@@ -182,4 +189,3 @@ public class ProductoOfrecidoServices
 	}
 
 }
-

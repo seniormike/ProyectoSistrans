@@ -3806,9 +3806,9 @@ public class RotondTM {
 	 */
 
 	//---
-	public ArrayList<ProductoOfrecido> buscarProductosOfrecidosPorIdRestaurante(Long idRestaurante) throws Exception
+	public List<ProductoOfrecido> buscarProductosOfrecidosPorIdRestaurante(Long idRestaurante) throws Exception
 	{
-		ArrayList<ProductoOfrecido> productoOfrecido;
+		List<ProductoOfrecido> productoOfrecido;
 		DAOTablaProductoOfrecido daoProductoOfrecido = new DAOTablaProductoOfrecido();
 		try 
 		{

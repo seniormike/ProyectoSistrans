@@ -199,6 +199,5 @@ public class RestauranteServices
 		}
 		return Response.status(200).entity(pro).build();
 	}
+	
 }
-
-

@@ -142,13 +142,13 @@ public class DAOTablaProducto
 
 		while (rs.next())
 		{
-			Long idd = rs.getLong("ID");
+			Long idd = rs.getLong("IDPRODUCTO");
 			String nombre1 = rs.getString("NOMBRE");
 			String descripcion = rs.getString("DESCRIPCION");
 			String idescripcion = rs.getString("IDESCRIPTION");
 			Integer tiempoPreparacion = rs.getInt("TIEMPO_PREPARACION");
 			Double costoProduccion = rs.getDouble("COSTO_PRODUCCION");
-			Double precioVenta = rs.getDouble("PRECIOVENTA");
+			Double precioVenta = rs.getDouble("PRECIO_VENTA");
 			String disponible = rs.getString("DISPONIBLE");
 			String clasificacion = rs.getString("CLASIFICACION");
 			producto = new Producto(idd,nombre1, descripcion,idescripcion,tiempoPreparacion, costoProduccion, precioVenta, disponible, clasificacion);
