@@ -4475,4 +4475,45 @@ public class RotondTM {
 			throw new Exception("El Restaurante no existe");
 		}
 	}
+	
+	public void addPreferenciaZonaPorCliente(Long idCliente, PreferenciaZona prefZona) throws Exception
+	{
+		DAOTablaPreferenciaZona daoPrefZona = new DAOTablaPreferenciaZona();
+		Usuario nuevo = buscarUsuarioPorId(idCliente);
+		try 
+		{
+			this.conn = darConexion();
+			this.conn.setAutoCommit(false);
+			if (nuevo.esCliente())
+			{
+				daoPrefZona.setConn(conn);
+				daoPrefZona.addPreferenciaZona(prefZona);
+			}else
+			{
+				throw new Exception ("El usuario no es administrador");
+			}
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPrefZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 }

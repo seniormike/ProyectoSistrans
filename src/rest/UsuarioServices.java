@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import tm.RotondTM;
+import vos.PreferenciaZona;
 import vos.Restaurante;
 import vos.Usuario;
 import vos.Zona;
@@ -170,6 +171,21 @@ public class UsuarioServices
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(restaurante).build();
+	}
+	
+	@POST
+	@Path( "{idCliente: \\d+}/preferenciaZona" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addPreferenciaZonaPorCliente(@PathParam("idCliente") Long idCliente, PreferenciaZona prefZona)
+	{
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.addPreferenciaZonaPorCliente(idCliente, prefZona);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(prefZona).build();
 	}
 	
 	@POST
