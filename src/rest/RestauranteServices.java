@@ -15,8 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import dao.DAOTablaRestaurante;
 import tm.RotondTM;
 import vos.Menu;
 import vos.ProductoOfrecido;

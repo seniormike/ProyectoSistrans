@@ -20,7 +20,6 @@ import javax.ws.rs.core.Response;
 import tm.RotondTM;
 import vos.Producto;
 import vos.ProductoOfrecido;
-import vos.Restaurante;
 
 /**
  * Clase que expone servicios REST con ruta base: http://"ip o nombre de host":8080/VideoAndes/rest/videos/...
