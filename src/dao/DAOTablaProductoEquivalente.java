@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import vos.*;
 
@@ -95,9 +94,9 @@ public class DAOTablaProductoEquivalente
 	 * @throws SQLException - Cualquier error que la base de datos arroje.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public List<ProductoEquivalente> buscarProductoEquivalentePorId(Long idProductoEquivalente) throws SQLException, Exception
+	public ArrayList<ProductoEquivalente> buscarProductoEquivalentePorId(Long idProductoEquivalente) throws SQLException, Exception
 	{
-		List<ProductoEquivalente> productoEquivalente = null;
+		ArrayList<ProductoEquivalente> productoEquivalente = new ArrayList<ProductoEquivalente>();
 
 		String sql = "SELECT * FROM PRODUCTO_EQUIVALENTE WHERE IDPRODEQUIVALENTE =" + idProductoEquivalente;
 
