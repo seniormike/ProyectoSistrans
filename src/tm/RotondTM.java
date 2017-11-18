@@ -4955,7 +4955,7 @@ public class RotondTM {
 	/**
 	 * Iteración 4 - REQUERIMIENTO 9
 	 */
-	public List<Usuario> darUsuariosConsumoPorRangoFechasEnRestaurantePorAdmin(Long idUsuario, Long idRestaurante, String fecha1, String fecha2, String orderby, String groupby) throws Exception
+	public List<Usuario> darUsuariosConsumoPorRangoFechasEnRestaurantePorAdmin(Long idUsuario, Long idRestaurante, String fecha1, String fecha2, String orderBy, String groupBy) throws Exception
 	{
 		List<Usuario> usuarios;
 		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
@@ -4963,7 +4963,7 @@ public class RotondTM {
 		{
 			this.conn = darConexion();
 			daoUsuarios.setConn(conn);
-			usuarios = daoUsuarios.darUsuariosConsumidoresPorFecha(idUsuario);
+			usuarios = daoUsuarios.darUsuariosConsumidoresPorFecha(idUsuario, idRestaurante, fecha1, fecha2, orderBy, groupBy);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -4975,7 +4975,7 @@ public class RotondTM {
 			throw e;
 		} finally {
 			try {
-				daoProductosEquivalentes.cerrarRecursos();
+				daoUsuarios.cerrarRecursos();
 				if(this.conn!=null)
 					this.conn.close();
 			} catch (SQLException exception) {
@@ -4984,7 +4984,7 @@ public class RotondTM {
 				throw exception;
 			}
 		}
-		return productosEquivalentes;
+		return usuarios;
 	}
 	
 }

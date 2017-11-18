@@ -263,6 +263,21 @@ public class DAOTablaUsuario
 			}
 			
 		}
+		else if (esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) && orderBy.equals("") && groupBy.equals(""))
+		{
+			String sql = "SELECT Usuario.IDENTIFICACION, Usuario.Nombre FROM USUARIO JOIN Pedido_Reciente ON Usuario.IDENTIFICACION = Pedido_Reciente.IDUSUARIO and Pedido_Reciente.Fecha_Pedido >= '"+ fecha1 +"'and Pedido_Reciente.Fecha_Pedido <= '"+ fecha2 +"' and Pedido_Reciente.IdRestaurante =" + idRestaurante;
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+			
+		}
 		return usuarios;
 	}
 
