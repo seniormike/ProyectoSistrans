@@ -373,7 +373,6 @@ public class UsuarioServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response consultarConsumoRestaurantePorAdmin(@PathParam("idUsuario") Long idUsuario,@PathParam("idRestaurante") Long idRestaurante,@QueryParam("from") String fecha1, @QueryParam("to") String fecha2,@QueryParam("orderBy") String orderBy,@QueryParam("groupBy") String groupBy) 
 	{
-
 		try {
 			RotondTM tm = new RotondTM(getPath());
 			List<Usuario> users = tm.darUsuariosConsumoPorRangoFechasEnRestaurantePorAdmin(idUsuario, idRestaurante, fecha1, fecha2, orderBy, groupBy);
