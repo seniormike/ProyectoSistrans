@@ -4951,4 +4951,40 @@ public class RotondTM {
 			}
 		}
 	}
+	
+	/**
+	 * Iteración 4 - REQUERIMIENTO 9
+	 */
+	public List<Usuario> darUsuariosConsumoPorRangoFechasEnRestaurantePorAdmin(Long idUsuario, Long idRestaurante, String fecha1, String fecha2, String orderby, String groupby) throws Exception
+	{
+		List<Usuario> usuarios;
+		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuarios.setConn(conn);
+			usuarios = daoUsuarios.darUsuariosConsumidoresPorFecha(idUsuario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductosEquivalentes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return productosEquivalentes;
+	}
+	
 }

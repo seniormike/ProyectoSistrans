@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -362,6 +363,24 @@ public class UsuarioServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(usuario).build();
+	}
+	/**
+	 * Iteración 4 - REQUERIMIENTO 9
+	 * path -> /rest/usuarios/{id}/restaurantes/{id}/consumo/query?from={String}&to={String}&orderBy={String}&groupBy={String}
+	 */
+	@GET
+	@Path("{idUsuario: \\d+}/restaurantes/{idRestaurante: \\d+}/consumo/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarConsumoRestaurantePorAdmin(@PathParam("idUsuario") Long idUsuario,@PathParam("idRestaurante") Long idRestaurante,@QueryParam("from") String fecha1, @QueryParam("to") String fecha2,@QueryParam("orderBy") String orderBy,@QueryParam("groupBy") String groupBy) 
+	{
+		
+		RotondTM tm = new RotondTM(getPath());
+		try {
+
+			return Response.status(200).entity(i).build();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
 	}
 
 }

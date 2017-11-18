@@ -113,6 +113,7 @@ public class DAOTablaUsuario
 		return usuario;
 	}
 
+
 	/**
 	 * Metodo que agrega el video que entra como parametro a la base de datos.
 	 * @param video - el video a agregar. video !=  null
@@ -182,9 +183,87 @@ public class DAOTablaUsuario
 		{
 			answ = true;
 		}
-
 		return answ;
+	}
+	public AdministradorRestaurante buscarAdminRestaurantePorIds(Long idUsuario,Long idRestaurante) throws SQLException, Exception
+	{
+		AdministradorRestaurante adminRestaurante = null;
 
+		String sql = "SELECT * FROM ADMIN_RESTAURANTE WHERE IDUSUARIO =" + idUsuario + "AND IDRESTAURANTE =" + idRestaurante  ;
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		if(rs.next())
+		{
+			Long idUsuario1 = rs.getLong("IDUSUARIO");
+			Long idRestaurante1 = rs.getLong("IDRESTAURANTE");
+			adminRestaurante = new AdministradorRestaurante(idUsuario1,idRestaurante1);
+		}
+		return adminRestaurante;
+	}
+	/**
+	 * Métodos Iteracion 4
+	 * 
+	 */
+
+	public boolean esAdministradorDeRestaurantePorId(Long idUsuario, Long idRestaurante) throws SQLException, Exception
+	{
+		boolean answ = false;
+		AdministradorRestaurante adminRestaurante = buscarAdminRestaurantePorIds(idUsuario, idRestaurante);
+		if(adminRestaurante != null)
+		{
+			answ = true;
+		}
+		return answ;
+	}
+
+	/**
+	 * Requerimiento Nueve - Retorna los usuarios que han consumido al menos un producto de un determinado
+	 * restaurante enn un rango de fechas.
+	 * @param idUsuario
+	 * @param idRestaurante
+	 * @param fecha1
+	 * @param fecha2
+	 * @param orderBy
+	 * @param groupBy
+	 * @return
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public ArrayList<Usuario> darUsuariosConsumidoresPorFecha(Long idUsuario,Long idRestaurante,String fecha1, String fecha2, String orderBy, String groupBy) throws SQLException, Exception
+	{
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		if (esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) && !orderBy.equals("") && groupBy.equals(""))
+		{
+			String sql = "SELECT Usuario.IDENTIFICACION, Usuario.Nombre FROM USUARIO JOIN Pedido_Reciente ON Usuario.IDENTIFICACION = Pedido_Reciente.IDUSUARIO and Pedido_Reciente.Fecha_Pedido >= '"+ fecha1 +"'and Pedido_Reciente.Fecha_Pedido <= '"+ fecha2 +"' and Pedido_Reciente.IdRestaurante =" + idRestaurante + "Order by" +orderBy;
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+		}
+		else if (esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) && orderBy.equals("") && !groupBy.equals(""))
+		{
+			String sql = "SELECT Usuario.IDENTIFICACION, Usuario.Nombre FROM USUARIO JOIN Pedido_Reciente ON Usuario.IDENTIFICACION = Pedido_Reciente.IDUSUARIO and Pedido_Reciente.Fecha_Pedido >= '"+ fecha1 +"'and Pedido_Reciente.Fecha_Pedido <= '"+ fecha2 +"' and Pedido_Reciente.IdRestaurante =" + idRestaurante + "Group by" +groupBy;
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+			
+		}
+		return usuarios;
 	}
 
 }
