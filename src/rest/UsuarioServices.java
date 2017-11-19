@@ -369,13 +369,16 @@ public class UsuarioServices {
 	 * path -> /rest/usuarios/{id}/restaurantes/{id}/consumo/query?from={String}&to={String}&orderBy={String}&groupBy={String}
 	 */
 	@GET
-	@Path("{idUsuario: \\d+}/restaurantes/{idRestaurante: \\d+}/consumo/")
+	@Path("{idUsuario: \\d+}/restaurantes/{idRestaurante: \\d+}/consumo/query")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response consultarConsumoRestaurantePorAdmin(@PathParam("idUsuario") Long idUsuario,@PathParam("idRestaurante") Long idRestaurante,@QueryParam("from") String fecha1, @QueryParam("to") String fecha2,@QueryParam("orderBy") String orderBy,@QueryParam("groupBy") String groupBy) 
 	{
+		String fechaUno = fecha1.replace("-", "/");
+		String fechaDos = fecha2.replace("-", "/");
+		
 		try {
 			RotondTM tm = new RotondTM(getPath());
-			List<Usuario> users = tm.darUsuariosConsumoPorRangoFechasEnRestaurantePorAdmin(idUsuario, idRestaurante, fecha1, fecha2, orderBy, groupBy);
+			List<Usuario> users = tm.darUsuariosConsumidoresPorRangoFechasEnRestaurantePorAdmin(idUsuario, idRestaurante, fechaUno, fechaDos, orderBy, groupBy);
 			return Response.status(200).entity(users).build();
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

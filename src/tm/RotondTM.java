@@ -4955,7 +4955,7 @@ public class RotondTM {
 	/**
 	 * Iteración 4 - REQUERIMIENTO 9
 	 */
-	public List<Usuario> darUsuariosConsumoPorRangoFechasEnRestaurantePorAdmin(Long idUsuario, Long idRestaurante, String fecha1, String fecha2, String orderBy, String groupBy) throws Exception
+	public List<Usuario> darUsuariosConsumidoresPorRangoFechasEnRestaurantePorAdmin(Long idUsuario, Long idRestaurante, String fecha1, String fecha2, String orderBy, String groupBy) throws Exception
 	{
 		List<Usuario> usuarios;
 		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
