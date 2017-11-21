@@ -179,7 +179,7 @@ public class DAOTablaUsuario
 	{
 		boolean answ = false;
 		Usuario usuario = buscarUsuarioPorId(idUsuario);
-		if(usuario.getTipo().equals("Administrador") )
+		if(usuario.getTipo().equals("AdminGeneral") )
 		{
 			answ = true;
 		}
@@ -292,4 +292,113 @@ public class DAOTablaUsuario
 		return usuarios;
 	}
 
+	/**
+	 * Requerimiento 10 - Retorna los usuarios que no han consumido ningun producto de un determinado
+	 * restaurante en un rango de fechas.
+	 * @param idUsuario
+	 * @param idRestaurante
+	 * @param fecha1
+	 * @param fecha2
+	 * @param orderBy
+	 * @param groupBy
+	 * @return
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public ArrayList<Usuario> darUsuariosNoConsumidoresPorFecha(Long idUsuario,Long idRestaurante,String fecha1, String fecha2, String orderBy, String groupBy) throws SQLException, Exception
+	{
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		if ((esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) || esAdministrador(idUsuario)) && !orderBy.equals("") && groupBy.equals(""))
+		{
+			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
+			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante = " +idRestaurante + " ) ";
+			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
+			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "') on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
+			sql += "order by" + orderBy;
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+		}
+		else if ((esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) || esAdministrador(idUsuario)) && orderBy.equals("") && !groupBy.equals(""))
+		{
+			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
+			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante = " +idRestaurante + " ) ";
+			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
+			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "') on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
+			sql += " group by " +groupBy;
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+			
+		}
+		else if ((esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) || esAdministrador(idUsuario)) && orderBy.equals("") && groupBy.equals(""))
+		{
+
+			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
+			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante = " +idRestaurante + " ) ";
+			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
+			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "') on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+			
+		}
+		return usuarios;
+	}
+	/**
+	 * Requerimiento 11 - Retorna para cada uno de los dias de la semana el producto mas consumido, el menos consumido,
+	 * el restaurante mas frecuentado, el restaurante menos frecuentado.
+	 * restaurante en un rango de fechas.
+	 * @param idUsuario
+	 * @param idRestaurante
+	 * @param fecha1
+	 * @param fecha2
+	 * @param orderBy
+	 * @param groupBy
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public ArrayList<Usuario> darMasConsumidosYFrecuentados(Long idUsuario) throws SQLException, Exception
+	{
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		if (esAdministrador(idUsuario))
+		{
+			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
+			
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			while (rs.next())
+			{
+				Long id = rs.getLong("IDENTIFICACION");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				usuarios.add(new Usuario(id,nombre,tipo));
+			}
+		}
+		return usuarios;
+	}
 }

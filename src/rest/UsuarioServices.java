@@ -384,5 +384,26 @@ public class UsuarioServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
+	
+	/**
+	 * Iteración 4 - REQUERIMIENTO 10
+	 * path -> /rest/usuarios/{id}/restaurantes/{id}/consumo/query?from={String}&to={String}&orderBy={String}&groupBy={String}
+	 */
+	@GET
+	@Path("{idUsuario: \\d+}/restaurantes/{idRestaurante: \\d+}/noconsumo/query")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarUsuariosNoConsumidoresEnRestaurantePorAdmin(@PathParam("idUsuario") Long idUsuario,@PathParam("idRestaurante") Long idRestaurante,@QueryParam("from") String fecha1, @QueryParam("to") String fecha2,@QueryParam("orderBy") String orderBy,@QueryParam("groupBy") String groupBy) 
+	{
+		String fechaUno = fecha1.replace("-", "/");
+		String fechaDos = fecha2.replace("-", "/");
+		
+		try {
+			RotondTM tm = new RotondTM(getPath());
+			List<Usuario> users = tm.darUsuariosNoConsumidoresPorRangoFechasEnRestaurantePorAdmin(idUsuario, idRestaurante, fechaUno, fechaDos, orderBy, groupBy);
+			return Response.status(200).entity(users).build();
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 }
