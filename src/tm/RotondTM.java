@@ -5021,4 +5021,38 @@ public class RotondTM {
 		return usuarios;
 	}
 	
+	/**
+	 * Iteración 4 - REQUERIMIENTO 11
+	 */
+	public List<Object> darMasConsumidosYFrecuentados(Long idUsuario) throws Exception
+	{
+		List<Object> usuarios;
+		DAOTablaUsuario daoUsuarios = new DAOTablaUsuario();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuarios.setConn(conn);
+			usuarios = daoUsuarios.darMasConsumidosYFrecuentados(idUsuario);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
+	}
+	
 }

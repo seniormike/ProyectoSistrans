@@ -369,7 +369,7 @@ public class DAOTablaUsuario
 	}
 	/**
 	 * Requerimiento 11 - Retorna para cada uno de los dias de la semana el producto mas consumido, el menos consumido,
-	 * el restaurante mas frecuentado, el restaurante menos frecuentado.
+	 * el restaurante mas frecuentado y el restaurante menos frecuentado.
 	 * restaurante en un rango de fechas.
 	 * @param idUsuario
 	 * @param idRestaurante
@@ -380,9 +380,9 @@ public class DAOTablaUsuario
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	public ArrayList<Usuario> darMasConsumidosYFrecuentados(Long idUsuario) throws SQLException, Exception
+	public ArrayList<Object> darMasConsumidosYFrecuentados(Long idUsuario) throws SQLException, Exception
 	{
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		ArrayList<Object> usuarios = new ArrayList<Object>();
 
 		if (esAdministrador(idUsuario))
 		{
@@ -391,6 +391,7 @@ public class DAOTablaUsuario
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
+			
 			while (rs.next())
 			{
 				Long id = rs.getLong("IDENTIFICACION");
