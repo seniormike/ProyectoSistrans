@@ -179,9 +179,12 @@ public class DAOTablaUsuario
 	{
 		boolean answ = false;
 		Usuario usuario = buscarUsuarioPorId(idUsuario);
-		if(usuario.getTipo().equals("AdminGeneral") )
+		if(usuario != null)
 		{
-			answ = true;
+			if (usuario.getTipo().equals("AdminGeneral"))
+			{
+				answ = true;
+			}
 		}
 		return answ;
 	}
@@ -239,7 +242,7 @@ public class DAOTablaUsuario
 			String sql = "Select Usuario.Identificacion,Usuario.Nombre,Usuario.Tipo From usuario join ";
 			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante ="+idRestaurante +") ";
 			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
-			sql += "and pedido.fecha between '"+fecha1+"' and '" + fecha2+"') on Usuario.Identificacion = pedido.Idusuario";
+			sql += "and pedido.fecha between '"+fecha1+"' and '" + fecha2+"' and pedido.estado = 'Entregado') on Usuario.Identificacion = pedido.Idusuario";
 			sql += " order by "+orderBy;
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -257,7 +260,7 @@ public class DAOTablaUsuario
 			String sql = "Select Usuario.Identificacion,Usuario.Nombre,Usuario.Tipo From usuario join ";
 			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante ="+idRestaurante +") ";
 			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
-			sql += "and pedido.fecha between '"+fecha1+"' and '" + fecha2+"') on Usuario.Identificacion = pedido.Idusuario";
+			sql += "and pedido.fecha between '"+fecha1+"' and '" + fecha2+"' and pedido.estado = 'Entregado') on Usuario.Identificacion = pedido.Idusuario";
 			sql += " group by " +groupBy;
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -276,7 +279,7 @@ public class DAOTablaUsuario
 			String sql = "Select Usuario.Identificacion,Usuario.Nombre,Usuario.Tipo From usuario join ";
 			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante ="+idRestaurante +") ";
 			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
-			sql += "and pedido.fecha between '"+fecha1+"' and '" + fecha2+"') on Usuario.Identificacion = pedido.Idusuario";
+			sql += "and pedido.fecha between '"+fecha1+"' and '" + fecha2+"' and pedido.estado = 'Entregado') on Usuario.Identificacion = pedido.Idusuario";
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
@@ -311,7 +314,7 @@ public class DAOTablaUsuario
 
 		if ((esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) || esAdministrador(idUsuario)) && !orderBy.equals("") && groupBy.equals(""))
 		{
-			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
+			String sql = "Select Usuario.Identificacion,Usuario.Nombre, usuario.tipo From usuario left join ";
 			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante = " +idRestaurante + " ) ";
 			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
 			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "') on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
@@ -332,7 +335,7 @@ public class DAOTablaUsuario
 			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
 			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante = " +idRestaurante + " ) ";
 			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
-			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "') on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
+			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "' ) on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
 			sql += " group by " +groupBy;
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -349,10 +352,10 @@ public class DAOTablaUsuario
 		else if ((esAdministradorDeRestaurantePorId(idUsuario, idRestaurante) || esAdministrador(idUsuario)) && orderBy.equals("") && groupBy.equals(""))
 		{
 
-			String sql = "Select Usuario.Identificacion,Usuario.Nombre From usuario left join ";
+			String sql = "Select Usuario.Identificacion,Usuario.Nombre,Usuario.tipo From usuario left join ";
 			sql += "(((menu join menu_personalizado on menu.idmenu = menu_personalizado.idMenu and menu.idrestaurante = " +idRestaurante + " ) ";
 			sql += "join menu_pedido on menu_personalizado.idmenuper = menu_pedido.idmenuper) join pedido on pedido.idpedido = menu_pedido.idpedido ";
-			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "') on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
+			sql += " and pedido.fecha between'"+ fecha1 +"' and '" + fecha2 + "' ) on Usuario.Identificacion = pedido.Idusuario where pedido.Idusuario IS NULL ";
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
