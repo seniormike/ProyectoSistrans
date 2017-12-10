@@ -38,7 +38,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import com.rabbitmq.jms.admin.RMQDestination;
 
-import dtm.VideoAndesDistributed;
+import dtm.RotondAndesDistributed;
 import vos.ExchangeMsg;
 import vos.ListaProductos;
 import vos.Producto;
@@ -149,7 +149,7 @@ public class AllVideosMDB implements MessageListener, ExceptionListener
 			{
 				if(ex.getStatus().equals(REQUEST))
 				{
-					VideoAndesDistributed dtm = VideoAndesDistributed.getInstance();
+					RotondAndesDistributed dtm = RotondAndesDistributed.getInstance();
 					ListaProductos videos = dtm.getLocalVideos();
 					String payload = mapper.writeValueAsString(videos);
 					Topic t = new RMQDestination("", "videos.test", ex.getRoutingKey(), "", false);

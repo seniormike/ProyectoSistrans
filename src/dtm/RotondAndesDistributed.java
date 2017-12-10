@@ -68,7 +68,7 @@ public class RotondAndesDistributed
 		path = p;
 	}
 	
-	public void setUpTransactionManager(VideoAndesMaster tm)
+	public void setUpTransactionManager(RotondTM tm)
 	{
 	   this.tm = tm;
 	}
@@ -78,7 +78,7 @@ public class RotondAndesDistributed
 		return instance;
 	}
 	
-	public static RotondAndesDistributed getInstance(VideoAndesMaster tm)
+	public static RotondAndesDistributed getInstance(RotondTM tm)
 	{
 		if(instance == null)
 		{
@@ -99,20 +99,22 @@ public class RotondAndesDistributed
 	{
 		if(instance == null)
 		{
-			VideoAndesMaster tm = new VideoAndesMaster(path);
+			RotondTM tm = new RotondTM(path);
 			return getInstance(tm);
 		}
 		if(instance.tm != null)
 		{
 			return instance;
 		}
-		VideoAndesMaster tm = new VideoAndesMaster(path);
+		RotondTM tm = new RotondTM(path);
 		return getInstance(tm);
 	}
 	
 	public ListaProductos getLocalVideos() throws Exception
 	{
-		return tm.darVideosLocal();
+//		return tm.darVideosLocal();
+		//Se agrega retorno en null, mientras se desarrolla el req.
+		return null;
 	}
 	
 	public ListaProductos getRemoteVideos() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
