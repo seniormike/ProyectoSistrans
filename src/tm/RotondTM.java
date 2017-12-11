@@ -55,9 +55,7 @@ import vos.Usuario;
 import vos.Zona;
 
 /**
- * Transaction Manager de la aplicacion (TM)
- * Fachada en patron singleton de la aplicacion
- * @author Monitores 2017-20
+ * Manejador de transacciones a nivel local de RotondAndes.
  */
 public class RotondTM {
 
@@ -5117,7 +5115,7 @@ public class RotondTM {
 		ListaProductos remL = darProductosLocal();
 		try
 		{
-			ListaProductos resp = dtm.getRemoteVideos();
+			ListaProductos resp = dtm.getRemoteProductos();
 			System.out.println(resp.getProductos().size());
 			remL.getProductos().addAll(resp.getProductos());
 		}

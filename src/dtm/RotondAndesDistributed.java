@@ -22,11 +22,13 @@ import org.codehaus.jackson.map.JsonMappingException;
 import com.rabbitmq.jms.admin.RMQConnectionFactory;
 import com.rabbitmq.jms.admin.RMQDestination;
 
-import jms.AllVideosMDB;
+import jms.AllProductosMDB;
 import jms.NonReplyException;
 import tm.RotondTM;
 import vos.ListaProductos;
-
+/**
+ * Manejador de transacciones a nivel remoto de RotondAndes.
+ */
 public class RotondAndesDistributed 
 {
 	private final static String QUEUE_NAME = "java:global/RMQAppQueue";
@@ -40,7 +42,7 @@ public class RotondAndesDistributed
 	
 	private TopicConnectionFactory factory;
 	
-	private AllVideosMDB allVideosMQ;
+	private AllProductosMDB allProductosMQ;
 	
 	private static String path;
 
@@ -49,15 +51,14 @@ public class RotondAndesDistributed
 	{
 		InitialContext ctx = new InitialContext();
 		factory = (RMQConnectionFactory) ctx.lookup(MQ_CONNECTION_NAME);
-		allVideosMQ = new AllVideosMDB(factory, ctx);
-		
-		allVideosMQ.start();
+		allProductosMQ = new AllProductosMDB(factory, ctx);
+		allProductosMQ.start();
 		
 	}
 	
 	public void stop() throws JMSException
 	{
-		allVideosMQ.close();
+		allProductosMQ.close();
 	}
 	
 	/**
@@ -110,15 +111,13 @@ public class RotondAndesDistributed
 		return getInstance(tm);
 	}
 	
-	public ListaProductos getLocalVideos() throws Exception
+	public ListaProductos getLocalProductos() throws Exception
 	{
-//		return tm.darVideosLocal();
-		//Se agrega retorno en null, mientras se desarrolla el req.
-		return null;
+		return tm.darProductosLocal();
 	}
 	
-	public ListaProductos getRemoteVideos() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
+	public ListaProductos getRemoteProductos() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
 	{
-		return allVideosMQ.getRemoteVideos();
+		return allProductosMQ.getRemoteProductos();
 	}
 }
