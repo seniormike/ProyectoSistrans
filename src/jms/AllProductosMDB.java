@@ -66,10 +66,15 @@ public class AllProductosMDB implements MessageListener, ExceptionListener
 	{	
 		topicConnection = factory.createTopicConnection();
 		topicSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+		
 		globalTopic = (RMQDestination) ctx.lookup(GLOBAL_TOPIC_NAME);
+		
 		TopicSubscriber topicSubscriber =  topicSession.createSubscriber(globalTopic);
 		topicSubscriber.setMessageListener(this);
 		localTopic = (RMQDestination) ctx.lookup(LOCAL_TOPIC_NAME);
+		
+		
+		
 		topicSubscriber =  topicSession.createSubscriber(localTopic);
 		topicSubscriber.setMessageListener(this);
 		topicConnection.setExceptionListener(this);
@@ -97,14 +102,16 @@ public class AllProductosMDB implements MessageListener, ExceptionListener
 		//boolean waiting = true;
 
 		int count = 0;
-		while(TIME_OUT != count){
+		while(TIME_OUT != count)
+		{
 			TimeUnit.SECONDS.sleep(1);
 			count++;
 		}
-		if(count == TIME_OUT){
+		if(count == TIME_OUT)
+		{
 			if(this.answer.isEmpty()){
 				//waiting = false;
-				throw new NonReplyException("Time Out - No Reply");
+				throw new NonReplyException("Tiempo de respuesta agotado");
 			}
 		}
 		//waiting = false;
