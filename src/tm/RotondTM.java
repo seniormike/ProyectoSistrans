@@ -30,9 +30,12 @@ import dao.DAOTablaRestaurante;
 import dao.DAOTablaTipoComida;
 import dao.DAOTablaUsuario;
 import dao.DAOTablaZona;
+import dtm.RotondAndesDistributed;
+import jms.NonReplyException;
 import vos.Ingrediente;
 import vos.IngredienteEquivalente;
 import vos.IngredienteProducto;
+import vos.ListaProductos;
 import vos.IngredientePersonalizado;
 import vos.Menu;
 import vos.MenuPedido;
@@ -93,6 +96,11 @@ public class RotondTM {
 	 * conexion a la base de datos
 	 */
 	private Connection conn;
+	
+	/**
+	 * Atributo que representa el manejador de transacciones global.
+	 */
+	private RotondAndesDistributed dtm;
 
 
 	/**
@@ -102,10 +110,15 @@ public class RotondTM {
 	 * inicializa los atributos que se usan par la conexion a la base de datos.
 	 * @param contextPathP - path absoluto en el servidor del contexto del deploy actual
 	 */
-	public RotondTM(String contextPathP) {
+	public RotondTM(String contextPathP)
+	{
 		connectionDataPath = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
 		initConnectionData();
+		System.out.println("Instancing DTM...");
+		dtm = RotondAndesDistributed.getInstance(this);
+		System.out.println("Done!");
 	}
+	
 
 	/**
 	 * Metodo que  inicializa los atributos que se usan para la conexion a la base de datos.
@@ -539,7 +552,7 @@ public class RotondTM {
 		ProductoOfrecido temporal = productoOfrecido;
 		temporal.setCantidad(temporal.getCantidad()-1);
 		temporal.setCantidadMaxima(temporal.getCantidad()-1);
-		
+
 		try 
 		{
 			this.conn = darConexion();
@@ -4951,7 +4964,7 @@ public class RotondTM {
 			}
 		}
 	}
-	
+
 	/**
 	 * Iteración 4 - REQUERIMIENTO 9
 	 */
@@ -5020,7 +5033,7 @@ public class RotondTM {
 		}
 		return usuarios;
 	}
-	
+
 	/**
 	 * Iteración 4 - REQUERIMIENTO 11
 	 */
@@ -5053,6 +5066,66 @@ public class RotondTM {
 			}
 		}
 		return usuarios;
+	}
+
+
+	///
+	///			MÉTODOS ITERACIÓN CINCO
+	///
+
+	public ListaProductos darProductosLocal() throws Exception
+	{
+		ArrayList<Producto> productos;
+		DAOTablaProducto daoProductos = new DAOTablaProducto();
+		try 
+		{
+			//Transacción
+			this.conn = darConexion();
+			daoProductos.setConn(conn);
+			productos = daoProductos.darProductos();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoProductos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return new ListaProductos(productos);
+	}
+
+
+	/**
+	 * Mètodo que retorna los productos registrados en la base de datos.
+	 * @return
+	 * @throws Exception
+	 */
+	public ListaProductos darProductosNuevo() throws Exception
+	{
+		ListaProductos remL = darProductosLocal();
+		try
+		{
+			ListaProductos resp = dtm.getRemoteVideos();
+			System.out.println(resp.getProductos().size());
+			remL.getProductos().addAll(resp.getProductos());
+		}
+		catch(NonReplyException e)
+		{
+
+		}
+		return remL;
 	}
 	
 }
