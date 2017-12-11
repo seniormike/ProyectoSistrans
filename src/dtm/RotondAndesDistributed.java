@@ -24,8 +24,10 @@ import com.rabbitmq.jms.admin.RMQDestination;
 
 import jms.AllProductosMDB;
 import jms.NonReplyException;
+import jms.RentabilidadMDB;
 import tm.RotondTM;
 import vos.ListaProductos;
+import vos.Rentabilidad;
 /**
  * Manejador de transacciones a nivel remoto de RotondAndes.
  */
@@ -43,6 +45,7 @@ public class RotondAndesDistributed
 	private TopicConnectionFactory factory;
 	
 	private AllProductosMDB allProductosMQ;
+	private RentabilidadMDB rent;
 	
 	private static String path;
 
@@ -119,5 +122,10 @@ public class RotondAndesDistributed
 	public ListaProductos getRemoteProductos() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
 	{
 		return allProductosMQ.getRemoteProductos();
+	}
+	
+	public Rentabilidad getRentabilidad() throws JsonGenerationException, JsonMappingException, JMSException, IOException, NonReplyException, InterruptedException, NoSuchAlgorithmException
+	{
+		return rent.getRemoteProductos();
 	}
 }

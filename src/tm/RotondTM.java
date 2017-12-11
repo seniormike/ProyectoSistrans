@@ -48,6 +48,7 @@ import vos.Producto;
 import vos.ProductoEquivalente;
 import vos.ProductoOfrecido;
 import vos.ProductoPersonalizado;
+import vos.Rentabilidad;
 import vos.Reserva;
 import vos.Restaurante;
 import vos.TipoComida;
@@ -5124,6 +5125,38 @@ public class RotondTM {
 
 		}
 		return remL;
+	}
+	
+	
+	public Rentabilidad getRentabilidadCadena(String cadena) throws Exception
+	{
+		Rentabilidad usuarios;
+		DAOTablaRestaurante daoUsuarios = new DAOTablaRestaurante();
+		try 
+		{
+			this.conn = darConexion();
+			daoUsuarios.setConn(conn);
+			usuarios = daoUsuarios.rentabilidad(cadena);
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoUsuarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usuarios;
 	}
 	
 }

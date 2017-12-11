@@ -208,4 +208,33 @@ public class DAOTablaRestaurante
 		prepStmt.executeQuery();
 	}
 
+	
+	
+	public Rentabilidad rentabilidad(String cadena) throws SQLException, Exception
+	{
+		Rentabilidad restaurante = null;
+
+		String sql = "SELECT * FROM RESTAURANTE WHERE Cadena ='" + cadena +"'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+//		if(rs.next())
+//		{
+//			Long id = rs.getLong("IDRESTAURANTE");
+//			String name = rs.getString("NOMBRE");
+//			String tipo = rs.getString("TIPO");
+//			String paginaWeb = rs.getString("PAGINA_WEB");
+//			String nombreRepresentante = rs.getString("NOMBRE_REPRESENTANTE");
+//			Long idZona = rs.getLong("IDZONA");
+//			restaurante = new Restaurante(id, name, tipo, paginaWeb, nombreRepresentante, idZona);
+//		}
+		
+		String cadenaR = rs.getString("Cadena");
+		double ganancia = 0;
+		
+		restaurante = new Rentabilidad(cadenaR, ganancia);
+		return restaurante;
+	}
 }

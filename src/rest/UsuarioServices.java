@@ -406,4 +406,18 @@ public class UsuarioServices {
 		}
 	}
 
+	
+	@GET
+	@Path("{idAdmin: \\d+}/rentabilidad")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRentabilidad(@PathParam("idAdmin") Long idAdmin, String cadena) throws Exception {
+		RotondTM tm = new RotondTM(getPath());
+		try {
+			tm.getRentabilidadCadena(cadena);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(tm.getRentabilidadCadena(cadena)).build();
+	}
 }
